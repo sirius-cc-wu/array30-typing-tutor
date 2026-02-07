@@ -1,9 +1,11 @@
 use dioxus::prelude::*;
 use crate::components::{PracticeInterface, StatisticsDisplay};
 use crate::storage::HistoryManager;
+use crate::logic::PracticeSession;
 
 pub fn App() -> Element {
     let mut current_tab = use_signal(|| "practice");
+    let mut session = use_signal(|| PracticeSession::new());
 
     rsx! {
         style {
@@ -39,7 +41,9 @@ pub fn App() -> Element {
                 }
 
                 if *current_tab.read() == "practice" {
-                    PracticeInterface {}
+                    PracticeInterface {
+                        session: session,
+                    }
                 } else {
                     div {
                         StatisticsDisplay {

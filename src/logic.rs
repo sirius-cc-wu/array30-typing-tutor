@@ -19,6 +19,7 @@ impl Default for TypingStats {
     }
 }
 
+#[derive(Clone)]
 pub struct PracticeSession {
     pub target_text: String,
     pub user_input: String,

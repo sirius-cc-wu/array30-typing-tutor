@@ -5,8 +5,7 @@ use crate::storage::{HistoryManager, SessionRecord};
 use js_sys;
 
 #[component]
-pub fn PracticeInterface() -> Element {
-    let mut session = use_signal(|| PracticeSession::new());
+pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     let mut user_input = use_signal(|| String::new());
     let mut start_time_ms = use_signal(|| 0u64);
     let mut show_completion = use_signal(|| false);
@@ -33,10 +32,13 @@ pub fn PracticeInterface() -> Element {
 
     let handle_next = move |_| {
         if *show_completion.read() {
-            save_current_session(&session.read(), start_time_ms);
+            save_current_session(&session.read());
         }
         
-        session.write().next_exercise();
+        let mut new_session = session.read().clone();
+        new_session.next_exercise();
+        session.set(new_session);
+        
         user_input.set(String::new());
         start_time_ms.set(0);
         show_completion.set(false);
@@ -166,7 +168,7 @@ pub fn PracticeInterface() -> Element {
     }
 }
 
-fn save_current_session(session: &crate::logic::PracticeSession, start_time_ms: dioxus::prelude::Signal<u64>) {
+fn save_current_session(session: &crate::logic::PracticeSession) {
     let wpm = if session.stats.elapsed_seconds > 0 {
         (session.stats.characters_typed as f64 / 5.0) / (session.stats.elapsed_seconds as f64 / 60.0)
     } else {
