@@ -21,6 +21,20 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
         let elapsed = (js_sys::Date::now() as u64).saturating_sub(*start_time_ms.read());
         session.write().update_input(&value, elapsed);
+
+        // Check completion on every input
+        let sess = session.read();
+        if value.len() > 0 && sess.target_text.len() > 0 {
+            let match_count = value.chars().zip(sess.target_text.chars())
+                .filter(|(a, b)| a == b)
+                .count();
+            
+            if match_count >= sess.target_text.len() * 95 / 100 {
+                show_completion.set(true);
+            } else {
+                show_completion.set(false);
+            }
+        }
     };
 
     let handle_reset = move |_| {
@@ -42,20 +56,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         user_input.set(String::new());
         start_time_ms.set(0);
         show_completion.set(false);
-    };
-
-    let check_completion = move |_| {
-        let sess = session.read();
-        let input = user_input.read();
-        if input.len() > 0 && sess.target_text.len() > 0 {
-            let match_count = input.chars().zip(sess.target_text.chars())
-                .filter(|(a, b)| a == b)
-                .count();
-            
-            if match_count >= sess.target_text.len() * 95 / 100 {
-                show_completion.set(true);
-            }
-        }
     };
 
     rsx! {
@@ -121,7 +121,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         placeholder: "Start typing here...",
                         value: "{user_input}",
                         oninput: handle_input,
-                        onchange: check_completion,
                         autofocus: true
                     }
                 }
