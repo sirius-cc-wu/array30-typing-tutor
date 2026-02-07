@@ -45,7 +45,6 @@ impl PracticeSession {
 
     pub fn update_input(&mut self, input: &str, elapsed_ms: u64) {
         self.user_input = input.to_string();
-        self.stats.total_typed = input.len();
 
         // Count correctly typed characters
         let target_chars: Vec<char> = self.target_text.chars().collect();
@@ -58,6 +57,7 @@ impl PracticeSession {
             }
         }
 
+        self.stats.total_typed = input_chars.len();  // Use character count, not byte length
         self.stats.characters_typed = correct;
         self.stats.errors = self.stats.total_typed.saturating_sub(correct);
         self.stats.elapsed_seconds = elapsed_ms / 1000;
