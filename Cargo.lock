@@ -24,6 +24,8 @@ dependencies = [
  "dioxus",
  "js-sys",
  "serde",
+ "serde_json",
+ "wasm-bindgen",
 ]
 
 [[package]]

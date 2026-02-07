@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use crate::logic::PracticeSession;
 use crate::components::StatsDisplay;
+use crate::storage::{HistoryManager, SessionRecord};
 use js_sys;
 
 #[component]
@@ -8,6 +9,7 @@ pub fn PracticeInterface() -> Element {
     let mut session = use_signal(|| PracticeSession::new());
     let mut user_input = use_signal(|| String::new());
     let mut start_time_ms = use_signal(|| 0u64);
+    let mut show_completion = use_signal(|| false);
 
     let handle_input = move |event: Event<FormData>| {
         let value = event.value();
@@ -26,12 +28,32 @@ pub fn PracticeInterface() -> Element {
         session.set(PracticeSession::new());
         user_input.set(String::new());
         start_time_ms.set(0);
+        show_completion.set(false);
     };
 
     let handle_next = move |_| {
+        if *show_completion.read() {
+            save_current_session(&session.read(), start_time_ms);
+        }
+        
         session.write().next_exercise();
         user_input.set(String::new());
         start_time_ms.set(0);
+        show_completion.set(false);
+    };
+
+    let check_completion = move |_| {
+        let sess = session.read();
+        let input = user_input.read();
+        if input.len() > 0 && sess.target_text.len() > 0 {
+            let match_count = input.chars().zip(sess.target_text.chars())
+                .filter(|(a, b)| a == b)
+                .count();
+            
+            if match_count >= sess.target_text.len() * 95 / 100 {
+                show_completion.set(true);
+            }
+        }
     };
 
     rsx! {
@@ -97,6 +119,7 @@ pub fn PracticeInterface() -> Element {
                         placeholder: "Start typing here...",
                         value: "{user_input}",
                         oninput: handle_input,
+                        onchange: check_completion,
                         autofocus: true
                     }
                 }
@@ -104,9 +127,13 @@ pub fn PracticeInterface() -> Element {
                 div {
                     class: "flex gap-4",
                     button {
-                        class: "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition",
+                        class: if *show_completion.read() {
+                            "flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition"
+                        } else {
+                            "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition"
+                        },
                         onclick: handle_next,
-                        "Next Exercise"
+                        if *show_completion.read() { "✅ Save & Next" } else { "Next Exercise" }
                     }
                     button {
                         class: "flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition",
@@ -125,6 +152,54 @@ pub fn PracticeInterface() -> Element {
                     }
                 }
             }
+
+            if *show_completion.read() {
+                div {
+                    class: "bg-green-50 border-l-4 border-green-500 p-4 rounded mt-4",
+                    p {
+                        class: "text-green-700 font-bold",
+                        "🎉 Great job! Click 'Save & Next' to record this session and move to the next exercise."
+                    }
+                }
+            }
         }
     }
+}
+
+fn save_current_session(session: &crate::logic::PracticeSession, start_time_ms: dioxus::prelude::Signal<u64>) {
+    let wpm = if session.stats.elapsed_seconds > 0 {
+        (session.stats.characters_typed as f64 / 5.0) / (session.stats.elapsed_seconds as f64 / 60.0)
+    } else {
+        0.0
+    };
+
+    let accuracy = if session.stats.total_typed > 0 {
+        ((session.stats.total_typed - session.stats.errors) as f64 / session.stats.total_typed as f64) * 100.0
+    } else {
+        100.0
+    };
+
+    let record = SessionRecord {
+        wpm,
+        accuracy,
+        timestamp: format_timestamp(),
+        elapsed_seconds: session.stats.elapsed_seconds,
+        exercise_text: session.target_text.clone(),
+    };
+
+    HistoryManager::save_session(record);
+}
+
+fn format_timestamp() -> String {
+    use js_sys::Date;
+    let date = Date::new_0();
+    format!(
+        "{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
+        date.get_full_year(),
+        date.get_month() + 1,
+        date.get_date(),
+        date.get_hours(),
+        date.get_minutes(),
+        date.get_seconds()
+    )
 }

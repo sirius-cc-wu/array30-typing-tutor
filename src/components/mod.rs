@@ -2,7 +2,9 @@ use dioxus::prelude::*;
 use crate::logic::TypingStats;
 
 mod practice_interface;
+mod statistics;
 pub use practice_interface::PracticeInterface;
+pub use statistics::StatisticsDisplay;
 
 #[component]
 pub fn StatsDisplay(stats: TypingStats) -> Element {
