@@ -24,12 +24,13 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
         // Check completion on every input
         let sess = session.read();
-        if value.len() > 0 && sess.target_text.len() > 0 {
+        let target_char_count = sess.target_text.chars().count();
+        if value.len() > 0 && target_char_count > 0 {
             let match_count = value.chars().zip(sess.target_text.chars())
                 .filter(|(a, b)| a == b)
                 .count();
             
-            if match_count >= sess.target_text.len() * 95 / 100 {
+            if match_count >= target_char_count * 95 / 100 {
                 show_completion.set(true);
             } else {
                 show_completion.set(false);
