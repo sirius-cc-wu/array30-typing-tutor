@@ -35,20 +35,38 @@ pub struct SessionRecord {
 
 pub struct HistoryManager;
 
+const SESSIONS_LIST_KEY: &str = "_array30_sessions_list";
+
 impl HistoryManager {
     pub fn save_session(record: SessionRecord) {
         if let Ok(json) = serde_json::to_string(&record) {
             let key = format!("session_{}", js_sys::Date::now());
             let _ = LOCAL_STORAGE.setItem(&key, &json);
+            
+            // Add to sessions list
+            let mut sessions = Self::get_sessions_list();
+            sessions.push(key);
+            if let Ok(list_json) = serde_json::to_string(&sessions) {
+                let _ = LOCAL_STORAGE.setItem(SESSIONS_LIST_KEY, &list_json);
+            }
         }
+    }
+
+    fn get_sessions_list() -> Vec<String> {
+        if let Some(data) = LOCAL_STORAGE.getItem(SESSIONS_LIST_KEY) {
+            if let Ok(sessions) = serde_json::from_str::<Vec<String>>(&data) {
+                return sessions;
+            }
+        }
+        Vec::new()
     }
 
     pub fn get_statistics() -> Statistics {
         let mut all_records = Vec::new();
-        let length = LOCAL_STORAGE.length();
+        let session_keys = Self::get_sessions_list();
         
-        for i in 0..length {
-            if let Some(data) = LOCAL_STORAGE.getItem(&format!("session_{}", i)) {
+        for key in session_keys {
+            if let Some(data) = LOCAL_STORAGE.getItem(&key) {
                 if let Ok(record) = serde_json::from_str::<SessionRecord>(&data) {
                     all_records.push(record);
                 }
@@ -59,7 +77,11 @@ impl HistoryManager {
     }
 
     pub fn clear_history() {
-        LOCAL_STORAGE.clear();
+        let session_keys = Self::get_sessions_list();
+        for key in session_keys {
+            LOCAL_STORAGE.removeItem(&key);
+        }
+        LOCAL_STORAGE.removeItem(SESSIONS_LIST_KEY);
     }
 }
 
