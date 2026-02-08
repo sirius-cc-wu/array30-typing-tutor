@@ -1,10 +1,17 @@
+use crate::components::badge::{Badge, BadgeVariant};
 use crate::components::button::{Button, ButtonVariant};
+use crate::components::card::{
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
+};
+use crate::components::progress::{Progress, ProgressIndicator};
 use crate::logic::PracticeSession;
 use crate::storage::{HistoryManager, SessionRecord};
 use dioxus::prelude::*;
+use dioxus_primitives::toast::{use_toast, ToastOptions};
 
 #[component]
 pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
+    let toast_api = use_toast();
     let mut user_input = use_signal(String::new);
     let mut start_time_ms = use_signal(|| 0u64);
     let mut show_completion = use_signal(|| false);
@@ -46,6 +53,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     let handle_next = move |_| {
         if *show_completion.read() {
             save_current_session(&session.read());
+            toast_api.success(
+                "Session saved".to_string(),
+                ToastOptions::new().description("Progress recorded. Loading next challenge."),
+            );
         }
 
         let mut new_session = session.read().clone();
@@ -68,6 +79,13 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     } else {
         100.0
     };
+    let input_char_count = user_input.read().chars().count();
+    let target_char_count = session.read().target_text.chars().count();
+    let progress_value = if target_char_count == 0 {
+        0.0
+    } else {
+        (input_char_count as f64 / target_char_count as f64 * 100.0).min(100.0)
+    };
 
     rsx! {
         div {
@@ -82,25 +100,45 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             }
 
             // Typing Exercise Card
-            div {
-                class: "glass-card p-8 space-y-8",
-
-                div {
-                    class: "space-y-4",
-                    div { class: "flex justify-between items-end",
-                        span { class: "text-xs font-bold uppercase tracking-widest text-slate-400", "Current Exercise" }
-                        {
-                            let input_char_count = user_input.read().chars().count();
-                            let target_char_count = session.read().target_text.chars().count();
-                            rsx! {
-                                span { class: "text-xs font-bold text-indigo-600",
-                                    "{input_char_count} / {target_char_count}"
-                                }
+            Card {
+                class: "glass-card",
+                CardHeader {
+                    class: "space-y-3",
+                    CardTitle {
+                        class: "text-sm font-bold uppercase tracking-[0.15em] text-slate-500",
+                        "Current Exercise"
+                    }
+                    div {
+                        class: "flex items-center justify-between gap-3",
+                        CardDescription {
+                            class: "text-xs font-bold text-indigo-600",
+                            "{input_char_count} / {target_char_count}"
+                        }
+                        Badge {
+                            variant: if *show_completion.read() { BadgeVariant::Primary } else { BadgeVariant::Outline },
+                            if *show_completion.read() { "Ready to save" } else { "In progress" }
+                        }
+                    }
+                }
+                CardContent {
+                    class: "space-y-5",
+                    div {
+                        class: "flex gap-2 flex-wrap",
+                        Badge {
+                            variant: BadgeVariant::Secondary,
+                            {format!("WPM {:.1}", wpm)}
+                        }
+                        Badge {
+                            variant: BadgeVariant::Outline,
+                            {format!("Accuracy {:.1}%", accuracy)}
+                        }
+                        if stats.errors > 0 {
+                            Badge {
+                                variant: BadgeVariant::Destructive,
+                                {format!("{} errors", stats.errors)}
                             }
                         }
                     }
-
-                    // The "Alive" Typing Display
                     div {
                         class: "typing-area p-6 bg-slate-50/50 rounded-2xl border border-slate-100",
                         {
@@ -123,17 +161,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         }
                     }
 
-                    // Elegant Progress Bar
-                    div {
-                        class: "w-full bg-slate-100 rounded-full h-1.5 overflow-hidden",
-                        div {
-                            class: "bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-300 shadow-[0_0_8px_rgba(99,102,241,0.5)]",
-                            style: {
-                                let input_char_count = user_input.read().chars().count();
-                                let target_char_count = session.read().target_text.chars().count().max(1);
-                                let width = ((input_char_count as f64 / target_char_count as f64) * 100.0).min(100.0);
-                                format!("width: {width}%")
-                            }
+                    Progress {
+                        class: "w-full app-progress",
+                        value: Some(progress_value),
+                        ProgressIndicator {
+                            class: "app-progress-indicator"
                         }
                     }
                 }
@@ -151,8 +183,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     div { class: "absolute inset-0 pointer-events-none rounded-2xl ring-4 ring-indigo-500/0 group-focus-within:ring-indigo-500/5 transition-all duration-500" }
                 }
 
-                // Action Buttons
-                div {
+                CardFooter {
                     class: "flex gap-4",
                     Button {
                         class: if *show_completion.read() { "flex-[2] btn-primary bg-emerald-600 border-emerald-800 hover:bg-emerald-700" } else { "flex-[2] btn-primary" },
@@ -171,9 +202,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if session.read().started && !*show_completion.read() {
                 div {
-                    class: "flex items-center justify-center gap-2 text-indigo-500 animate-pulse",
-                    span { class: "w-2 h-2 bg-indigo-500 rounded-full" }
-                    span { class: "text-sm font-semibold tracking-wide uppercase", "Recording Session..." }
+                    class: "flex items-center justify-center",
+                    Badge {
+                        variant: BadgeVariant::Secondary,
+                        "Recording session..."
+                    }
                 }
             }
 

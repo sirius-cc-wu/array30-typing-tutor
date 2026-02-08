@@ -1,3 +1,6 @@
+use crate::components::badge::{Badge, BadgeVariant};
+use crate::components::card::{Card, CardContent, CardDescription, CardHeader, CardTitle};
+use crate::components::separator::Separator;
 use crate::storage::Statistics;
 use dioxus::prelude::*;
 
@@ -59,12 +62,22 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                     }
                 }
             } else {
-                div {
-                    class: "glass-card p-12 text-center space-y-4",
-                    div { class: "text-5xl", "⌨️" }
-                    h3 { class: "text-xl font-bold text-slate-800", "No data yet" }
-                    p { class: "text-slate-500 max-w-sm mx-auto",
-                        "Start your first practice session to see your typing statistics and track your progress over time."
+                Card {
+                    class: "glass-card",
+                    CardHeader {
+                        class: "text-center",
+                        CardTitle { class: "text-xl font-bold text-slate-800", "No data yet" }
+                        CardDescription {
+                            class: "text-slate-500 max-w-sm mx-auto",
+                            "Start your first practice session to see your typing statistics and track your progress over time."
+                        }
+                    }
+                    CardContent {
+                        class: "flex justify-center pb-8",
+                        Badge {
+                            variant: BadgeVariant::Outline,
+                            "⌨️ Waiting for first session"
+                        }
                     }
                 }
             }
@@ -75,13 +88,21 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 #[component]
 fn PremiumStatCard(label: String, value: String, icon: String, subtext: String) -> Element {
     rsx! {
-        div {
+        Card {
             class: "glass-card p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
-            div { class: "flex justify-between items-start",
-                div { class: "p-2 bg-indigo-50 rounded-xl text-xl", "{icon}" }
-                span { class: "text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1", "{label}" }
+            CardHeader {
+                class: "space-y-3",
+                div { class: "flex justify-between items-center",
+                    div { class: "p-2 bg-indigo-50 rounded-xl text-xl", "{icon}" }
+                    Badge {
+                        variant: BadgeVariant::Secondary,
+                        class: "uppercase tracking-widest text-[10px]",
+                        "{label}"
+                    }
+                }
             }
-            div {
+            Separator { horizontal: true }
+            CardContent {
                 class: "space-y-1",
                 h3 { class: "text-2xl font-black text-gradient", "{value}" }
                 p { class: "text-xs text-slate-400 font-medium", "{subtext}" }

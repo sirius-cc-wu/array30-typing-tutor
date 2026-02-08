@@ -2,61 +2,19 @@
   "issues": [
     {
       "id": "sb-1",
-      "title": "Commit remaining project fixes",
-      "description": "Commit CJK correctness fixes, storage migration, warnings cleanup, test additions, and documentation updates.",
+      "title": "Commit Dioxus components redesign pass",
+      "description": "Commit progress/badge/alert-dialog/toast integration, tabs shell refactor, and UI polish changes.",
       "priority": 2,
       "status": "open",
       "depends_on": [],
       "events": [
         {
           "type": "created",
-          "timestamp": "2026-02-08T23:10:29.508988",
-          "title": "Commit remaining project fixes"
+          "timestamp": "2026-02-08T23:38:39.887682",
+          "title": "Commit Dioxus components redesign pass"
         }
       ],
-      "created_at": "2026-02-08T23:10:29.508961"
-    }
-  ],
-  "compaction_log": [
-    {
-      "timestamp": "2026-02-08T21:56:31.730106",
-      "count": 1,
-      "summary": "Compacted 1 issues on 2026-02-08 21:56: sb-1: AGENTS: sb command not available"
-    },
-    {
-      "timestamp": "2026-02-08T22:17:51.679694",
-      "count": 1,
-      "summary": "Compacted 1 issues on 2026-02-08 22:17: sb-2: AGENTS: unclear 'README' reference for sb"
-    },
-    {
-      "timestamp": "2026-02-08T22:26:40.369045",
-      "count": 1,
-      "summary": "Compacted 1 issues on 2026-02-08 22:26: sb-1: Commit staged UI refresh changes"
-    },
-    {
-      "timestamp": "2026-02-08T22:32:41.628635",
-      "count": 1,
-      "summary": "Compacted 1 issues on 2026-02-08 22:32: sb-1: Update commit skill quoting guidance"
-    },
-    {
-      "timestamp": "2026-02-08T22:34:48.406286",
-      "count": 1,
-      "summary": "Compacted 1 issues on 2026-02-08 22:34: sb-1: Normalize backtick guidance in commit skill"
-    },
-    {
-      "timestamp": "2026-02-08T22:55:27.163819",
-      "count": 2,
-      "summary": "Compacted 2 issues on 2026-02-08 22:55: sb-5: Remove unused dependency dioxus_components, sb-11: Migrate to official DioxusLabs components"
-    },
-    {
-      "timestamp": "2026-02-08T22:57:18.088072",
-      "count": 3,
-      "summary": "Compacted 3 issues on 2026-02-08 22:57: sb-6: Rewrite README for Traditional Chinese project reality, sb-7: Fix absolute paths and setup steps in docs, sb-8: Improve README structure and visual style"
-    },
-    {
-      "timestamp": "2026-02-08T23:02:50.152075",
-      "count": 6,
-      "summary": "Compacted 6 issues on 2026-02-08 23:02: sb-1: Fix CJK character counting in practice UI, sb-2: Make completion criteria strict and deterministic, sb-3: Migrate localStorage binding off deprecated JsStatic, sb-4: Remove duplicate stylesheet injection path, sb-9: Add baseline tests for logic and statistics, sb-10: Drive warnings to zero in cargo check/clippy"
+      "created_at": "2026-02-08T23:38:39.887659"
     }
   ]
 }
