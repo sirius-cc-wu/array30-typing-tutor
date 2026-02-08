@@ -44,7 +44,7 @@ def generate_rust_data(cin_path, output_path):
         
         for char in sorted_chars:
             codes = sorted(mappings[char], key=len) # Shortest code first
-            codes_str = ",".join(codes)
+            codes_str = "|".join(codes)
             f.write(f"    ('{char}', \"{codes_str}\"),\n")
             
         f.write("];\n\n")

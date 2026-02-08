@@ -11,6 +11,7 @@ The current exercises are Traditional Chinese text samples.
 - Session history persisted to browser `localStorage`
 - Statistics tab with aggregate progress metrics
 - Modern UI with Tailwind-based styling and official DioxusLabs components
+- **Integrated Array30 code hints** sourced from [gontera/array30](https://github.com/gontera/array30)
 
 ## Tech Stack
 

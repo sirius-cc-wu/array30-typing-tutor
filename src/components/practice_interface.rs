@@ -80,7 +80,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         (input_char_count as f64 / target_char_count as f64 * 100.0).min(100.0)
     };
 
-    let next_char_hint = session.read().target_text.chars().nth(input_char_count).and_then(|c| {
+    let next_char = session.read().target_text.chars().nth(input_char_count);
+    
+    let next_char_hint = next_char.and_then(|c| {
         // Show hint for the NEXT character that needs to be typed
         array30_data::get_array30_code(c).map(|code| (c, code))
     });
@@ -116,12 +118,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             variant: if *show_completion.read() { BadgeVariant::Primary } else { BadgeVariant::Secondary },
                             if *show_completion.read() { "Ready to save" } else { "In progress" }
                         }
-                    }
-                }
-                CardContent {
-                    class: "exercise-content",
-                    div {
-                        class: "exercise-badges",
                         if stats.errors > 0 {
                             Badge {
                                 variant: BadgeVariant::Destructive,
@@ -129,6 +125,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             }
                         }
                     }
+                }
+                CardContent {
+                    class: "exercise-content",
                     div {
                         class: "typing-area exercise-text",
                         {
@@ -157,17 +156,45 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         ProgressIndicator {}
                     }
 
-                    if let Some((c, code)) = next_char_hint {
-                         div {
-                            class: "code-hint-box mt-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800",
+                    div {
+                        class: "code-hint-box mt-4 h-16 px-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center w-full",
+                        style: "display: flex; align-items: center; width: 100%;",
+                        
+                        if let Some((c, code)) = next_char_hint {
                             div {
-                                class: "flex items-center justify-between",
+                                class: "w-full flex items-center justify-between gap-4 overflow-hidden",
+                                style: "display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1rem;",
                                 span {
-                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400",
+                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0",
                                     "Next: Array30 Code for "
                                     span { class: "font-bold text-slate-900 dark:text-slate-100 mx-1", "{c}" }
                                 }
-                                CodeDisplay { code: code }
+                                div {
+                                    class: "overflow-x-auto",
+                                    CodeDisplay { code: code }
+                                }
+                            }
+                        } else if let Some(c) = next_char {
+                            div {
+                                class: "w-full flex items-center justify-between gap-4 overflow-hidden",
+                                style: "display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1rem;",
+                                span {
+                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0",
+                                    "Next: "
+                                    span { class: "font-bold text-slate-900 dark:text-slate-100 mx-1", "{c}" }
+                                }
+                                Badge {
+                                    variant: BadgeVariant::Outline,
+                                    class: "font-mono text-xs opacity-50 flex-shrink-0",
+                                    "No code hint"
+                                }
+                            }
+                        } else {
+                            // Completed or empty
+                            div {
+                                class: "w-full flex items-center justify-center text-slate-400 text-sm",
+                                style: "display: flex; justify-content: center; align-items: center; width: 100%;",
+                                "Exercise Complete"
                             }
                         }
                     }
@@ -232,15 +259,16 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
 #[component]
 fn CodeDisplay(code: &'static str) -> Element {
-    // Split codes by comma if multiple
-    let codes: Vec<&str> = code.split(',').collect();
+    // Split codes by pipe if multiple
+    let codes: Vec<&str> = code.split('|').collect();
     
     rsx! {
         div {
-            class: "flex gap-2",
+            class: "flex gap-2 whitespace-nowrap",
+            style: "display: flex; gap: 0.5rem; white-space: nowrap;",
             for c in codes {
                 Badge {
-                    variant: BadgeVariant::Outline,
+                    variant: BadgeVariant::Secondary,
                     class: "font-mono text-xs",
                     "{c}"
                 }
