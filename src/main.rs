@@ -6,5 +6,5 @@ mod storage;
 use dioxus::prelude::*;
 
 fn main() {
-    launch(app::App);
+    launch(app::app);
 }

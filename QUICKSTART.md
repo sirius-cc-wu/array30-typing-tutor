@@ -1,67 +1,60 @@
-# Quick Start Guide
+# Quick Start
 
-## Option 1: Using dx (Recommended)
+## Fast Path (Recommended)
 
-### 1. Install dx (dioxus-cli) - one time only
+1. Install Dioxus CLI once:
+
 ```bash
 cargo install dioxus-cli
 ```
 
-### 2. Start the development server
+2. From the repository root, run:
+
 ```bash
-cd /home/ccwu/workspace/array30-typing-tutor
 dx serve
 ```
 
-### 3. Open in browser
-Visit `http://localhost:8080` in your web browser.
+3. Open the local URL printed by `dx` (typically `http://localhost:8080`).
 
-**Benefits:**
-- Hot reload (changes auto-refresh)
-- Better error messages
-- Development server included
+## Manual Build Path
 
----
+1. Add WebAssembly target once:
 
-## Option 2: Manual WebAssembly Build
-
-### 1. Add WebAssembly target (one time only)
 ```bash
 rustup target add wasm32-unknown-unknown
 ```
 
-### 2. Build the project
+2. Build the app:
+
 ```bash
-cd /home/ccwu/workspace/array30-typing-tutor
 cargo build --target wasm32-unknown-unknown
 ```
 
-### 3. Serve the dist folder
-You can use Python's built-in server:
+3. If you have build output to serve locally, use any static file server.
+Example:
+
 ```bash
-cd dist
 python3 -m http.server 8000
 ```
 
-Then visit `http://localhost:8000` in your browser.
-
----
-
 ## Troubleshooting
 
+### `dx` command not found
+
+- Confirm `cargo install dioxus-cli` completed successfully.
+- Ensure Cargo bin directory is on your `PATH` (often `~/.cargo/bin`).
+
 ### Port already in use
-If port 8080 (or 8000) is already in use:
-- For dioxus: It will automatically try the next port
-- For Python: `python3 -m http.server 9000` (use different port)
 
-### WebAssembly not loading
-- Make sure you're using the correct URL (http, not https for local dev)
-- Check browser console (F12) for any error messages
-- Clear browser cache and reload
+- `dx serve` usually picks another port automatically.
+- For manual serving, choose another port:
 
-### Still having issues?
-Ensure you have:
-- Rust 1.70+
-- Latest Cargo
-- WebAssembly target installed: `rustup target add wasm32-unknown-unknown`
+```bash
+python3 -m http.server 9000
+```
 
+### Browser loads but app is blank
+
+- Check browser developer console for runtime errors.
+- Restart `dx serve` after dependency changes.
+- Run `cargo check` to confirm Rust-side compilation is clean.

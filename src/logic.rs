@@ -1,22 +1,11 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
 pub struct TypingStats {
     pub characters_typed: usize,
     pub errors: usize,
     pub total_typed: usize,
     pub elapsed_seconds: u64,
-}
-
-impl Default for TypingStats {
-    fn default() -> Self {
-        Self {
-            characters_typed: 0,
-            errors: 0,
-            total_typed: 0,
-            elapsed_seconds: 0,
-        }
-    }
 }
 
 #[derive(Clone)]
@@ -49,7 +38,7 @@ impl PracticeSession {
         // Count correctly typed characters
         let target_chars: Vec<char> = self.target_text.chars().collect();
         let input_chars: Vec<char> = input.chars().collect();
-        
+
         let mut correct = 0;
         for (i, &c) in input_chars.iter().enumerate() {
             if i < target_chars.len() && c == target_chars[i] {
@@ -57,7 +46,7 @@ impl PracticeSession {
             }
         }
 
-        self.stats.total_typed = input_chars.len();  // Use character count, not byte length
+        self.stats.total_typed = input_chars.len(); // Use character count, not byte length
         self.stats.characters_typed = correct;
         self.stats.errors = self.stats.total_typed.saturating_sub(correct);
         self.stats.elapsed_seconds = elapsed_ms / 1000;
@@ -72,7 +61,7 @@ impl PracticeSession {
     }
 
     fn get_exercise(index: usize) -> String {
-        let exercises = vec![
+        let exercises = [
             "Array30是一個高效率的漢字輸入法",
             "熟能生巧，經過練習可以提高打字速度",
             "這個打字教練使用Rust和Dioxus開發",
@@ -90,5 +79,39 @@ impl PracticeSession {
 impl Default for PracticeSession {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::PracticeSession;
+
+    #[test]
+    fn update_input_counts_cjk_characters_not_bytes() {
+        let mut session = PracticeSession::new();
+        session.target_text = "漢字測試".to_string();
+
+        session.update_input("漢字x試", 2500);
+
+        assert_eq!(session.stats.total_typed, 4);
+        assert_eq!(session.stats.characters_typed, 3);
+        assert_eq!(session.stats.errors, 1);
+        assert_eq!(session.stats.elapsed_seconds, 2);
+    }
+
+    #[test]
+    fn next_exercise_resets_session_state() {
+        let mut session = PracticeSession::new();
+        session.start();
+        session.update_input("abc", 3000);
+
+        session.next_exercise();
+
+        assert!(!session.started);
+        assert_eq!(session.user_input, "");
+        assert_eq!(session.stats.total_typed, 0);
+        assert_eq!(session.stats.characters_typed, 0);
+        assert_eq!(session.stats.errors, 0);
+        assert_eq!(session.stats.elapsed_seconds, 0);
     }
 }

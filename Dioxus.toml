@@ -3,7 +3,7 @@ name = "array30_typing_tutor"
 title = "Array30 Typing Tutor"
 
 [web.styles]
-style = ["assets/styles.css"]
+style = ["assets/styles.css", "assets/dx-components-theme.css"]
 
 [web.tailwind]
 input = "assets/styles.css"

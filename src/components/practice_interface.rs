@@ -1,18 +1,18 @@
-use dioxus::prelude::*;
+use crate::components::button::{Button, ButtonVariant};
 use crate::logic::PracticeSession;
 use crate::storage::{HistoryManager, SessionRecord};
-use js_sys;
+use dioxus::prelude::*;
 
 #[component]
 pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
-    let mut user_input = use_signal(|| String::new());
+    let mut user_input = use_signal(String::new);
     let mut start_time_ms = use_signal(|| 0u64);
     let mut show_completion = use_signal(|| false);
 
     let handle_input = move |event: Event<FormData>| {
         let value = event.value();
         user_input.set(value.clone());
-        
+
         if !session.read().started {
             session.write().start();
             start_time_ms.set(js_sys::Date::now() as u64);
@@ -23,16 +23,16 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
         let sess = session.read();
         let target_char_count = sess.target_text.chars().count();
-        if value.len() > 0 && target_char_count > 0 {
-            let match_count = value.chars().zip(sess.target_text.chars())
-                .filter(|(a, b)| a == b)
-                .count();
-            
-            if match_count >= target_char_count * 95 / 100 {
-                show_completion.set(true);
-            } else {
-                show_completion.set(false);
-            }
+        let input_char_count = value.chars().count();
+        if target_char_count > 0 {
+            let matches_target = input_char_count == target_char_count
+                && value
+                    .chars()
+                    .zip(sess.target_text.chars())
+                    .all(|(a, b)| a == b);
+            show_completion.set(matches_target);
+        } else {
+            show_completion.set(false);
         }
     };
 
@@ -47,11 +47,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         if *show_completion.read() {
             save_current_session(&session.read());
         }
-        
+
         let mut new_session = session.read().clone();
         new_session.next_exercise();
         session.set(new_session);
-        
+
         user_input.set(String::new());
         start_time_ms.set(0);
         show_completion.set(false);
@@ -72,7 +72,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     rsx! {
         div {
             class: "space-y-8",
-            
+
             // Statistics Grid
             div {
                 class: "grid grid-cols-3 gap-4",
@@ -84,16 +84,22 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             // Typing Exercise Card
             div {
                 class: "glass-card p-8 space-y-8",
-                
+
                 div {
                     class: "space-y-4",
                     div { class: "flex justify-between items-end",
                         span { class: "text-xs font-bold uppercase tracking-widest text-slate-400", "Current Exercise" }
-                        span { class: "text-xs font-bold text-indigo-600",
-                            "{user_input.read().len()} / {session.read().target_text.len()}"
+                        {
+                            let input_char_count = user_input.read().chars().count();
+                            let target_char_count = session.read().target_text.chars().count();
+                            rsx! {
+                                span { class: "text-xs font-bold text-indigo-600",
+                                    "{input_char_count} / {target_char_count}"
+                                }
+                            }
                         }
                     }
-                    
+
                     // The "Alive" Typing Display
                     div {
                         class: "typing-area p-6 bg-slate-50/50 rounded-2xl border border-slate-100",
@@ -101,7 +107,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             let target = session.read().target_text.clone();
                             let input = user_input.read().clone();
                             let input_chars: Vec<char> = input.chars().collect();
-                            
+
                             rsx! {
                                 for (i, c) in target.chars().enumerate() {
                                     {
@@ -116,13 +122,18 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             }
                         }
                     }
-                    
+
                     // Elegant Progress Bar
                     div {
                         class: "w-full bg-slate-100 rounded-full h-1.5 overflow-hidden",
                         div {
                             class: "bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-300 shadow-[0_0_8px_rgba(99,102,241,0.5)]",
-                            style: "width: {(user_input.read().len() as f64 / session.read().target_text.len().max(1) as f64 * 100.0)}%"
+                            style: {
+                                let input_char_count = user_input.read().chars().count();
+                                let target_char_count = session.read().target_text.chars().count().max(1);
+                                let width = ((input_char_count as f64 / target_char_count as f64) * 100.0).min(100.0);
+                                format!("width: {width}%")
+                            }
                         }
                     }
                 }
@@ -143,13 +154,15 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 // Action Buttons
                 div {
                     class: "flex gap-4",
-                    button {
+                    Button {
                         class: if *show_completion.read() { "flex-[2] btn-primary bg-emerald-600 border-emerald-800 hover:bg-emerald-700" } else { "flex-[2] btn-primary" },
+                        variant: if *show_completion.read() { ButtonVariant::Secondary } else { ButtonVariant::Primary },
                         onclick: handle_next,
                         if *show_completion.read() { "✅ Save & Next Challenge" } else { "Next Exercise" }
                     }
-                    button {
+                    Button {
                         class: "flex-1 btn-ghost border border-slate-200",
+                        variant: ButtonVariant::Outline,
                         onclick: handle_reset,
                         "Reset"
                     }
@@ -191,13 +204,16 @@ fn StatCard(label: String, value: String, color: String) -> Element {
 
 fn save_current_session(session: &crate::logic::PracticeSession) {
     let wpm = if session.stats.elapsed_seconds > 0 {
-        (session.stats.characters_typed as f64 / 5.0) / (session.stats.elapsed_seconds as f64 / 60.0)
+        (session.stats.characters_typed as f64 / 5.0)
+            / (session.stats.elapsed_seconds as f64 / 60.0)
     } else {
         0.0
     };
 
     let accuracy = if session.stats.total_typed > 0 {
-        ((session.stats.total_typed - session.stats.errors) as f64 / session.stats.total_typed as f64) * 100.0
+        ((session.stats.total_typed - session.stats.errors) as f64
+            / session.stats.total_typed as f64)
+            * 100.0
     } else {
         100.0
     };

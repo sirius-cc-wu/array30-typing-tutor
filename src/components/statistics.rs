@@ -1,12 +1,12 @@
-use dioxus::prelude::*;
 use crate::storage::Statistics;
+use dioxus::prelude::*;
 
 #[component]
 pub fn StatisticsDisplay(stats: Statistics) -> Element {
     rsx! {
         div {
             class: "space-y-8 animate-in fade-in duration-700",
-            
+
             h2 { class: "text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2",
                 span { "📈" }
                 "Performance Overview"
@@ -15,42 +15,42 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
             if stats.total_sessions > 0 {
                 div {
                     class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
-                    
+
                     PremiumStatCard {
                         label: "Total Sessions",
                         value: format!("{}", stats.total_sessions),
                         icon: "🔥",
                         subtext: "Sessions completed"
                     }
-                    
+
                     PremiumStatCard {
                         label: "Best Speed",
                         value: format!("{:.1} WPM", stats.best_wpm),
                         icon: "⚡",
                         subtext: "Your all-time peak"
                     }
-                    
+
                     PremiumStatCard {
                         label: "Avg Speed",
                         value: format!("{:.1} WPM", stats.average_wpm),
                         icon: "📊",
                         subtext: "Overall average"
                     }
-                    
+
                     PremiumStatCard {
                         label: "Max Accuracy",
                         value: format!("{:.1}%", stats.best_accuracy),
                         icon: "🎯",
                         subtext: "Highest precision"
                     }
-                    
+
                     PremiumStatCard {
                         label: "Avg Accuracy",
                         value: format!("{:.1}%", stats.average_accuracy),
                         icon: "✅",
                         subtext: "Consistency score"
                     }
-                    
+
                     PremiumStatCard {
                         label: "Total Practice",
                         value: format_time(stats.total_practice_time),
