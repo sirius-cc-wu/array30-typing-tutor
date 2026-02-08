@@ -1,0 +1,15 @@
+{
+  "issues": [],
+  "compaction_log": [
+    {
+      "timestamp": "2026-02-08T21:56:31.730106",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-08 21:56: sb-1: AGENTS: sb command not available"
+    },
+    {
+      "timestamp": "2026-02-08T22:17:51.679694",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-08 22:17: sb-2: AGENTS: unclear 'README' reference for sb"
+    }
+  ]
+}
