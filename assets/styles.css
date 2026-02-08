@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
 :root {
   --color-brand-primary: #2563eb;
   --color-brand-secondary: #3b82f6;
@@ -30,7 +32,7 @@ body {
   background: radial-gradient(circle at 10% 0%, rgb(37 99 235 / 12%), transparent 35%),
     radial-gradient(circle at 90% 0%, rgb(15 118 110 / 10%), transparent 30%),
     var(--color-surface-base);
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family: "Fira Sans", system-ui, -apple-system, sans-serif;
   line-height: 1.45;
 }
 
@@ -96,7 +98,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(120deg, var(--color-brand-primary), #1d4ed8 50%, #0d9488 100%);
+  background: linear-gradient(120deg, #1e293b, #334155 50%, #0f172a 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -210,7 +212,7 @@ body {
 }
 
 .typing-area {
-  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: "Fira Code", Menlo, Monaco, Consolas, monospace;
   font-size: clamp(1.15rem, 2.3vw, 1.45rem);
   line-height: 1.75;
   letter-spacing: 0.01em;
@@ -251,7 +253,7 @@ body {
   border-radius: 0.9rem;
   background: linear-gradient(180deg, #ffffff, #f8fafc);
   color: var(--color-content-strong);
-  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: "Fira Code", Menlo, Monaco, Consolas, monospace;
   font-size: 1.02rem;
   line-height: 1.42;
   letter-spacing: 0.005em;

@@ -13,6 +13,21 @@ use crate::storage::HistoryManager;
 use dioxus::prelude::*;
 use dioxus_primitives::toast::{use_toast, ToastOptions};
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum AppTab {
+    Practice,
+    Statistics,
+}
+
+impl std::fmt::Display for AppTab {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            AppTab::Practice => write!(f, "practice"),
+            AppTab::Statistics => write!(f, "statistics"),
+        }
+    }
+}
+
 pub fn app() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: asset!("../assets/styles.css") }
@@ -26,7 +41,7 @@ pub fn app() -> Element {
 #[component]
 fn AppContent() -> Element {
     let toast_api = use_toast();
-    let mut current_tab = use_signal(|| Some("practice".to_string()));
+    let mut current_tab = use_signal(|| Some(AppTab::Practice.to_string()));
     let mut show_reset_dialog = use_signal(|| false);
     let session = use_signal(PracticeSession::new);
 
@@ -61,25 +76,25 @@ fn AppContent() -> Element {
                         TabList {
                             TabTrigger {
                                 index: 0usize,
-                                value: "practice",
+                                value: AppTab::Practice.to_string(),
                                 "Practice"
                             }
                             TabTrigger {
                                 index: 1usize,
-                                value: "statistics",
+                                value: AppTab::Statistics.to_string(),
                                 "Statistics"
                             }
                         }
 
                         TabContent {
                             index: 0usize,
-                            value: "practice",
+                            value: AppTab::Practice.to_string(),
                             PracticeInterface { session: session }
                         }
 
                         TabContent {
                             index: 1usize,
-                            value: "statistics",
+                            value: AppTab::Statistics.to_string(),
                             div {
                                 class: "stats-tab-content",
                                 StatisticsDisplay {
@@ -91,7 +106,7 @@ fn AppContent() -> Element {
                                         class: "stats-tab-actions",
                                         Button {
                                             variant: ButtonVariant::Ghost,
-                                            onclick: move |_| current_tab.set(Some("practice".to_string())),
+                                            onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
                                             "Back to Practice"
                                         }
                                         Button {
@@ -118,7 +133,7 @@ fn AppContent() -> Element {
                                 AlertDialogAction {
                                     on_click: move |_| {
                                         HistoryManager::clear_history();
-                                        current_tab.set(Some("practice".to_string()));
+                                        current_tab.set(Some(AppTab::Practice.to_string()));
                                         toast_api.warning(
                                             "All progress has been reset.".to_string(),
                                             ToastOptions::new().description("Your local history was cleared.")

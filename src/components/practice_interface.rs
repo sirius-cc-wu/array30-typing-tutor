@@ -22,10 +22,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
         if !session.read().started {
             session.write().start();
-            start_time_ms.set(js_sys::Date::now() as u64);
+            start_time_ms.set(chrono::Utc::now().timestamp_millis() as u64);
         }
 
-        let elapsed = (js_sys::Date::now() as u64).saturating_sub(*start_time_ms.read());
+        let elapsed = (chrono::Utc::now().timestamp_millis() as u64).saturating_sub(*start_time_ms.read());
         session.write().update_input(&value, elapsed);
 
         let sess = session.read();
@@ -69,16 +69,8 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     };
 
     let stats = session.read().stats.clone();
-    let wpm = if stats.elapsed_seconds > 0 {
-        (stats.characters_typed as f64 / 5.0) / (stats.elapsed_seconds as f64 / 60.0)
-    } else {
-        0.0
-    };
-    let accuracy = if stats.total_typed > 0 {
-        ((stats.total_typed - stats.errors) as f64 / stats.total_typed as f64) * 100.0
-    } else {
-        100.0
-    };
+    let wpm = stats.wpm();
+    let accuracy = stats.accuracy();
     let input_char_count = user_input.read().chars().count();
     let target_char_count = session.read().target_text.chars().count();
     let progress_value = if target_char_count == 0 {
@@ -154,7 +146,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                                         } else {
                                             "char-untyped"
                                         };
-                                        rsx! { span { class: "{class}", "{c}" } }
+                                        rsx! { span { key: "{i}", class: "{class}", "{c}" } }
                                     }
                                 }
                             }
@@ -226,31 +218,22 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 }
 
 #[component]
-fn StatCard(label: String, value: String, color: String) -> Element {
+fn StatCard(label: &'static str, value: String, color: &'static str) -> Element {
     rsx! {
-        div {
+        Card {
             class: "metric-card",
-            span { class: "metric-label", "{label}" }
-            span { class: "metric-value {color}", "{value}" }
+            CardContent {
+                class: "p-3 text-center",
+                span { class: "metric-label block", "{label}" }
+                span { class: "metric-value {color} block", "{value}" }
+            }
         }
     }
 }
 
 fn save_current_session(session: &crate::logic::PracticeSession) {
-    let wpm = if session.stats.elapsed_seconds > 0 {
-        (session.stats.characters_typed as f64 / 5.0)
-            / (session.stats.elapsed_seconds as f64 / 60.0)
-    } else {
-        0.0
-    };
-
-    let accuracy = if session.stats.total_typed > 0 {
-        ((session.stats.total_typed - session.stats.errors) as f64
-            / session.stats.total_typed as f64)
-            * 100.0
-    } else {
-        100.0
-    };
+    let wpm = session.stats.wpm();
+    let accuracy = session.stats.accuracy();
 
     let record = SessionRecord {
         wpm,
@@ -264,15 +247,5 @@ fn save_current_session(session: &crate::logic::PracticeSession) {
 }
 
 fn format_timestamp() -> String {
-    use js_sys::Date;
-    let date = Date::new_0();
-    format!(
-        "{:04}-{:02}-{:02} {:02}:{:02}:{:02}",
-        date.get_full_year(),
-        date.get_month() + 1,
-        date.get_date(),
-        date.get_hours(),
-        date.get_minutes(),
-        date.get_seconds()
-    )
+    chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string()
 }

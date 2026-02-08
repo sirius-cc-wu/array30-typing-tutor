@@ -18,7 +18,7 @@ impl HistoryManager {
     pub fn save_session(record: SessionRecord) {
         if let Some(storage) = local_storage() {
             if let Ok(json) = serde_json::to_string(&record) {
-                let key = format!("session_{}", js_sys::Date::now());
+                let key = format!("session_{}", chrono::Utc::now().timestamp_millis());
                 let _ = storage.set_item(&key, &json);
 
                 // Add to sessions list

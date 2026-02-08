@@ -77,7 +77,7 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 }
 
 #[component]
-fn PremiumStatCard(label: String, value: String, subtext: String) -> Element {
+fn PremiumStatCard(label: &'static str, value: String, subtext: &'static str) -> Element {
     rsx! {
         Card {
             class: "statistics-card",

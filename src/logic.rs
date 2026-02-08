@@ -8,6 +8,24 @@ pub struct TypingStats {
     pub elapsed_seconds: u64,
 }
 
+impl TypingStats {
+    pub fn wpm(&self) -> f64 {
+        if self.elapsed_seconds > 0 {
+            (self.characters_typed as f64 / 5.0) / (self.elapsed_seconds as f64 / 60.0)
+        } else {
+            0.0
+        }
+    }
+
+    pub fn accuracy(&self) -> f64 {
+        if self.total_typed > 0 {
+            ((self.total_typed - self.errors) as f64 / self.total_typed as f64) * 100.0
+        } else {
+            100.0
+        }
+    }
+}
+
 #[derive(Clone)]
 pub struct PracticeSession {
     pub target_text: String,
