@@ -46,16 +46,32 @@ body {
 
 .app-shell-card {
   width: min(980px, 100%);
-  max-height: calc(100vh - 2rem);
+  max-height: calc(100vh - 1.2rem);
+  display: flex;
+  flex-direction: column;
   border-radius: var(--radius-shell);
   box-shadow: var(--shadow-soft);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.app-shell-card::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .app-shell-content {
   display: grid;
-  gap: 1.65rem;
+  gap: clamp(1rem, 1.8vh, 1.65rem);
   padding: 0.25rem 0 0.75rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.app-shell-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .app-header {
@@ -104,7 +120,7 @@ body {
 
 .practice-layout {
   display: grid;
-  gap: 1.35rem;
+  gap: clamp(0.85rem, 1.5vh, 1.35rem);
 }
 
 .practice-metrics {
@@ -201,7 +217,7 @@ body {
 }
 
 .exercise-text {
-  min-height: 122px;
+  min-height: clamp(86px, 11vh, 122px);
   padding: 1rem 1.1rem;
   border: 1px solid rgb(148 163 184 / 25%);
   border-radius: 1rem;
@@ -229,7 +245,7 @@ body {
 .typing-input {
   display: block;
   width: 100%;
-  min-height: 156px;
+  min-height: clamp(90px, 16vh, 156px);
   padding: 0.95rem 1rem;
   border: 1px solid rgb(148 163 184 / 45%);
   border-radius: 0.9rem;
@@ -273,6 +289,11 @@ body {
   display: flex;
   gap: 0.75rem;
   margin-top: 0.15rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  padding-top: 0.35rem;
+  background: linear-gradient(180deg, rgb(248 250 252 / 0%), rgb(248 250 252 / 96%) 35%);
 }
 
 .exercise-primary-action {
@@ -429,6 +450,57 @@ body {
   .typing-input {
     min-height: 140px;
     font-size: 1rem;
+  }
+}
+
+@media (max-height: 860px) {
+  .app-shell {
+    padding: 0.4rem;
+    align-items: stretch;
+  }
+
+  .app-shell-card {
+    max-height: calc(100vh - 0.5rem);
+  }
+
+  .app-shell-content {
+    gap: 0.8rem;
+  }
+
+  .app-title {
+    font-size: clamp(1.85rem, 4.2vh, 2.55rem);
+  }
+
+  .app-subtitle {
+    font-size: 0.92rem;
+    margin-top: 0.35rem;
+  }
+
+  .metric-card {
+    padding: 0.62rem 0.7rem;
+  }
+
+  .metric-value {
+    font-size: 1.35rem;
+  }
+
+  .exercise-content {
+    gap: 0.7rem;
+  }
+
+  .exercise-text {
+    min-height: 72px;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .typing-input {
+    min-height: 78px;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.94rem;
+  }
+
+  .exercise-actions {
+    margin-top: 0;
   }
 }
 
