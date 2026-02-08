@@ -2,19 +2,31 @@
   "issues": [
     {
       "id": "sb-1",
-      "title": "Commit Dioxus components redesign pass",
-      "description": "Commit progress/badge/alert-dialog/toast integration, tabs shell refactor, and UI polish changes.",
+      "title": "Commit component-native style pass",
+      "description": "Commit removal of custom style overrides to rely on Dioxus component-native visuals.",
       "priority": 2,
       "status": "open",
       "depends_on": [],
       "events": [
         {
           "type": "created",
-          "timestamp": "2026-02-08T23:38:39.887682",
-          "title": "Commit Dioxus components redesign pass"
+          "timestamp": "2026-02-08T23:54:08.031088",
+          "title": "Commit component-native style pass"
         }
       ],
-      "created_at": "2026-02-08T23:38:39.887659"
+      "created_at": "2026-02-08T23:54:08.031056"
+    }
+  ],
+  "compaction_log": [
+    {
+      "timestamp": "2026-02-08T23:39:02.410355",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-08 23:39: sb-1: Commit Dioxus components redesign pass"
+    },
+    {
+      "timestamp": "2026-02-08T23:52:35.104867",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-08 23:52: sb-1: Adopt component-native visual style"
     }
   ]
 }

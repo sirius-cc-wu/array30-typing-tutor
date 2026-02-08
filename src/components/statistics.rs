@@ -63,7 +63,6 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                 }
             } else {
                 Card {
-                    class: "glass-card",
                     CardHeader {
                         class: "text-center",
                         CardTitle { class: "text-xl font-bold text-slate-800", "No data yet" }
@@ -89,7 +88,7 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 fn PremiumStatCard(label: String, value: String, icon: String, subtext: String) -> Element {
     rsx! {
         Card {
-            class: "glass-card p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
+            class: "p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
             CardHeader {
                 class: "space-y-3",
                 div { class: "flex justify-between items-center",
@@ -104,7 +103,7 @@ fn PremiumStatCard(label: String, value: String, icon: String, subtext: String) 
             Separator { horizontal: true }
             CardContent {
                 class: "space-y-1",
-                h3 { class: "text-2xl font-black text-gradient", "{value}" }
+                h3 { class: "text-2xl font-black", "{value}" }
                 p { class: "text-xs text-slate-400 font-medium", "{subtext}" }
             }
         }

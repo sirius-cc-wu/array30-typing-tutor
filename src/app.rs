@@ -33,7 +33,7 @@ fn AppContent() -> Element {
             class: "min-h-screen py-12 px-4 flex flex-col items-center",
 
             Card {
-                class: "w-full max-w-4xl app-shell-card",
+                class: "w-full max-w-4xl",
                 CardContent {
                     class: "space-y-8 py-8 md:py-10",
 
@@ -51,23 +51,20 @@ fn AppContent() -> Element {
 
                     // Main Content Area
                     Tabs {
-                        class: "px-2 md:px-4 app-tabs",
+                        class: "px-2 md:px-4",
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
                         variant: TabsVariant::Ghost,
 
                         TabList {
-                            class: "app-tablist",
                             TabTrigger {
                                 index: 0usize,
                                 value: "practice",
-                                class: "app-tab-trigger",
                                 "📝 Practice"
                             }
                             TabTrigger {
                                 index: 1usize,
                                 value: "statistics",
-                                class: "app-tab-trigger",
                                 "📊 Statistics"
                             }
                         }
@@ -75,14 +72,12 @@ fn AppContent() -> Element {
                         TabContent {
                             index: 0usize,
                             value: "practice",
-                            class: "app-tab-content",
                             PracticeInterface { session: session }
                         }
 
                         TabContent {
                             index: 1usize,
                             value: "statistics",
-                            class: "app-tab-content",
                             div {
                                 class: "space-y-8",
                                 StatisticsDisplay {
@@ -90,17 +85,14 @@ fn AppContent() -> Element {
                                 }
 
                                 Card {
-                                    class: "glass-card border-rose-100",
                                     CardContent {
                                         class: "flex justify-center gap-3 pt-6",
                                         Button {
-                                            class: "btn-ghost border border-slate-200",
                                             variant: ButtonVariant::Ghost,
                                             onclick: move |_| current_tab.set(Some("practice".to_string())),
                                             "Back to Practice"
                                         }
                                         Button {
-                                            class: "btn-premium bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 px-8",
                                             variant: ButtonVariant::Destructive,
                                             onclick: move |_| show_reset_dialog.set(true),
                                             "🗑️ Reset All Progress"

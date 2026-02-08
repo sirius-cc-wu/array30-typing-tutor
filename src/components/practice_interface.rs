@@ -101,7 +101,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             // Typing Exercise Card
             Card {
-                class: "glass-card",
                 CardHeader {
                     class: "space-y-3",
                     CardTitle {
@@ -162,11 +161,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
 
                     Progress {
-                        class: "w-full app-progress",
+                        style: "width: 100%",
                         value: Some(progress_value),
-                        ProgressIndicator {
-                            class: "app-progress-indicator"
-                        }
+                        ProgressIndicator {}
                     }
                 }
 
@@ -186,13 +183,17 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 CardFooter {
                     class: "flex gap-4",
                     Button {
-                        class: if *show_completion.read() { "flex-[2] btn-primary bg-emerald-600 border-emerald-800 hover:bg-emerald-700" } else { "flex-[2] btn-primary" },
-                        variant: if *show_completion.read() { ButtonVariant::Secondary } else { ButtonVariant::Primary },
+                        class: "flex-[2]",
+                        variant: if *show_completion.read() {
+                            ButtonVariant::Secondary
+                        } else {
+                            ButtonVariant::Primary
+                        },
                         onclick: handle_next,
                         if *show_completion.read() { "✅ Save & Next Challenge" } else { "Next Exercise" }
                     }
                     Button {
-                        class: "flex-1 btn-ghost border border-slate-200",
+                        class: "flex-1",
                         variant: ButtonVariant::Outline,
                         onclick: handle_reset,
                         "Reset"
@@ -212,7 +213,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if *show_completion.read() {
                 div {
-                    class: "glass-card p-6 bg-emerald-50/50 border-emerald-100 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
+                    class: "p-6 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
                     div { class: "text-3xl", "🎯" }
                     div {
                         h4 { class: "text-emerald-900 font-bold", "Excellent Accuracy!" }
