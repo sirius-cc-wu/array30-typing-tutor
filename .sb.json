@@ -1,5 +1,52 @@
 {
-  "issues": [],
+  "issues": [
+    {
+      "id": "sb-1",
+      "title": "Fix input field width",
+      "description": "User reported input field is too wide. Verify with screenshot and adjust.",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-09T01:21:36.637160",
+          "title": "Fix input field width"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-09T01:23:25.287743",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-09T01:21:36.637134",
+      "closed_at": "2026-02-09T01:23:25.287769"
+    },
+    {
+      "id": "sb-2",
+      "title": "Align input field width",
+      "description": "Input field is full width because it is outside CardContent. Move it inside to align with other elements.",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-09T01:27:33.045666",
+          "title": "Align input field width"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-09T01:27:51.127850",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-09T01:27:33.045641",
+      "closed_at": "2026-02-09T01:27:51.127878"
+    }
+  ],
   "compaction_log": [
     {
       "timestamp": "2026-02-08T23:39:02.410355",

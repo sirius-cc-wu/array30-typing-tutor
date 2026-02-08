@@ -150,19 +150,19 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         value: Some(progress_value),
                         ProgressIndicator {}
                     }
-                }
 
-                // Hidden but functional textarea
-                div {
-                    class: "typing-input-wrap",
-                    textarea {
-                        class: "typing-input",
-                        placeholder: "Focus here and start typing...",
-                        value: "{user_input}",
-                        oninput: handle_input,
-                        autofocus: true
+                    // Hidden but functional textarea
+                    div {
+                        class: "typing-input-wrap",
+                        textarea {
+                            class: "typing-input",
+                            placeholder: "Focus here and start typing...",
+                            value: "{user_input}",
+                            oninput: handle_input,
+                            autofocus: true
+                        }
+                        div { class: "typing-input-ring" }
                     }
-                    div { class: "typing-input-ring" }
                 }
 
                 CardFooter {
