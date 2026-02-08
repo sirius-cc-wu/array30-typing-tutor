@@ -6,6 +6,7 @@ use crate::components::card::{
 use crate::components::progress::{Progress, ProgressIndicator};
 use crate::logic::PracticeSession;
 use crate::storage::{HistoryManager, SessionRecord};
+use crate::array30_data;
 use dioxus::prelude::*;
 use dioxus_primitives::toast::{use_toast, ToastOptions};
 
@@ -79,6 +80,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         (input_char_count as f64 / target_char_count as f64 * 100.0).min(100.0)
     };
 
+    let next_char_hint = session.read().target_text.chars().nth(input_char_count).and_then(|c| {
+        // Show hint for the NEXT character that needs to be typed
+        array30_data::get_array30_code(c).map(|code| (c, code))
+    });
+
     rsx! {
         div {
             class: "practice-layout",
@@ -151,6 +157,21 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         ProgressIndicator {}
                     }
 
+                    if let Some((c, code)) = next_char_hint {
+                         div {
+                            class: "code-hint-box mt-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800",
+                            div {
+                                class: "flex items-center justify-between",
+                                span {
+                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400",
+                                    "Next: Array30 Code for "
+                                    span { class: "font-bold text-slate-900 dark:text-slate-100 mx-1", "{c}" }
+                                }
+                                CodeDisplay { code: code }
+                            }
+                        }
+                    }
+
                     // Hidden but functional textarea
                     div {
                         class: "typing-input-wrap",
@@ -203,6 +224,25 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         h4 { class: "completion-title", "Excellent Accuracy!" }
                         p { class: "completion-text", "You've mastered this exercise. Save your progress to continue." }
                     }
+                }
+            }
+        }
+    }
+}
+
+#[component]
+fn CodeDisplay(code: &'static str) -> Element {
+    // Split codes by comma if multiple
+    let codes: Vec<&str> = code.split(',').collect();
+    
+    rsx! {
+        div {
+            class: "flex gap-2",
+            for c in codes {
+                Badge {
+                    variant: BadgeVariant::Outline,
+                    class: "font-mono text-xs",
+                    "{c}"
                 }
             }
         }

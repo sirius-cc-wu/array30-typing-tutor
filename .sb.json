@@ -1,52 +1,5 @@
 {
-  "issues": [
-    {
-      "id": "sb-1",
-      "title": "Fix input field width",
-      "description": "User reported input field is too wide. Verify with screenshot and adjust.",
-      "priority": 2,
-      "status": "closed",
-      "depends_on": [],
-      "events": [
-        {
-          "type": "created",
-          "timestamp": "2026-02-09T01:21:36.637160",
-          "title": "Fix input field width"
-        },
-        {
-          "type": "status_changed",
-          "timestamp": "2026-02-09T01:23:25.287743",
-          "old": "open",
-          "new": "closed"
-        }
-      ],
-      "created_at": "2026-02-09T01:21:36.637134",
-      "closed_at": "2026-02-09T01:23:25.287769"
-    },
-    {
-      "id": "sb-2",
-      "title": "Align input field width",
-      "description": "Input field is full width because it is outside CardContent. Move it inside to align with other elements.",
-      "priority": 1,
-      "status": "closed",
-      "depends_on": [],
-      "events": [
-        {
-          "type": "created",
-          "timestamp": "2026-02-09T01:27:33.045666",
-          "title": "Align input field width"
-        },
-        {
-          "type": "status_changed",
-          "timestamp": "2026-02-09T01:27:51.127850",
-          "old": "open",
-          "new": "closed"
-        }
-      ],
-      "created_at": "2026-02-09T01:27:33.045641",
-      "closed_at": "2026-02-09T01:27:51.127878"
-    }
-  ],
+  "issues": [],
   "compaction_log": [
     {
       "timestamp": "2026-02-08T23:39:02.410355",
@@ -142,6 +95,21 @@
       "timestamp": "2026-02-09T01:10:03.528224",
       "count": 2,
       "summary": "Compacted 2 issues on 2026-02-09 01:10: sb-1: Fix root secondary color, sb-2: Improve Tab bar contrast"
+    },
+    {
+      "timestamp": "2026-02-09T01:30:18.250223",
+      "count": 2,
+      "summary": "Compacted 2 issues on 2026-02-09 01:30: sb-1: Fix input field width, sb-2: Align input field width"
+    },
+    {
+      "timestamp": "2026-02-09T01:59:19.401065",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-09 01:59: sb-1: Implement Array30 code hint"
+    },
+    {
+      "timestamp": "2026-02-09T02:05:42.571696",
+      "count": 1,
+      "summary": "Compacted 1 issues on 2026-02-09 02:05: sb-1: Change hint to next character"
     }
   ]
 }

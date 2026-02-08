@@ -1,4 +1,5 @@
 mod app;
+mod array30_data;
 mod components;
 mod logic;
 mod storage;
