@@ -5,7 +5,7 @@ use crate::components::alert_dialog::{
 use crate::components::button::{Button, ButtonVariant};
 use crate::components::card::{Card, CardContent};
 use crate::components::separator::Separator;
-use crate::components::tabs::{TabContent, TabList, TabTrigger, Tabs, TabsVariant};
+use crate::components::tabs::{TabContent, TabList, TabTrigger, Tabs};
 use crate::components::toast::ToastProvider;
 use crate::components::{PracticeInterface, StatisticsDisplay};
 use crate::logic::PracticeSession;
@@ -71,7 +71,6 @@ fn AppContent() -> Element {
                         class: "app-tabs",
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
-                        variant: TabsVariant::Ghost,
 
                         TabList {
                             TabTrigger {

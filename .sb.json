@@ -80,6 +80,11 @@
       "timestamp": "2026-02-09T00:57:55.376060",
       "count": 6,
       "summary": "Compacted 6 issues on 2026-02-09 00:57: sb-1: Fix missing keys in Dioxus iterators, sb-2: Decouple time logic from browser API, sb-3: Refactor StatCard to use Card primitives, sb-4: Optimize string allocations in components, sb-5: Refactor state management and logic, sb-6: Update design system and typography"
+    },
+    {
+      "timestamp": "2026-02-09T01:02:33.805162",
+      "count": 3,
+      "summary": "Compacted 3 issues on 2026-02-09 01:02: sb-1: Improve Tab styling, sb-2: Improve 'In progress' badge visibility, sb-3: Unify WPM/Accuracy badge styling"
     }
   ]
 }

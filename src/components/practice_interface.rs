@@ -107,7 +107,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             "{input_char_count} / {target_char_count}"
                         }
                         Badge {
-                            variant: if *show_completion.read() { BadgeVariant::Primary } else { BadgeVariant::Outline },
+                            variant: if *show_completion.read() { BadgeVariant::Primary } else { BadgeVariant::Secondary },
                             if *show_completion.read() { "Ready to save" } else { "In progress" }
                         }
                     }
@@ -121,7 +121,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             {format!("WPM {:.1}", wpm)}
                         }
                         Badge {
-                            variant: BadgeVariant::Outline,
+                            variant: BadgeVariant::Secondary,
                             {format!("Accuracy {:.1}%", accuracy)}
                         }
                         if stats.errors > 0 {
