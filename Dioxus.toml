@@ -2,5 +2,8 @@
 name = "array30_typing_tutor"
 title = "Array30 Typing Tutor"
 
+[web.styles]
+style = ["assets/styles.css"]
 
-
+[web.tailwind]
+input = "assets/styles.css"

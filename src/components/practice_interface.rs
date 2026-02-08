@@ -1,6 +1,5 @@
 use dioxus::prelude::*;
 use crate::logic::PracticeSession;
-use crate::components::StatsDisplay;
 use crate::storage::{HistoryManager, SessionRecord};
 use js_sys;
 
@@ -22,7 +21,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         let elapsed = (js_sys::Date::now() as u64).saturating_sub(*start_time_ms.read());
         session.write().update_input(&value, elapsed);
 
-        // Check completion on every input
         let sess = session.read();
         let target_char_count = sess.target_text.chars().count();
         if value.len() > 0 && target_char_count > 0 {
@@ -59,111 +57,134 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         show_completion.set(false);
     };
 
+    let stats = session.read().stats.clone();
+    let wpm = if stats.elapsed_seconds > 0 {
+        (stats.characters_typed as f64 / 5.0) / (stats.elapsed_seconds as f64 / 60.0)
+    } else {
+        0.0
+    };
+    let accuracy = if stats.total_typed > 0 {
+        ((stats.total_typed - stats.errors) as f64 / stats.total_typed as f64) * 100.0
+    } else {
+        100.0
+    };
+
     rsx! {
         div {
-            class: "container mx-auto px-4 py-8 max-w-2xl",
+            class: "space-y-8",
+            
+            // Statistics Grid
             div {
-                class: "mb-8",
-                h1 {
-                    class: "text-4xl font-bold text-gray-800 mb-2",
-                    "Array30 Typing Tutor"
-                }
-                p {
-                    class: "text-gray-600",
-                    "Practice typing with the Array30 input method"
-                }
+                class: "grid grid-cols-3 gap-4",
+                StatCard { label: "WPM", value: format!("{:.1}", wpm), color: "text-indigo-600" }
+                StatCard { label: "Accuracy", value: format!("{:.1}%", accuracy), color: "text-emerald-600" }
+                StatCard { label: "Time", value: format!("{}s", stats.elapsed_seconds), color: "text-purple-600" }
             }
 
-            {
-                let stats = session.read().stats.clone();
-                rsx! {
-                    StatsDisplay {
-                        stats: stats
+            // Typing Exercise Card
+            div {
+                class: "glass-card p-8 space-y-8",
+                
+                div {
+                    class: "space-y-4",
+                    div { class: "flex justify-between items-end",
+                        span { class: "text-xs font-bold uppercase tracking-widest text-slate-400", "Current Exercise" }
+                        span { class: "text-xs font-bold text-indigo-600",
+                            "{user_input.read().len()} / {session.read().target_text.len()}"
+                        }
                     }
-                }
-            }
-
-            div {
-                class: "bg-white rounded-lg shadow-lg p-8 mb-6",
-                {
-                    let session_read = session.read();
-                    let target_text = session_read.target_text.clone();
-                    let input_text = user_input.read().clone();
-                    let input_len = input_text.len();
-                    let target_len = target_text.len();
-                    let progress = if target_len == 0 {
-                        0.0
-                    } else {
-                        (input_len as f64 / target_len as f64) * 100.0
-                    };
-
-                    rsx! {
-                        div {
-                            class: "mb-6",
-                            p {
-                                class: "text-xl text-gray-800 font-mono mb-4 leading-relaxed",
-                                "{target_text}"
-                            }
-                            div {
-                                class: "w-full bg-gray-200 rounded-full h-2",
-                                div {
-                                    class: "bg-blue-600 h-2 rounded-full transition-all",
-                                    style: "width: {progress}%"
+                    
+                    // The "Alive" Typing Display
+                    div {
+                        class: "typing-area p-6 bg-slate-50/50 rounded-2xl border border-slate-100",
+                        {
+                            let target = session.read().target_text.clone();
+                            let input = user_input.read().clone();
+                            let input_chars: Vec<char> = input.chars().collect();
+                            
+                            rsx! {
+                                for (i, c) in target.chars().enumerate() {
+                                    {
+                                        let class = if i < input_chars.len() {
+                                            if input_chars[i] == c { "char-correct" } else { "char-incorrect" }
+                                        } else {
+                                            "char-untyped"
+                                        };
+                                        rsx! { span { class: "{class}", "{c}" } }
+                                    }
                                 }
                             }
                         }
                     }
+                    
+                    // Elegant Progress Bar
+                    div {
+                        class: "w-full bg-slate-100 rounded-full h-1.5 overflow-hidden",
+                        div {
+                            class: "bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-300 shadow-[0_0_8px_rgba(99,102,241,0.5)]",
+                            style: "width: {(user_input.read().len() as f64 / session.read().target_text.len().max(1) as f64 * 100.0)}%"
+                        }
+                    }
                 }
 
+                // Hidden but functional textarea
                 div {
-                    class: "mb-6",
+                    class: "group relative",
                     textarea {
-                        class: "w-full h-32 p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-mono",
-                        placeholder: "Start typing here...",
+                        class: "w-full h-32 p-6 bg-transparent border-2 border-slate-100 rounded-2xl focus:border-indigo-500/50 focus:outline-none transition-all duration-300 font-mono text-lg placeholder:text-slate-300",
+                        placeholder: "Focus here and start typing...",
                         value: "{user_input}",
                         oninput: handle_input,
                         autofocus: true
                     }
+                    div { class: "absolute inset-0 pointer-events-none rounded-2xl ring-4 ring-indigo-500/0 group-focus-within:ring-indigo-500/5 transition-all duration-500" }
                 }
 
+                // Action Buttons
                 div {
                     class: "flex gap-4",
                     button {
-                        class: if *show_completion.read() {
-                            "flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition"
-                        } else {
-                            "flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition"
-                        },
+                        class: if *show_completion.read() { "flex-[2] btn-primary bg-emerald-600 border-emerald-800 hover:bg-emerald-700" } else { "flex-[2] btn-primary" },
                         onclick: handle_next,
-                        if *show_completion.read() { "✅ Save & Next" } else { "Next Exercise" }
+                        if *show_completion.read() { "✅ Save & Next Challenge" } else { "Next Exercise" }
                     }
                     button {
-                        class: "flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition",
+                        class: "flex-1 btn-ghost border border-slate-200",
                         onclick: handle_reset,
                         "Reset"
                     }
                 }
             }
 
-            if session.read().started {
+            if session.read().started && !*show_completion.read() {
                 div {
-                    class: "bg-blue-50 border-l-4 border-blue-500 p-4 rounded",
-                    p {
-                        class: "text-blue-700",
-                        "Session in progress... Type to practice!"
-                    }
+                    class: "flex items-center justify-center gap-2 text-indigo-500 animate-pulse",
+                    span { class: "w-2 h-2 bg-indigo-500 rounded-full" }
+                    span { class: "text-sm font-semibold tracking-wide uppercase", "Recording Session..." }
                 }
             }
 
             if *show_completion.read() {
                 div {
-                    class: "bg-green-50 border-l-4 border-green-500 p-4 rounded mt-4",
-                    p {
-                        class: "text-green-700 font-bold",
-                        "🎉 Great job! Click 'Save & Next' to record this session and move to the next exercise."
+                    class: "glass-card p-6 bg-emerald-50/50 border-emerald-100 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
+                    div { class: "text-3xl", "🎯" }
+                    div {
+                        h4 { class: "text-emerald-900 font-bold", "Excellent Accuracy!" }
+                        p { class: "text-emerald-700 text-sm", "You've mastered this exercise. Save your progress to continue." }
                     }
                 }
             }
+        }
+    }
+}
+
+#[component]
+fn StatCard(label: String, value: String, color: String) -> Element {
+    rsx! {
+        div {
+            class: "glass-card p-4 flex flex-col items-center justify-center space-y-1 hover:scale-105 transition-transform duration-300",
+            span { class: "text-[10px] font-bold uppercase tracking-widest text-slate-400", "{label}" }
+            span { class: "text-2xl font-black {color}", "{value}" }
         }
     }
 }

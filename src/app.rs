@@ -8,59 +8,62 @@ pub fn App() -> Element {
     let mut session = use_signal(|| PracticeSession::new());
 
     rsx! {
-        style {
-            {include_str!("../assets/styles.css")}
-        }
-        div {
-            class: "min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100",
+        style { {include_str!("../assets/styles.css")} }
+        
+        main {
+            class: "min-h-screen py-12 px-4 flex flex-col items-center",
+            
             div {
-                class: "container mx-auto px-4 py-8 max-w-2xl",
-                div {
-                    class: "mb-6",
+                class: "w-full max-w-3xl space-y-8",
+                
+                // Header & Navigation
+                header {
+                    class: "flex flex-col md:flex-row md:items-center justify-between gap-6",
+                    
                     div {
-                        class: "flex gap-4 border-b border-gray-300",
+                        h1 { class: "text-4xl font-extrabold text-gradient tracking-tight", "Array30" }
+                        p { class: "text-slate-500 font-medium", "Master the art of typing" }
+                    }
+                    
+                    nav {
+                        class: "glass p-1.5 rounded-2xl flex gap-1",
                         button {
-                            class: if *current_tab.read() == "practice" {
-                                "px-6 py-3 font-bold text-blue-600 border-b-2 border-blue-600 transition"
-                            } else {
-                                "px-6 py-3 font-bold text-gray-600 hover:text-gray-800 transition"
-                            },
+                            class: if *current_tab.read() == "practice" { "btn-primary" } else { "btn-ghost" },
                             onclick: move |_| current_tab.set("practice"),
                             "📝 Practice"
                         }
                         button {
-                            class: if *current_tab.read() == "statistics" {
-                                "px-6 py-3 font-bold text-blue-600 border-b-2 border-blue-600 transition"
-                            } else {
-                                "px-6 py-3 font-bold text-gray-600 hover:text-gray-800 transition"
-                            },
+                            class: if *current_tab.read() == "statistics" { "btn-primary" } else { "btn-ghost" },
                             onclick: move |_| current_tab.set("statistics"),
                             "📊 Statistics"
                         }
                     }
                 }
 
-                if *current_tab.read() == "practice" {
-                    PracticeInterface {
-                        session: session,
-                    }
-                } else {
-                    div {
-                        StatisticsDisplay {
-                            stats: HistoryManager::get_statistics()
-                        }
-                        
+                // Main Content Area
+                div {
+                    class: "transition-all duration-500",
+                    if *current_tab.read() == "practice" {
+                        PracticeInterface { session: session }
+                    } else {
                         div {
-                            class: "mt-6 text-center",
-                            button {
-                                class: "px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition",
-                                onclick: move |_| {
-                                    if confirm_clear() {
-                                        HistoryManager::clear_history();
-                                        current_tab.set("practice");
-                                    }
-                                },
-                                "🗑️ Clear All Statistics"
+                            class: "space-y-8",
+                            StatisticsDisplay {
+                                stats: HistoryManager::get_statistics()
+                            }
+                            
+                            div {
+                                class: "flex justify-center",
+                                button {
+                                    class: "btn-premium bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 px-8",
+                                    onclick: move |_| {
+                                        if confirm_clear() {
+                                            HistoryManager::clear_history();
+                                            current_tab.set("practice");
+                                        }
+                                    },
+                                    "🗑️ Reset All Progress"
+                                }
                             }
                         }
                     }

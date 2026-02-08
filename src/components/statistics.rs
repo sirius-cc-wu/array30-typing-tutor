@@ -5,98 +5,86 @@ use crate::storage::Statistics;
 pub fn StatisticsDisplay(stats: Statistics) -> Element {
     rsx! {
         div {
-            class: "bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-md p-6 mb-6 border border-purple-200",
-            div {
-                class: "mb-4",
-                h2 {
-                    class: "text-2xl font-bold text-gray-800 mb-2",
-                    "📊 Your Statistics"
-                }
+            class: "space-y-8 animate-in fade-in duration-700",
+            
+            h2 { class: "text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2",
+                span { "📈" }
+                "Performance Overview"
             }
 
             if stats.total_sessions > 0 {
                 div {
-                    class: "grid grid-cols-2 md:grid-cols-3 gap-4",
+                    class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Total Sessions"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-purple-600",
-                            "{stats.total_sessions}"
-                        }
+                    PremiumStatCard {
+                        label: "Total Sessions",
+                        value: format!("{}", stats.total_sessions),
+                        icon: "🔥",
+                        subtext: "Sessions completed"
                     }
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Best WPM"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-blue-600",
-                            "{stats.best_wpm:.1}"
-                        }
+                    PremiumStatCard {
+                        label: "Best Speed",
+                        value: format!("{:.1} WPM", stats.best_wpm),
+                        icon: "⚡",
+                        subtext: "Your all-time peak"
                     }
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Average WPM"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-indigo-600",
-                            "{stats.average_wpm:.1}"
-                        }
+                    PremiumStatCard {
+                        label: "Avg Speed",
+                        value: format!("{:.1} WPM", stats.average_wpm),
+                        icon: "📊",
+                        subtext: "Overall average"
                     }
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Best Accuracy"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-green-600",
-                            "{stats.best_accuracy:.1}%"
-                        }
+                    PremiumStatCard {
+                        label: "Max Accuracy",
+                        value: format!("{:.1}%", stats.best_accuracy),
+                        icon: "🎯",
+                        subtext: "Highest precision"
                     }
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Avg Accuracy"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-emerald-600",
-                            "{stats.average_accuracy:.1}%"
-                        }
+                    PremiumStatCard {
+                        label: "Avg Accuracy",
+                        value: format!("{:.1}%", stats.average_accuracy),
+                        icon: "✅",
+                        subtext: "Consistency score"
                     }
                     
-                    div {
-                        class: "bg-white rounded p-3 shadow-sm",
-                        div {
-                            class: "text-sm text-gray-600",
-                            "Total Time"
-                        }
-                        div {
-                            class: "text-2xl font-bold text-orange-600",
-                            {format_time(stats.total_practice_time)}
-                        }
+                    PremiumStatCard {
+                        label: "Total Practice",
+                        value: format_time(stats.total_practice_time),
+                        icon: "⌛",
+                        subtext: "Time on keys"
                     }
                 }
             } else {
                 div {
-                    class: "text-center py-8 text-gray-500",
-                    p {
-                        "No sessions yet. Start practicing to build your statistics!"
+                    class: "glass-card p-12 text-center space-y-4",
+                    div { class: "text-5xl", "⌨️" }
+                    h3 { class: "text-xl font-bold text-slate-800", "No data yet" }
+                    p { class: "text-slate-500 max-w-sm mx-auto",
+                        "Start your first practice session to see your typing statistics and track your progress over time."
                     }
                 }
+            }
+        }
+    }
+}
+
+#[component]
+fn PremiumStatCard(label: String, value: String, icon: String, subtext: String) -> Element {
+    rsx! {
+        div {
+            class: "glass-card p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
+            div { class: "flex justify-between items-start",
+                div { class: "p-2 bg-indigo-50 rounded-xl text-xl", "{icon}" }
+                span { class: "text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1", "{label}" }
+            }
+            div {
+                class: "space-y-1",
+                h3 { class: "text-2xl font-black text-gradient", "{value}" }
+                p { class: "text-xs text-slate-400 font-medium", "{subtext}" }
             }
         }
     }
