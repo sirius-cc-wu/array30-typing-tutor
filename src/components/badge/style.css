@@ -7,36 +7,41 @@
 .badge {
   display: inline-flex;
   min-width: 20px;
-  height: 20px;
+  height: 1.5rem;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px var(--primary-color-2);
-  font-size: 12px;
-  gap: 4px
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  gap: 0.25rem;
 }
 
 .badge[padding="true"] {
-  padding: 0 8px;
+  padding: 0 0.6rem;
 }
 
 .badge[data-style="primary"] {
-  background-color: var(--secondary-color-2);
-  color: var(--primary-color);
+  background-color: #dbeafe;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
 }
 
 .badge[data-style="secondary"] {
-  background-color: var(--primary-color-5);
-  color: var(--secondary-color-1);
+  background-color: #ecfeff;
+  border-color: #a5f3fc;
+  color: #0f766e;
 }
 
 .badge[data-style="outline"] {
-  border: 1px solid var(--primary-color-6);
-  background-color: var(--light, var(--primary-color)) var(--dark, var(--primary-color-3));
-  color: var(--secondary-color-4);
+  border-color: #cbd5e1;
+  background-color: #ffffff;
+  color: #475569;
 }
 
 .badge[data-style="destructive"] {
-  background-color: var(--primary-error-color);
-  color: var(--contrast-error-color);
+  background-color: #fee2e2;
+  border-color: #fecaca;
+  color: #b91c1c;
 }

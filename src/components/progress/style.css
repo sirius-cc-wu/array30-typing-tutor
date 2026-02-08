@@ -2,10 +2,11 @@
     position: relative;
     overflow: hidden;
     width: 200px;
-    height: .5rem;
+    height: 0.65rem;
     box-sizing: border-box;
     border-radius: 9999px;
-    background: var(--primary-color-5);
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
 }
 
 .progress[data-state='indeterminate'] .progress-indicator {
@@ -16,7 +17,7 @@
 .progress-indicator {
     width: var(--progress-value, 0%);
     height: 100%;
-    background-color: var(--secondary-color-1);
+    background: linear-gradient(90deg, #2563eb, #0d9488);
     transition: width 250ms ease;
 }
 

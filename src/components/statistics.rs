@@ -8,13 +8,13 @@ use dioxus::prelude::*;
 pub fn StatisticsDisplay(stats: Statistics) -> Element {
     rsx! {
         div {
-            class: "space-y-8 animate-in fade-in duration-700",
+            class: "statistics-layout",
 
-            h2 { class: "text-2xl font-bold text-slate-800 tracking-tight", "Performance Overview" }
+            h2 { class: "statistics-title", "Performance Overview" }
 
             if stats.total_sessions > 0 {
                 div {
-                    class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+                    class: "statistics-grid",
 
                     PremiumStatCard {
                         label: "Total Sessions",
@@ -54,16 +54,17 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                 }
             } else {
                 Card {
+                    class: "statistics-empty",
                     CardHeader {
-                        class: "text-center",
-                        CardTitle { class: "text-xl font-bold text-slate-800", "No data yet" }
+                        class: "statistics-empty-header",
+                        CardTitle { class: "statistics-empty-title", "No data yet" }
                         CardDescription {
-                            class: "text-slate-500 max-w-sm mx-auto",
+                            class: "statistics-empty-description",
                             "Start your first practice session to see your typing statistics and track your progress over time."
                         }
                     }
                     CardContent {
-                        class: "flex justify-center pb-8",
+                        class: "statistics-empty-badge",
                         Badge {
                             variant: BadgeVariant::Outline,
                             "Waiting for first session"
@@ -79,22 +80,22 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 fn PremiumStatCard(label: String, value: String, subtext: String) -> Element {
     rsx! {
         Card {
-            class: "p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
+            class: "statistics-card",
             CardHeader {
-                class: "space-y-3",
-                div { class: "flex justify-between items-center",
+                class: "statistics-card-header",
+                div { class: "statistics-card-header-row",
                     Badge {
                         variant: BadgeVariant::Secondary,
-                        class: "uppercase tracking-widest text-[10px]",
+                        class: "statistics-card-label",
                         "{label}"
                     }
                 }
             }
             Separator { horizontal: true }
             CardContent {
-                class: "space-y-1",
-                h3 { class: "text-2xl font-black", "{value}" }
-                p { class: "text-xs text-slate-400 font-medium", "{subtext}" }
+                class: "statistics-card-content",
+                h3 { class: "statistics-card-value", "{value}" }
+                p { class: "statistics-card-subtext", "{subtext}" }
             }
         }
     }

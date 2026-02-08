@@ -15,6 +15,8 @@ use dioxus_primitives::toast::{use_toast, ToastOptions};
 
 pub fn app() -> Element {
     rsx! {
+        document::Link { rel: "stylesheet", href: asset!("../assets/styles.css") }
+        document::Link { rel: "stylesheet", href: asset!("../assets/dx-components-theme.css") }
         ToastProvider {
             AppContent {}
         }
@@ -30,20 +32,20 @@ fn AppContent() -> Element {
 
     rsx! {
         main {
-            class: "min-h-screen py-12 px-4 flex flex-col items-center",
+            class: "app-shell",
 
             Card {
-                class: "w-full max-w-4xl",
+                class: "app-shell-card",
                 CardContent {
-                    class: "space-y-8 py-8 md:py-10",
+                    class: "app-shell-content",
 
                     // Header
                     header {
-                        class: "flex flex-col md:flex-row md:items-center justify-between gap-6 px-2 md:px-4",
+                        class: "app-header",
 
                         div {
-                            h1 { class: "text-4xl font-extrabold text-gradient tracking-tight", "Array30" }
-                            p { class: "text-slate-500 font-medium", "Master the art of typing" }
+                            h1 { class: "app-title text-gradient", "Array30" }
+                            p { class: "app-subtitle", "Master the art of typing" }
                         }
                     }
 
@@ -51,7 +53,7 @@ fn AppContent() -> Element {
 
                     // Main Content Area
                     Tabs {
-                        class: "px-2 md:px-4",
+                        class: "app-tabs",
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
                         variant: TabsVariant::Ghost,
@@ -79,14 +81,14 @@ fn AppContent() -> Element {
                             index: 1usize,
                             value: "statistics",
                             div {
-                                class: "space-y-8",
+                                class: "stats-tab-content",
                                 StatisticsDisplay {
                                     stats: HistoryManager::get_statistics()
                                 }
 
                                 Card {
                                     CardContent {
-                                        class: "flex justify-center gap-3 pt-6",
+                                        class: "stats-tab-actions",
                                         Button {
                                             variant: ButtonVariant::Ghost,
                                             onclick: move |_| current_tab.set(Some("practice".to_string())),

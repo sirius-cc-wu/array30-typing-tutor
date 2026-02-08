@@ -89,28 +89,29 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
     rsx! {
         div {
-            class: "space-y-8",
+            class: "practice-layout",
 
             // Statistics Grid
             div {
-                class: "grid grid-cols-3 gap-4",
-                StatCard { label: "WPM", value: format!("{:.1}", wpm), color: "text-indigo-600" }
-                StatCard { label: "Accuracy", value: format!("{:.1}%", accuracy), color: "text-emerald-600" }
-                StatCard { label: "Time", value: format!("{}s", stats.elapsed_seconds), color: "text-purple-600" }
+                class: "practice-metrics",
+                StatCard { label: "WPM", value: format!("{:.1}", wpm), color: "metric-value-speed" }
+                StatCard { label: "Accuracy", value: format!("{:.1}%", accuracy), color: "metric-value-accuracy" }
+                StatCard { label: "Time", value: format!("{}s", stats.elapsed_seconds), color: "metric-value-time" }
             }
 
             // Typing Exercise Card
             Card {
+                class: "exercise-card",
                 CardHeader {
-                    class: "space-y-3",
+                    class: "exercise-header",
                     CardTitle {
-                        class: "text-sm font-bold uppercase tracking-[0.15em] text-slate-500",
+                        class: "exercise-title",
                         "Current Exercise"
                     }
                     div {
-                        class: "flex items-center justify-between gap-3",
+                        class: "exercise-meta",
                         CardDescription {
-                            class: "text-xs font-bold text-indigo-600",
+                            class: "exercise-progress-count",
                             "{input_char_count} / {target_char_count}"
                         }
                         Badge {
@@ -120,9 +121,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
                 CardContent {
-                    class: "space-y-5",
+                    class: "exercise-content",
                     div {
-                        class: "flex gap-2 flex-wrap",
+                        class: "exercise-badges",
                         Badge {
                             variant: BadgeVariant::Secondary,
                             {format!("WPM {:.1}", wpm)}
@@ -139,7 +140,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         }
                     }
                     div {
-                        class: "typing-area p-6 bg-slate-50/50 rounded-2xl border border-slate-100",
+                        class: "typing-area exercise-text",
                         {
                             let target = session.read().target_text.clone();
                             let input = user_input.read().clone();
@@ -169,31 +170,31 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                 // Hidden but functional textarea
                 div {
-                    class: "group relative",
+                    class: "typing-input-wrap",
                     textarea {
-                        class: "w-full h-32 p-6 bg-transparent border-2 border-slate-100 rounded-2xl focus:border-indigo-500/50 focus:outline-none transition-all duration-300 font-mono text-lg placeholder:text-slate-300",
+                        class: "typing-input",
                         placeholder: "Focus here and start typing...",
                         value: "{user_input}",
                         oninput: handle_input,
                         autofocus: true
                     }
-                    div { class: "absolute inset-0 pointer-events-none rounded-2xl ring-4 ring-indigo-500/0 group-focus-within:ring-indigo-500/5 transition-all duration-500" }
+                    div { class: "typing-input-ring" }
                 }
 
                 CardFooter {
-                    class: "flex gap-4",
+                    class: "exercise-actions",
                     Button {
-                        class: "flex-[2]",
+                        class: "exercise-primary-action",
                         variant: if *show_completion.read() {
                             ButtonVariant::Secondary
                         } else {
-                            ButtonVariant::Primary
+                            ButtonVariant::Ghost
                         },
                         onclick: handle_next,
-                        if *show_completion.read() { "Save & Next Challenge" } else { "Next Exercise" }
+                        if *show_completion.read() { "Save & Next Challenge" } else { "Skip to Next Exercise" }
                     }
                     Button {
-                        class: "flex-1",
+                        class: "exercise-secondary-action",
                         variant: ButtonVariant::Outline,
                         onclick: handle_reset,
                         "Reset"
@@ -203,7 +204,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if session.read().started && !*show_completion.read() {
                 div {
-                    class: "flex items-center justify-center",
+                    class: "recording-status",
                     Badge {
                         variant: BadgeVariant::Secondary,
                         "Recording session..."
@@ -213,10 +214,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if *show_completion.read() {
                 div {
-                    class: "p-6 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
+                    class: "completion-banner",
                     div {
-                        h4 { class: "text-emerald-900 font-bold", "Excellent Accuracy!" }
-                        p { class: "text-emerald-700 text-sm", "You've mastered this exercise. Save your progress to continue." }
+                        h4 { class: "completion-title", "Excellent Accuracy!" }
+                        p { class: "completion-text", "You've mastered this exercise. Save your progress to continue." }
                     }
                 }
             }
@@ -228,9 +229,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 fn StatCard(label: String, value: String, color: String) -> Element {
     rsx! {
         div {
-            class: "glass-card p-4 flex flex-col items-center justify-center space-y-1 hover:scale-105 transition-transform duration-300",
-            span { class: "text-[10px] font-bold uppercase tracking-widest text-slate-400", "{label}" }
-            span { class: "text-2xl font-black {color}", "{value}" }
+            class: "metric-card",
+            span { class: "metric-label", "{label}" }
+            span { class: "metric-value {color}", "{value}" }
         }
     }
 }
