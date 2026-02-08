@@ -32,10 +32,11 @@ Run `sb --help` or check the sb-tracker README for more commands.
 
 **When ending a work session**, complete these steps:
 
-1. **File remaining work** - Create issues for any follow-up tasks
-2. **Update task status** - Mark completed work as done with `sb done <id>`
-3. **Promote for handoff** - Run `sb promote <id>` on significant tasks to document progress
-4. **Clean up** - Run `sb compact` to archive closed tasks and keep the tracker lean
+1. **Verify work** - Take a screenshot or run tests to verify your changes are correct
+2. **File remaining work** - Create issues for any follow-up tasks
+3. **Update task status** - Mark completed work as done with `sb done <id>`
+4. **Promote for handoff** - Run `sb promote <id>` on significant tasks to document progress
+5. **Clean up** - Run `sb compact` to archive closed tasks and keep the tracker lean
 
 **CRITICAL RULES:**
 - Always update task status before ending a session
