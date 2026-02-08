@@ -116,14 +116,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     class: "exercise-content",
                     div {
                         class: "exercise-badges",
-                        Badge {
-                            variant: BadgeVariant::Secondary,
-                            {format!("WPM {:.1}", wpm)}
-                        }
-                        Badge {
-                            variant: BadgeVariant::Secondary,
-                            {format!("Accuracy {:.1}%", accuracy)}
-                        }
                         if stats.errors > 0 {
                             Badge {
                                 variant: BadgeVariant::Destructive,
