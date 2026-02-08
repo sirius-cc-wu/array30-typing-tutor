@@ -10,10 +10,7 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
         div {
             class: "space-y-8 animate-in fade-in duration-700",
 
-            h2 { class: "text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2",
-                span { "📈" }
-                "Performance Overview"
-            }
+            h2 { class: "text-2xl font-bold text-slate-800 tracking-tight", "Performance Overview" }
 
             if stats.total_sessions > 0 {
                 div {
@@ -22,42 +19,36 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                     PremiumStatCard {
                         label: "Total Sessions",
                         value: format!("{}", stats.total_sessions),
-                        icon: "🔥",
                         subtext: "Sessions completed"
                     }
 
                     PremiumStatCard {
                         label: "Best Speed",
                         value: format!("{:.1} WPM", stats.best_wpm),
-                        icon: "⚡",
                         subtext: "Your all-time peak"
                     }
 
                     PremiumStatCard {
                         label: "Avg Speed",
                         value: format!("{:.1} WPM", stats.average_wpm),
-                        icon: "📊",
                         subtext: "Overall average"
                     }
 
                     PremiumStatCard {
                         label: "Max Accuracy",
                         value: format!("{:.1}%", stats.best_accuracy),
-                        icon: "🎯",
                         subtext: "Highest precision"
                     }
 
                     PremiumStatCard {
                         label: "Avg Accuracy",
                         value: format!("{:.1}%", stats.average_accuracy),
-                        icon: "✅",
                         subtext: "Consistency score"
                     }
 
                     PremiumStatCard {
                         label: "Total Practice",
                         value: format_time(stats.total_practice_time),
-                        icon: "⌛",
                         subtext: "Time on keys"
                     }
                 }
@@ -75,7 +66,7 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                         class: "flex justify-center pb-8",
                         Badge {
                             variant: BadgeVariant::Outline,
-                            "⌨️ Waiting for first session"
+                            "Waiting for first session"
                         }
                     }
                 }
@@ -85,14 +76,13 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 }
 
 #[component]
-fn PremiumStatCard(label: String, value: String, icon: String, subtext: String) -> Element {
+fn PremiumStatCard(label: String, value: String, subtext: String) -> Element {
     rsx! {
         Card {
             class: "p-6 space-y-4 hover:scale-[1.02] transition-all duration-300",
             CardHeader {
                 class: "space-y-3",
                 div { class: "flex justify-between items-center",
-                    div { class: "p-2 bg-indigo-50 rounded-xl text-xl", "{icon}" }
                     Badge {
                         variant: BadgeVariant::Secondary,
                         class: "uppercase tracking-widest text-[10px]",

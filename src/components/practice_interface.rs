@@ -190,7 +190,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             ButtonVariant::Primary
                         },
                         onclick: handle_next,
-                        if *show_completion.read() { "✅ Save & Next Challenge" } else { "Next Exercise" }
+                        if *show_completion.read() { "Save & Next Challenge" } else { "Next Exercise" }
                     }
                     Button {
                         class: "flex-1",
@@ -214,7 +214,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             if *show_completion.read() {
                 div {
                     class: "p-6 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500",
-                    div { class: "text-3xl", "🎯" }
                     div {
                         h4 { class: "text-emerald-900 font-bold", "Excellent Accuracy!" }
                         p { class: "text-emerald-700 text-sm", "You've mastered this exercise. Save your progress to continue." }

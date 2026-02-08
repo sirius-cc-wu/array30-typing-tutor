@@ -60,12 +60,12 @@ fn AppContent() -> Element {
                             TabTrigger {
                                 index: 0usize,
                                 value: "practice",
-                                "📝 Practice"
+                                "Practice"
                             }
                             TabTrigger {
                                 index: 1usize,
                                 value: "statistics",
-                                "📊 Statistics"
+                                "Statistics"
                             }
                         }
 
@@ -95,7 +95,7 @@ fn AppContent() -> Element {
                                         Button {
                                             variant: ButtonVariant::Destructive,
                                             onclick: move |_| show_reset_dialog.set(true),
-                                            "🗑️ Reset All Progress"
+                                            "Reset All Progress"
                                         }
                                     }
                                 }
