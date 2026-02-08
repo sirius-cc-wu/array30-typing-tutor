@@ -47,7 +47,7 @@ html[data-theme="light"] {
   --primary-color-7: var(--dark, #3e3e3e) var(--light, #b0b0b0);
 
   /* Secondary colors */
-  --secondary-color: var(--dark, #fff) var(--light, #000);
+  --secondary-color: var(--dark, #1c1c1c) var(--light, #ffffff);
   --secondary-color-1: var(--dark, #fafafa) var(--light, #fbfbfb);
   --secondary-color-2: var(--dark, #e6e6e6) var(--light, #f0f0f0);
   --secondary-color-3: var(--dark, #dcdcdc) var(--light, #e0e0e0);
