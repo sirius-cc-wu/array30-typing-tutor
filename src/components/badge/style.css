@@ -10,13 +10,13 @@
   height: 1.75rem;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-content-strong);
+  border: 2px solid rgba(79, 70, 229, 0.2);
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   gap: 0.25rem;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .badge[padding="true"] {
@@ -25,11 +25,12 @@
 
 .badge[data-style="primary"] {
   background-color: var(--color-brand-primary);
+  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
 }
 
 .badge[data-style="secondary"] {
-  background-color: var(--color-surface-base);
+  background-color: #ffffff;
   color: var(--color-brand-primary);
 }
 
@@ -40,7 +41,7 @@
 }
 
 .badge[data-style="destructive"] {
-  background-color: #dc2626;
-  border-color: var(--color-content-strong);
+  background-color: #ef4444;
+  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
 }
