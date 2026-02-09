@@ -157,17 +157,15 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
 
                     div {
-                        class: "code-hint-box mt-4 h-16 px-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center w-full",
-                        style: "display: flex; align-items: center; width: 100%;",
+                        class: "code-hint-box",
                         
                         if let Some((c, code)) = next_char_hint {
                             div {
                                 class: "w-full flex items-center justify-between gap-4 overflow-hidden",
-                                style: "display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1rem;",
                                 span {
-                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0",
+                                    class: "font-bold text-indigo-900",
                                     "Next: Array30 Code for "
-                                    span { class: "font-bold text-slate-900 dark:text-slate-100 mx-1", "{c}" }
+                                    span { class: "font-black mx-1", "{c}" }
                                 }
                                 div {
                                     class: "overflow-x-auto",
@@ -177,11 +175,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         } else if let Some(c) = next_char {
                             div {
                                 class: "w-full flex items-center justify-between gap-4 overflow-hidden",
-                                style: "display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1rem;",
                                 span {
-                                    class: "text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap flex-shrink-0",
+                                    class: "font-bold text-slate-500",
                                     "Next: "
-                                    span { class: "font-bold text-slate-900 dark:text-slate-100 mx-1", "{c}" }
+                                    span { class: "font-black text-slate-900 mx-1", "{c}" }
                                 }
                                 Badge {
                                     variant: BadgeVariant::Outline,
@@ -192,8 +189,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         } else {
                             // Completed or empty
                             div {
-                                class: "w-full flex items-center justify-center text-slate-400 text-sm",
-                                style: "display: flex; justify-content: center; align-items: center; width: 100%;",
+                                class: "w-full flex items-center justify-center text-slate-400 font-bold",
                                 "Exercise Complete"
                             }
                         }
