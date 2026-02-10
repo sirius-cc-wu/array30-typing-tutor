@@ -11,15 +11,14 @@
     box-sizing: border-box;
     flex: 1;
     flex-direction: row;
-    padding: 0.25rem;
-    border: none;
-    border-radius: 0.65rem;
-    gap: 0.25rem;
+    padding: 0.4rem;
+    border: var(--border-soft);
+    border-radius: var(--radius-full);
+    gap: 0.4rem;
 }
 
 [data-variant="default"] .tabs-list {
-    background: var(--light, var(--primary-color-3))
-        var(--dark, var(--primary-color-5));
+    background: var(--light, var(--primary-color-3)) var(--dark, var(--primary-color-5));
 }
 
 [data-variant="ghost"] .tabs-list {
@@ -29,9 +28,9 @@
 }
 
 .tabs-trigger {
-    padding: 0.4rem 0.8rem;
+    padding: 0.6rem 1.25rem;
     border: none;
-    border-radius: 0.45rem;
+    border-radius: var(--radius-full);
     background: none;
     color: #475569;
     font-size: 0.85rem;
@@ -41,10 +40,8 @@
 }
 
 [data-variant="default"] .tabs-trigger[data-state="active"] {
-    background-color: var(--light, var(--primary-color))
-        var(--dark, var(--primary-color-6));
-    box-shadow: var(--dark, inset 0 0 0 1px var(--primary-color-7))
-        var(--light, 0 1px 2px rgb(0 0 0 / 18%));
+    background-color: var(--light, var(--primary-color)) var(--dark, var(--primary-color-6));
+    box-shadow: var(--dark, inset 0 0 0 1px var(--primary-color-7)) var(--light, 0 1px 2px rgb(0 0 0 / 18%));
 }
 
 [data-variant="ghost"] .tabs-trigger[data-state="active"] {
@@ -79,11 +76,9 @@
 }
 
 [data-variant="default"] .tabs-content-themed {
-    border: 1px solid var(--light, var(--primary-color-6))
-        var(--dark, var(--primary-color-7));
-    border-radius: 0.5rem;
-    background: var(--light, var(--primary-color))
-        var(--dark, var(--primary-color-3));
+    border: var(--border-soft);
+    border-radius: var(--radius-card);
+    background: var(--light, var(--primary-color)) var(--dark, var(--primary-color-3));
     box-shadow: var(--light, 0 1px 2px rgb(0 0 0 / 18%)) var(--dark, none);
 }
 

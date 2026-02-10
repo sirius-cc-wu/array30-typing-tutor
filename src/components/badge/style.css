@@ -10,8 +10,8 @@
   height: 1.75rem;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(79, 70, 229, 0.2);
-  border-radius: 999px;
+  border: 2px solid rgba(72, 72, 229, 0.2);
+  border-radius: var(--radius-full);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.02em;

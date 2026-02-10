@@ -49,9 +49,9 @@ fn AppContent() -> Element {
         main {
             class: "app-shell",
 
-            Card {
+            div {
                 class: "app-shell-card",
-                CardContent {
+                div {
                     class: "app-shell-content",
 
                     // Header
@@ -100,19 +100,17 @@ fn AppContent() -> Element {
                                     stats: HistoryManager::get_statistics()
                                 }
 
-                                Card {
-                                    CardContent {
-                                        class: "stats-tab-actions",
-                                        Button {
-                                            variant: ButtonVariant::Ghost,
-                                            onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
-                                            "Back to Practice"
-                                        }
-                                        Button {
-                                            variant: ButtonVariant::Destructive,
-                                            onclick: move |_| show_reset_dialog.set(true),
-                                            "Reset All Progress"
-                                        }
+                                div {
+                                    class: "stats-tab-actions",
+                                    Button {
+                                        variant: ButtonVariant::Ghost,
+                                        onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
+                                        "Back to Practice"
+                                    }
+                                    Button {
+                                        variant: ButtonVariant::Primary,
+                                        onclick: move |_| show_reset_dialog.set(true),
+                                        "Reset All Progress"
                                     }
                                 }
                             }

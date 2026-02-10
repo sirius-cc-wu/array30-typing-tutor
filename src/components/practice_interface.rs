@@ -214,7 +214,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     Button {
                         class: "exercise-primary-action",
                         variant: if *show_completion.read() {
-                            ButtonVariant::Secondary
+                            ButtonVariant::Primary
                         } else {
                             ButtonVariant::Ghost
                         },
@@ -223,7 +223,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                     Button {
                         class: "exercise-secondary-action",
-                        variant: ButtonVariant::Outline,
+                        variant: ButtonVariant::Primary,
                         onclick: handle_reset,
                         "Reset"
                     }

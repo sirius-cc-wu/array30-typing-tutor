@@ -4,9 +4,9 @@
     width: 200px;
     height: 1.15rem;
     box-sizing: border-box;
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     background: var(--color-surface-base);
-    border: var(--border-thick);
+    border: 3px solid rgba(72, 72, 229, 0.08);
     box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
