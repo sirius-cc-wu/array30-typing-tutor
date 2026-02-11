@@ -8,12 +8,13 @@ pub fn Card(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "flex flex-col gap-5 rounded-[2.5rem] border-4 border-indigo-950 bg-white px-0 py-6 text-indigo-950 shadow-[6px_6px_0px_rgba(72,72,229,0.15)]",
+        class: "card",
         "data-slot": "card",
     });
     let merged = merge_attributes(vec![base, attributes]);
 
     rsx! {
+        document::Link { rel: "stylesheet", href: asset!("./style.css") }
         div {
             ..merged,
             {children}
@@ -27,7 +28,7 @@ pub fn CardHeader(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "grid auto-rows-min items-start gap-2 px-6",
+        class: "card-header",
         "data-slot": "card-header",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -46,7 +47,7 @@ pub fn CardTitle(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "text-xl font-extrabold leading-tight tracking-[-0.02em]",
+        class: "card-title",
         "data-slot": "card-title",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -65,7 +66,7 @@ pub fn CardDescription(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "text-[0.95rem] font-semibold leading-[1.35] text-slate-500",
+        class: "card-description",
         "data-slot": "card-description",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -84,7 +85,7 @@ pub fn CardAction(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "col-start-2 row-span-2 place-self-start-end",
+        class: "card-action",
         "data-slot": "card-action",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -103,7 +104,7 @@ pub fn CardContent(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "px-6",
+        class: "card-content",
         "data-slot": "card-content",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -122,7 +123,7 @@ pub fn CardFooter(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "flex items-center px-6",
+        class: "card-footer",
         "data-slot": "card-footer",
     });
     let merged = merge_attributes(vec![base, attributes]);

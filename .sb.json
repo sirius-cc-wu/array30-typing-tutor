@@ -68,6 +68,52 @@
       ],
       "created_at": "2026-02-12T02:00:03.213879",
       "closed_at": "2026-02-12T02:01:34.741392"
+    },
+    {
+      "id": "sb-4",
+      "title": "Compare main vs vanilla-css visual quality",
+      "description": "Capture screenshots on both branches and describe concrete aesthetic differences.",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T02:06:51.916285",
+          "title": "Compare main vs vanilla-css visual quality"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T02:08:55.688971",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T02:06:51.916258",
+      "closed_at": "2026-02-12T02:08:55.689008"
+    },
+    {
+      "id": "sb-5",
+      "title": "Improve main branch aesthetics",
+      "description": "Refine visual hierarchy, typography, and component polish on main branch while keeping responsive fit.",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T02:15:54.099746",
+          "title": "Improve main branch aesthetics"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T02:21:20.076766",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T02:15:54.099721",
+      "closed_at": "2026-02-12T02:21:20.076797"
     }
   ]
 }

@@ -55,29 +55,21 @@ pub enum TabsVariant {
 
 impl TabsVariant {
     /// Convert the variant to a string for use in class names
-    fn root_class(self) -> &'static str {
+    fn to_class(self) -> &'static str {
         match self {
-            TabsVariant::Default => "tabs-default",
-            TabsVariant::Ghost => "tabs-ghost",
+            TabsVariant::Default => "default",
+            TabsVariant::Ghost => "ghost",
         }
     }
 }
 
 #[component]
 pub fn Tabs(props: TabsProps) -> Element {
-    let class = if props.class.trim().is_empty() {
-        format!("tabs flex w-full flex-col gap-3 {}", props.variant.root_class())
-    } else {
-        format!(
-            "{} tabs flex w-full flex-col gap-3 {}",
-            props.class,
-            props.variant.root_class()
-        )
-    };
-
     rsx! {
+        document::Link { rel: "stylesheet", href: asset!("./style.css") }
         tabs::Tabs {
-            class: class,
+            class: props.class + " tabs",
+            "data-variant": props.variant.to_class(),
             value: props.value,
             default_value: props.default_value,
             on_value_change: props.on_value_change,
@@ -93,11 +85,7 @@ pub fn Tabs(props: TabsProps) -> Element {
 #[component]
 pub fn TabList(props: TabListProps) -> Element {
     rsx! {
-        tabs::TabList {
-            class: "tabs-list mb-10 flex w-fit flex-row gap-2 rounded-[2rem] border-[3px] border-indigo-200/60 bg-indigo-50/80 p-2 shadow-[inset_4px_4px_12px_rgba(0,0,0,0.02)]",
-            attributes: props.attributes,
-            {props.children}
-        }
+        tabs::TabList { class: "tabs-list", attributes: props.attributes, {props.children} }
     }
 }
 
@@ -105,7 +93,7 @@ pub fn TabList(props: TabListProps) -> Element {
 pub fn TabTrigger(props: TabTriggerProps) -> Element {
     rsx! {
         tabs::TabTrigger {
-            class: "tabs-trigger cursor-pointer rounded-3xl border-none bg-transparent px-8 py-3 text-base font-extrabold text-slate-500 transition-[background-color,color,box-shadow,transform] duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1.0)] hover:-translate-y-0.5 hover:bg-white hover:text-indigo-600 hover:shadow-[0_4px_12px_rgba(79,70,229,0.1)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_rgba(37,99,235,0.2)] data-[state=active]:-translate-y-0.5 data-[state=active]:scale-[1.06] data-[state=active]:bg-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-[0_8px_24px_rgba(79,70,229,0.3)] data-[disabled=true]:cursor-not-allowed data-[disabled=true]:text-slate-400",
+            class: "tabs-trigger",
             id: props.id,
             value: props.value,
             index: props.index,
@@ -120,10 +108,7 @@ pub fn TabTrigger(props: TabTriggerProps) -> Element {
 pub fn TabContent(props: TabContentProps) -> Element {
     rsx! {
         tabs::TabContent {
-            class: format!(
-                "{} tabs-content w-full box-border p-1 data-[state=inactive]:hidden",
-                props.class.unwrap_or_default()
-            ),
+            class: props.class.unwrap_or_default() + " tabs-content tabs-content-themed",
             value: props.value,
             id: props.id,
             index: props.index,

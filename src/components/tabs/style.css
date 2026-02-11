@@ -1,0 +1,86 @@
+.tabs {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tabs-list {
+    display: flex;
+    width: fit-content;
+    box-sizing: border-box;
+    flex: 1;
+    flex-direction: row;
+    padding: 0.4rem;
+    border: var(--border-soft);
+    border-radius: var(--radius-full);
+    gap: 0.4rem;
+}
+
+[data-variant="default"] .tabs-list {
+    background: var(--light, var(--primary-color-3)) var(--dark, var(--primary-color-5));
+}
+
+[data-variant="ghost"] .tabs-list {
+    background: rgb(226 232 240 / 70%);
+    border: 1px solid rgb(148 163 184 / 35%);
+    backdrop-filter: blur(2px);
+}
+
+.tabs-trigger {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: var(--radius-full);
+    background: none;
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+[data-variant="default"] .tabs-trigger[data-state="active"] {
+    background-color: var(--light, var(--primary-color)) var(--dark, var(--primary-color-6));
+    box-shadow: var(--dark, inset 0 0 0 1px var(--primary-color-7)) var(--light, 0 1px 2px rgb(0 0 0 / 18%));
+}
+
+[data-variant="ghost"] .tabs-trigger[data-state="active"] {
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 12%), inset 0 0 0 1px rgb(148 163 184 / 25%);
+}
+
+.tabs-trigger[data-state="active"] {
+    color: #0f172a;
+}
+
+.tabs-trigger[data-disabled="true"] {
+    color: var(--secondary-color-5);
+    cursor: not-allowed;
+}
+
+.tabs-trigger:hover:not([data-disabled="true"]),
+.tabs-trigger:focus-visible {
+    color: #0f172a;
+    background: rgb(255 255 255 / 65%);
+}
+
+.tabs-trigger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 20%);
+}
+
+.tabs-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.2rem;
+}
+
+[data-variant="default"] .tabs-content-themed {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.tabs-content[data-state="inactive"] {
+    display: none;
+}
