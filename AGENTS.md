@@ -6,8 +6,10 @@ This project uses [SB Tracker](https://github.com/sirius-cc-wu/sb-tracker) for t
 
 Install `sb` and ensure it is on your `PATH` before using these commands:
 - `pipx install sb-tracker` (recommended for CLI tools)
-- or `pip install sb-tracker`
-- verify with `sb --help`
+- or if `pipx` is unavailable, use:
+  - `python3 -m pip install --user --break-system-packages sb-tracker`
+  - `export PATH="$HOME/.local/bin:$PATH"` (if needed)
+- verify with `sb` or `sb version`
 
 **Agents**: Please use the `sb` command to track work:
 - `sb add "Task title" [priority] [description]` - Create a task
@@ -26,7 +28,7 @@ When using `sb add`, specify priority as a **numeric value** (0-3):
 
 Example: `sb add "Fix critical bug" 0 "This blocks release"`
 
-Run `sb --help` for more commands.
+Run `sb` for command usage.
 
 ### Landing the Plane (Session Completion)
 

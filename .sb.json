@@ -1,3 +1,27 @@
 {
-  "issues": []
+  "issues": [
+    {
+      "id": "sb-1",
+      "title": "Use Tailwind CSS instead of vanilla CSS",
+      "description": "",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T01:14:26.801183",
+          "title": "Use Tailwind CSS instead of vanilla CSS"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T01:25:53.317170",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T01:14:26.801152",
+      "closed_at": "2026-02-12T01:25:53.317206"
+    }
+  ]
 }

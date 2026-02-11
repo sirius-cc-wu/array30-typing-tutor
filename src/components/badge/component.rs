@@ -13,10 +13,10 @@ pub enum BadgeVariant {
 impl BadgeVariant {
     pub fn class(&self) -> &'static str {
         match self {
-            BadgeVariant::Primary => "primary",
-            BadgeVariant::Secondary => "secondary",
-            BadgeVariant::Destructive => "destructive",
-            BadgeVariant::Outline => "outline",
+            BadgeVariant::Primary => "border-white/20 bg-indigo-600 text-white",
+            BadgeVariant::Secondary => "bg-white text-indigo-600",
+            BadgeVariant::Destructive => "border-white/20 bg-red-500 text-white",
+            BadgeVariant::Outline => "border-slate-500 bg-transparent text-slate-500",
         }
     }
 }
@@ -38,23 +38,11 @@ pub struct BadgeProps {
 #[component]
 pub fn Badge(props: BadgeProps) -> Element {
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("./style.css") }
-
-        BadgeElement {
-            "padding": true,
-            variant: props.variant,
-            attributes: props.attributes,
-            {props.children}
-        }
-    }
-}
-
-#[component]
-fn BadgeElement(props: BadgeProps) -> Element {
-    rsx! {
         span {
-            class: "badge",
-            "data-style": props.variant.class(),
+            class: format!(
+                "inline-flex h-7 min-w-5 items-center justify-center gap-1 rounded-full border-2 border-indigo-200/60 px-3 text-[0.78rem] font-extrabold tracking-[0.02em] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] {}",
+                props.variant.class()
+            ),
             ..props.attributes,
             {props.children}
         }

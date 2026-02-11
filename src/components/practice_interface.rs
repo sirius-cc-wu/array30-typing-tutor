@@ -1,7 +1,7 @@
 use crate::components::badge::{Badge, BadgeVariant};
 use crate::components::button::{Button, ButtonVariant};
 use crate::components::card::{
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
+    Card, CardContent, CardDescription, CardHeader, CardTitle,
 };
 use crate::components::progress::{Progress, ProgressIndicator};
 use crate::logic::PracticeSession;
@@ -89,11 +89,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
     rsx! {
         div {
-            class: "practice-layout",
+            class: "grid gap-8",
 
             // Statistics Grid
             div {
-                class: "practice-metrics",
+                class: "grid gap-8 md:grid-cols-3",
                 StatCard { label: "WPM", value: format!("{:.0}", wpm), r#type: "wpm" }
                 StatCard { label: "Accuracy", value: format!("{:.0}%", accuracy), r#type: "accuracy" }
                 StatCard { label: "Level", value: "4/10", r#type: "progress" }
@@ -101,17 +101,17 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             // Typing Exercise Card
             Card {
-                class: "exercise-card",
+                class: "rounded-[2.5rem]",
                 CardHeader {
-                    class: "exercise-header",
+                    class: "grid gap-4 px-6",
                     CardTitle {
-                        class: "exercise-title",
+                        class: "m-0 text-[1.1rem] font-black uppercase tracking-[0.25em] text-slate-500",
                         "Current Exercise"
                     }
                     div {
-                        class: "exercise-meta",
+                        class: "flex items-center justify-between gap-6",
                         CardDescription {
-                            class: "exercise-progress-count",
+                            class: "text-[1.35rem] font-bold text-indigo-600",
                             "{input_char_count} / {target_char_count}"
                         }
                         Badge {
@@ -127,9 +127,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
                 CardContent {
-                    class: "exercise-content",
+                    class: "grid gap-10",
                     div {
-                        class: "typing-area exercise-text",
+                        class: "min-h-[clamp(140px,20vh,220px)] rounded-[2.5rem] bg-white p-12 font-['Atkinson_Hyperlegible','Fira_Code',monospace] text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.5] tracking-[0.04em] shadow-[2px_2px_0px_rgba(30,27,75,0.3)]",
                         {
                             let target = session.read().target_text.clone();
                             let input = user_input.read().clone();
@@ -139,9 +139,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                                 for (i, c) in target.chars().enumerate() {
                                     {
                                         let class = if i < input_chars.len() {
-                                            if input_chars[i] == c { "char-correct" } else { "char-incorrect" }
+                                            if input_chars[i] == c { "font-bold text-indigo-600 [text-shadow:0_0_20px_rgba(79,70,229,0.4)]" } else { "rounded-xl bg-red-500 px-1 text-white shadow-[0_6px_16px_rgba(239,68,68,0.4)]" }
                                         } else {
-                                            "char-untyped"
+                                            "text-slate-500 opacity-30"
                                         };
                                         rsx! { span { key: "{i}", class: "{class}", "{c}" } }
                                     }
@@ -157,7 +157,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
 
                     div {
-                        class: "code-hint-box",
+                        class: "mt-4 flex min-h-24 w-full items-center rounded-[2rem] border-4 border-dashed border-indigo-200/60 bg-indigo-600/[0.02] px-12 py-3 shadow-[inset_6px_6px_15px_rgba(0,0,0,0.015)]",
                         
                         if let Some((c, code)) = next_char_hint {
                             div {
@@ -197,15 +197,15 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                     // Hidden but functional textarea
                     div {
-                        class: "typing-input-wrap",
+                        class: "group relative",
                         textarea {
-                            class: "typing-input",
+                            class: "block min-h-[clamp(120px,22vh,220px)] w-full resize-none appearance-none rounded-[2.5rem] border-none bg-white p-12 font-['Atkinson_Hyperlegible','Fira_Code',monospace] text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.5] tracking-[0.04em] text-indigo-950 shadow-[6px_6px_0px_rgba(30,27,75,0.4)] transition-all duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1.0)] placeholder:text-[1.35rem] placeholder:font-medium placeholder:text-slate-400 focus:-translate-y-1 focus:scale-[1.02] focus:outline-none focus:shadow-[30px_30px_60px_rgba(79,70,229,0.12),0_0_0_6px_rgba(72,72,229,0.2)]",
                             placeholder: "Focus here and start typing...",
                             value: "{user_input}",
                             oninput: handle_input,
                             autofocus: true
                         }
-                        div { class: "typing-input-ring" }
+                        div { class: "pointer-events-none absolute inset-0 rounded-[2.5rem] transition-shadow duration-300 group-focus-within:shadow-[0_0_0_6px_rgba(72,72,229,0.2)]" }
                     }
                 }
 
@@ -213,9 +213,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             // Action Footer (Outside the white card)
             div {
-                class: "exercise-actions",
+                class: "mt-8 flex flex-col items-center justify-center gap-6 bg-transparent px-4 py-6 sm:flex-row sm:px-8 md:px-16",
                 Button {
-                    class: "exercise-primary-action",
+                    class: "h-32 max-w-[800px] flex-[0_1_800px] rounded-[4rem] text-[2.5rem] shadow-[0_16px_0_rgba(154,52,18,1)] active:translate-y-2 active:shadow-[0_8px_0_rgba(154,52,18,1)]",
                     variant: ButtonVariant::Primary,
                     onclick: handle_next,
                     span {
@@ -231,7 +231,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
                 Button {
-                    class: "exercise-secondary-action",
+                    class: "h-32 w-32 flex-[0_0_8rem] rounded-full p-0 shadow-[0_16px_0_rgba(30,27,75,1)] active:translate-y-2 active:shadow-[0_8px_0_rgba(30,27,75,1)]",
                     variant: ButtonVariant::Secondary,
                     onclick: handle_reset,
                     svg {
@@ -251,7 +251,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if session.read().started && !*show_completion.read() {
                 div {
-                    class: "recording-status",
+                    class: "flex justify-center pb-6",
                     Badge {
                         variant: BadgeVariant::Secondary,
                         "Recording session..."
@@ -261,10 +261,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             if *show_completion.read() {
                 div {
-                    class: "completion-banner",
+                    class: "mt-6 animate-[bounce-in_0.6s_cubic-bezier(0.34,1.56,0.64,1.0)] rounded-[2.5rem] border-[5px] border-teal-600 bg-teal-50 p-12 text-center shadow-[0_25px_50px_rgba(13,148,136,0.2)]",
                     div {
-                        h4 { class: "completion-title", "Excellent Accuracy!" }
-                        p { class: "completion-text", "You've mastered this exercise. Save your progress to continue." }
+                        h4 { class: "m-0 text-[2rem] font-bold text-teal-700", "Excellent Accuracy!" }
+                        p { class: "mt-3 text-[1.35rem] font-semibold text-teal-800", "You've mastered this exercise. Save your progress to continue." }
                     }
                 }
             }
@@ -280,7 +280,6 @@ fn CodeDisplay(code: &'static str) -> Element {
     rsx! {
         div {
             class: "flex gap-2 whitespace-nowrap",
-            style: "display: flex; gap: 0.5rem; white-space: nowrap;",
             for c in codes {
                 Badge {
                     variant: BadgeVariant::Secondary,
@@ -296,10 +295,16 @@ fn CodeDisplay(code: &'static str) -> Element {
 fn StatCard(label: &'static str, value: String, r#type: &'static str) -> Element {
     rsx! {
         div {
-            class: "metric-card",
+            class: "flex flex-col items-center justify-center gap-3 rounded-[4rem] bg-white px-6 py-10 text-center shadow-[6px_6px_0px_rgba(72,72,229,0.15),inset_0_10px_20px_rgba(255,255,255,0.9),inset_0_-8px_15px_rgba(72,72,229,0.05)] transition-all duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1.0)] hover:-translate-y-3 hover:scale-[1.04] hover:shadow-[10px_10px_0px_rgba(30,27,75,0.45)]",
             "data-type": r#type,
-            span { class: "metric-card-label", "{label}" }
-            span { class: "metric-card-value", "{value}" }
+            span { class: "text-[0.9rem] font-bold uppercase tracking-[0.1em] text-slate-500", "{label}" }
+            if r#type == "accuracy" {
+                span { class: "text-[2.25rem] font-extrabold leading-none text-emerald-500", "{value}" }
+            } else if r#type == "progress" {
+                span { class: "text-[2.25rem] font-extrabold leading-none text-orange-500", "{value}" }
+            } else {
+                span { class: "text-[2.25rem] font-extrabold leading-none text-indigo-600", "{value}" }
+            }
         }
     }
 }

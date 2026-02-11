@@ -3,7 +3,6 @@ use crate::components::alert_dialog::{
     AlertDialogDescription, AlertDialogRoot, AlertDialogTitle,
 };
 use crate::components::button::{Button, ButtonVariant};
-use crate::components::card::{Card, CardContent};
 use crate::components::separator::Separator;
 use crate::components::tabs::{TabContent, TabList, TabTrigger, Tabs};
 use crate::components::toast::ToastProvider;
@@ -47,20 +46,26 @@ fn AppContent() -> Element {
 
     rsx! {
         main {
-            class: "app-shell",
+            class: "flex h-screen w-screen flex-col overflow-hidden",
 
             div {
-                class: "app-shell-card",
+                class: "flex flex-1 flex-col overflow-x-hidden overflow-y-auto bg-indigo-50 [background-image:radial-gradient(circle_at_20%_20%,rgba(72,72,229,0.06),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(249,115,22,0.05),transparent_50%)]",
                 div {
-                    class: "app-shell-content",
+                    class: "mx-auto grid w-full max-w-[1400px] gap-10 overflow-y-auto bg-transparent px-6 py-8 md:px-16",
 
                     // Header
                     header {
-                        class: "app-header",
+                        class: "flex flex-col items-start justify-between gap-4 pt-4 md:flex-row md:items-end",
 
                         div {
-                            h1 { class: "app-title text-gradient", "Array30" }
-                            p { class: "app-subtitle", "Master the art of typing" }
+                            h1 {
+                                class: "m-0 bg-gradient-to-br from-indigo-950 to-indigo-600 bg-clip-text text-[clamp(3rem,7vw,4rem)] font-bold leading-[0.9] tracking-[-0.06em] text-transparent",
+                                "Array30"
+                            }
+                            p {
+                                class: "mt-4 text-[1.35rem] font-semibold tracking-[-0.02em] text-slate-500",
+                                "Master the art of typing"
+                            }
                         }
                     }
 
@@ -68,7 +73,7 @@ fn AppContent() -> Element {
 
                     // Main Content Area
                     Tabs {
-                        class: "app-tabs",
+                        class: "px-0 md:px-2",
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
 
@@ -95,13 +100,13 @@ fn AppContent() -> Element {
                             index: 1usize,
                             value: AppTab::Statistics.to_string(),
                             div {
-                                class: "stats-tab-content",
+                                class: "grid gap-10",
                                 StatisticsDisplay {
                                     stats: HistoryManager::get_statistics()
                                 }
 
                                 div {
-                                    class: "stats-tab-actions",
+                                    class: "flex flex-col justify-center gap-4 pt-4 sm:flex-row",
                                     Button {
                                         variant: ButtonVariant::Ghost,
                                         onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
