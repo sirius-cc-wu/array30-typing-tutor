@@ -27,7 +27,7 @@ pub fn CardHeader(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "grid auto-rows-min grid-cols-[1fr_auto] grid-rows-[auto_auto] items-start gap-2 px-6",
+        class: "grid auto-rows-min items-start gap-2 px-6",
         "data-slot": "card-header",
     });
     let merged = merge_attributes(vec![base, attributes]);
