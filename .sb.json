@@ -137,6 +137,29 @@
       ],
       "created_at": "2026-02-12T02:25:56.634497",
       "closed_at": "2026-02-12T02:26:48.184308"
+    },
+    {
+      "id": "sb-7",
+      "title": "Fix hint text spacing",
+      "description": "Separate 'Next: <char>' text from 'No code hint' badge in fallback hint row.",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T02:27:58.884550",
+          "title": "Fix hint text spacing"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T02:29:38.622907",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T02:27:58.884525",
+      "closed_at": "2026-02-12T02:29:38.622937"
     }
   ]
 }

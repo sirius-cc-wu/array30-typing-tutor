@@ -180,9 +180,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                                     "Next: "
                                     span { class: "font-black text-slate-900 mx-1", "{c}" }
                                 }
+                                span { " " }
                                 Badge {
                                     variant: BadgeVariant::Outline,
-                                    class: "font-mono text-xs opacity-50 flex-shrink-0",
+                                    class: "ml-3 font-mono text-xs opacity-50 flex-shrink-0",
                                     "No code hint"
                                 }
                             }
