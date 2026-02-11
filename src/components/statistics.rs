@@ -8,13 +8,13 @@ use dioxus::prelude::*;
 pub fn StatisticsDisplay(stats: Statistics) -> Element {
     rsx! {
         div {
-            class: "grid gap-10 px-0 md:px-2",
+            class: "statistics-layout",
 
-            h2 { class: "m-0 text-[2.5rem] font-bold tracking-[-0.05em]", "Performance Overview" }
+            h2 { class: "statistics-title", "Performance Overview" }
 
             if stats.total_sessions > 0 {
                 div {
-                    class: "grid gap-8 md:grid-cols-3",
+                    class: "statistics-grid",
 
                     PremiumStatCard {
                         label: "Total Sessions",
@@ -54,17 +54,17 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                 }
             } else {
                 Card {
-                    class: "rounded-[2rem] p-16",
+                    class: "statistics-empty",
                     CardHeader {
-                        class: "text-center",
-                        CardTitle { class: "m-0 text-[2rem] font-bold", "No data yet" }
+                        class: "statistics-empty-header",
+                        CardTitle { class: "statistics-empty-title", "No data yet" }
                         CardDescription {
-                            class: "mx-auto mt-6 max-w-[45ch] text-[1.25rem] text-slate-500",
+                            class: "statistics-empty-description",
                             "Start your first practice session to see your typing statistics and track your progress over time."
                         }
                     }
                     CardContent {
-                        class: "flex justify-center pt-8",
+                        class: "statistics-empty-badge",
                         Badge {
                             variant: BadgeVariant::Outline,
                             "Waiting for first session"
@@ -80,22 +80,22 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 fn PremiumStatCard(label: &'static str, value: String, subtext: &'static str) -> Element {
     rsx! {
         Card {
-            class: "rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]",
+            class: "statistics-card",
             CardHeader {
-                class: "grid gap-4",
-                div { class: "flex items-center justify-between",
+                class: "statistics-card-header",
+                div { class: "statistics-card-header-row",
                     Badge {
                         variant: BadgeVariant::Secondary,
-                        class: "text-[0.85rem] uppercase tracking-[0.15em]",
+                        class: "statistics-card-label",
                         "{label}"
                     }
                 }
             }
             Separator { horizontal: true }
             CardContent {
-                class: "grid gap-3",
-                h3 { class: "m-0 text-[2.25rem] font-bold leading-tight text-indigo-600", "{value}" }
-                p { class: "m-0 text-base font-semibold text-slate-500", "{subtext}" }
+                class: "statistics-card-content",
+                h3 { class: "statistics-card-value", "{value}" }
+                p { class: "statistics-card-subtext", "{subtext}" }
             }
         }
     }

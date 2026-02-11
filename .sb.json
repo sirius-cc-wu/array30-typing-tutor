@@ -45,6 +45,29 @@
       ],
       "created_at": "2026-02-12T01:29:10.470659",
       "closed_at": "2026-02-12T01:30:03.795786"
+    },
+    {
+      "id": "sb-3",
+      "title": "Restore main-branch UI aesthetic",
+      "description": "Apply visual polish on main branch using vanilla-css look as reference, while preserving current responsive fit.",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T02:00:03.213909",
+          "title": "Restore main-branch UI aesthetic"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T02:01:34.741361",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T02:00:03.213879",
+      "closed_at": "2026-02-12T02:01:34.741392"
     }
   ]
 }
