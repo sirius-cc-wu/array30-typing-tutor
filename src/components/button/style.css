@@ -1,7 +1,7 @@
 .button {
   min-height: 2.75rem;
   padding: 0.5rem 2rem;
-  border: 3px solid var(--color-content-strong);
+  border: none;
   border-radius: var(--radius-full);
   cursor: pointer;
   font-size: 1.1rem;
@@ -43,19 +43,23 @@
 .button[data-style="primary"] {
   background-color: var(--color-brand-warm);
   color: #ffffff;
+  box-shadow: var(--shadow-clay-warm);
 }
 
 .button[data-style="primary"]:hover {
   filter: brightness(1.1);
+  box-shadow: var(--shadow-clay-warm-hover);
 }
 
 .button[data-style="secondary"] {
   background-color: var(--color-brand-primary);
   color: #ffffff;
+  box-shadow: var(--shadow-clay-navy);
 }
 
 .button[data-style="secondary"]:hover {
   filter: brightness(1.1);
+  box-shadow: var(--shadow-clay-navy-hover);
 }
 
 .button[data-style="ghost"] {

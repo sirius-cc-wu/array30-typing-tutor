@@ -94,9 +94,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             // Statistics Grid
             div {
                 class: "practice-metrics",
-                StatCard { label: "WPM", value: format!("{:.1}", wpm), color: "metric-value-speed" }
-                StatCard { label: "Accuracy", value: format!("{:.1}%", accuracy), color: "metric-value-accuracy" }
-                StatCard { label: "Time", value: format!("{}s", stats.elapsed_seconds), color: "metric-value-time" }
+                StatCard { label: "WPM", value: format!("{:.0}", wpm), r#type: "wpm" }
+                StatCard { label: "Accuracy", value: format!("{:.0}%", accuracy), r#type: "accuracy" }
+                StatCard { label: "Level", value: "4/10", r#type: "progress" }
             }
 
             // Typing Exercise Card
@@ -209,23 +209,43 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
 
-                CardFooter {
-                    class: "exercise-actions",
-                    Button {
-                        class: "exercise-primary-action",
-                        variant: if *show_completion.read() {
-                            ButtonVariant::Primary
-                        } else {
-                            ButtonVariant::Ghost
-                        },
-                        onclick: handle_next,
-                        if *show_completion.read() { "Save & Next Challenge" } else { "Skip to Next Exercise" }
+                }
+            }
+
+            // Action Footer (Outside the white card)
+            div {
+                class: "exercise-actions",
+                Button {
+                    class: "exercise-primary-action",
+                    variant: ButtonVariant::Primary,
+                    onclick: handle_next,
+                    span {
+                        style: "display: flex; align-items: center; gap: 1.5rem;",
+                        svg {
+                            width: "48",
+                            height: "48",
+                            view_box: "0 0 24 24",
+                            fill: "currentColor",
+                            path { d: "M8 5v14l11-7z" }
+                        }
+                        if *show_completion.read() { "Save & Next Lesson" } else { "Skip to Next Lesson" }
                     }
-                    Button {
-                        class: "exercise-secondary-action",
-                        variant: ButtonVariant::Primary,
-                        onclick: handle_reset,
-                        "Reset"
+                }
+                Button {
+                    class: "exercise-secondary-action",
+                    variant: ButtonVariant::Secondary,
+                    onclick: handle_reset,
+                    svg {
+                        width: "48",
+                        height: "48",
+                        view_box: "0 0 24 24",
+                        fill: "none",
+                        stroke: "currentColor",
+                        stroke_width: "3",
+                        stroke_linecap: "round",
+                        stroke_linejoin: "round",
+                        path { d: "M23 4v6h-6" }
+                        path { d: "M20.49 15a9 9 0 1 1-2.12-9.36L23 10" }
                     }
                 }
             }
@@ -274,15 +294,13 @@ fn CodeDisplay(code: &'static str) -> Element {
 }
 
 #[component]
-fn StatCard(label: &'static str, value: String, color: &'static str) -> Element {
+fn StatCard(label: &'static str, value: String, r#type: &'static str) -> Element {
     rsx! {
-        Card {
+        div {
             class: "metric-card",
-            CardContent {
-                class: "p-3 text-center",
-                span { class: "metric-label block", "{label}" }
-                span { class: "metric-value {color} block", "{value}" }
-            }
+            "data-type": r#type,
+            span { class: "metric-card-label", "{label}" }
+            span { class: "metric-card-value", "{value}" }
         }
     }
 }

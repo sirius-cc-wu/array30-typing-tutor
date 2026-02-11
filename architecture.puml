@@ -1,0 +1,67 @@
+@startuml Array30 Architecture
+
+package "App Logic" {
+    component [App] as App
+    component [AppContent] as AppContent
+}
+
+package "Providers" {
+    component [ToastProvider] as ToastProvider
+}
+
+package "Shell Layout" {
+    component [App Shell] as Shell
+    component [Header] as Header
+    component [Tabs Navigation] as Tabs
+    component [AlertDialogRoot] as AlertDialog
+}
+
+package "Features" {
+    package "Practice Tab" {
+        component [PracticeInterface] as PI
+        component [Exercise Card] as ExerciseCard
+        component [StatCard] as StatCard
+        component [Progress] as Progress
+        component [CodeDisplay] as CodeDisplay
+    }
+    
+    package "Statistics Tab" {
+        component [StatisticsDisplay] as SD
+        component [PremiumStatCard] as PStatCard
+    }
+}
+
+package "Base Components" {
+    component [Card] as Card
+    component [Badge] as Badge
+    component [Button] as Button
+    component [Separator] as Separator
+}
+
+App --> ToastProvider : "uses"
+ToastProvider --> AppContent : "contains"
+AppContent --> Shell : "renders"
+
+Shell --> Header : "contains"
+Shell --> Tabs : "contains"
+Shell --> AlertDialog : "contains"
+
+Tabs --> PI : "displays (Tab 0)"
+Tabs --> SD : "displays (Tab 1)"
+
+PI --> ExerciseCard : "uses"
+PI --> StatCard : "uses"
+PI --> Progress : "uses"
+PI --> CodeDisplay : "uses"
+
+SD --> PStatCard : "uses"
+
+ExerciseCard --> Card : "extends"
+StatCard --> Card : "extends"
+PStatCard --> Card : "extends"
+
+CodeDisplay --> Badge : "uses"
+PStatCard --> Badge : "uses"
+PStatCard --> Separator : "uses"
+
+@enduml

@@ -76,10 +76,9 @@
 }
 
 [data-variant="default"] .tabs-content-themed {
-    border: var(--border-soft);
-    border-radius: var(--radius-card);
-    background: var(--light, var(--primary-color)) var(--dark, var(--primary-color-3));
-    box-shadow: var(--light, 0 1px 2px rgb(0 0 0 / 18%)) var(--dark, none);
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .tabs-content[data-state="inactive"] {
