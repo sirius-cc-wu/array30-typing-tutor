@@ -1383,10 +1383,6 @@ body {
     display: none;
   }
 
-  .code-hint-box {
-    display: none;
-  }
-
   .metric-card {
     padding: 0.45rem 0.6rem;
   }

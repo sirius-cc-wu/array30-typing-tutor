@@ -114,6 +114,29 @@
       ],
       "created_at": "2026-02-12T02:15:54.099721",
       "closed_at": "2026-02-12T02:21:20.076797"
+    },
+    {
+      "id": "sb-6",
+      "title": "Restore hint visibility",
+      "description": "Code hint area should remain visible on main branch; remove responsive rule hiding it.",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T02:25:56.634524",
+          "title": "Restore hint visibility"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-12T02:26:48.184273",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-12T02:25:56.634497",
+      "closed_at": "2026-02-12T02:26:48.184308"
     }
   ]
 }
