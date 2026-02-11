@@ -209,7 +209,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
 
-                }
             }
 
             // Action Footer (Outside the white card)
