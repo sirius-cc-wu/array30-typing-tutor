@@ -1,0 +1,9 @@
+{
+  "name": "Array30 Typing Tutor",
+  "short_name": "Array30",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "description": "Array30 typing practice and statistics"
+}

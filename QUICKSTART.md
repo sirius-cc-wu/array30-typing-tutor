@@ -1,60 +1,50 @@
 # Quick Start
 
-## Fast Path (Recommended)
+## Flutter Web (Recommended)
 
-1. Install Dioxus CLI once:
+1. Install Flutter SDK.
+2. From the Flutter app directory, fetch packages and run:
 
 ```bash
-cargo install dioxus-cli
+cd flutter_app
+flutter pub get
+flutter run -d chrome
 ```
 
-2. From the repository root, run:
+## Rust Backend (Serve Built Web Assets)
+
+1. Build the Flutter web bundle:
 
 ```bash
-dx serve
+cd flutter_app
+flutter build web
 ```
 
-3. Open the local URL printed by `dx` (typically `http://localhost:8080`).
-
-## Manual Build Path
-
-1. Add WebAssembly target once:
+2. From the repository root, run the Rust server:
 
 ```bash
-rustup target add wasm32-unknown-unknown
+cd ..
+cargo run
 ```
 
-2. Build the app:
+The server will serve `flutter_app/build/web` on `http://127.0.0.1:8080`.
+
+To customize:
 
 ```bash
-cargo build --target wasm32-unknown-unknown
-```
-
-3. If you have build output to serve locally, use any static file server.
-Example:
-
-```bash
-python3 -m http.server 8000
+ASSET_DIR=flutter_app/build/web ADDR=127.0.0.1:8080 cargo run
 ```
 
 ## Troubleshooting
 
-### `dx` command not found
+### Flutter command not found
 
-- Confirm `cargo install dioxus-cli` completed successfully.
-- Ensure Cargo bin directory is on your `PATH` (often `~/.cargo/bin`).
+- Ensure Flutter is installed and on your `PATH`.
 
 ### Port already in use
 
-- `dx serve` usually picks another port automatically.
-- For manual serving, choose another port:
+- Change the `ADDR` environment variable:
 
 ```bash
-python3 -m http.server 9000
+ADDR=127.0.0.1:9090 cargo run
 ```
-
-### Browser loads but app is blank
-
-- Check browser developer console for runtime errors.
-- Restart `dx serve` after dependency changes.
-- Run `cargo check` to confirm Rust-side compilation is clean.

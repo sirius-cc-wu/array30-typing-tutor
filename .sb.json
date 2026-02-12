@@ -68,6 +68,22 @@
       ],
       "created_at": "2026-02-12T02:00:03.213879",
       "closed_at": "2026-02-12T02:01:34.741392"
+    },
+    {
+      "id": "sb-4",
+      "title": "Rewrite Dioxus web UI to Flutter web",
+      "description": "Create Flutter web frontend with functional equivalence; keep backend in Rust; work on new git branch.",
+      "priority": 1,
+      "status": "open",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-12T13:46:52.031891",
+          "title": "Rewrite Dioxus web UI to Flutter web"
+        }
+      ],
+      "created_at": "2026-02-12T13:46:52.031882"
     }
   ]
 }

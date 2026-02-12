@@ -1,8 +1,8 @@
 # Array30 Typing Tutor
 
-Web-based typing tutor for the Array30 input method, built with Rust + Dioxus.
+Web-based typing tutor for the Array30 input method.
 
-The current exercises are Traditional Chinese text samples.
+This branch rewrites the UI in Flutter Web and serves it from a Rust backend.
 
 ## Highlights
 
@@ -10,53 +10,61 @@ The current exercises are Traditional Chinese text samples.
 - Real-time WPM, accuracy, and elapsed time
 - Session history persisted to browser `localStorage`
 - Statistics tab with aggregate progress metrics
-- Modern UI with Tailwind-based styling and official DioxusLabs components
+- Modern UI with Flutter theming and custom styling
 - **Integrated Array30 code hints** sourced from [gontera/array30](https://github.com/gontera/array30)
 
 ## Tech Stack
 
-- Rust (edition 2021)
-- Dioxus `0.7` (web target)
-- `dx` (Dioxus CLI) for development workflow
-- Browser storage via `wasm-bindgen` + `localStorage`
+- Flutter (web UI)
+- Dart 3
+- Rust (Axum static file backend)
+- Browser storage via `shared_preferences` (web localStorage)
 
 ## Project Layout
 
 ```text
-src/
-  main.rs                        # App entry
-  app.rs                         # Root layout + tab navigation
-  logic.rs                       # Practice session state + typing stats
-  storage.rs                     # Session persistence + statistics aggregation
-  components/
-    practice_interface.rs        # Practice workflow UI
-    statistics.rs                # Statistics dashboard UI
-    button/                      # Official DioxusLabs component (scaffolded)
-    card/                        # Official DioxusLabs component (scaffolded)
-assets/
-  styles.css                     # App Tailwind/CSS styles
-  dx-components-theme.css        # Global theme for DioxusLabs components
+flutter_app/                  # Flutter web frontend
+  lib/
+    main.dart                  # App entry + UI
+    models.dart                # Practice session + stats models
+    storage.dart               # Local storage persistence
+    array30_data.dart          # Array30 code mapping (auto-generated)
+  web/                         # Flutter web host page
+src/                           # Rust backend (Axum)
+legacy/dioxus/                 # Previous Dioxus frontend (archived)
 ```
 
 ## Prerequisites
 
+- Flutter SDK
 - Rust toolchain (`rustup`, `cargo`)
-- Dioxus CLI:
+
+## Run Locally (Dev)
+
+### Flutter web dev server
 
 ```bash
-cargo install dioxus-cli
+cd flutter_app
+flutter pub get
+flutter run -d chrome
 ```
 
-## Run Locally
-
-1. Clone and enter the repository.
-2. Start the dev server:
+### Rust backend serving a web build
 
 ```bash
-dx serve
+cd flutter_app
+flutter build web
+
+cd ..
+cargo run
 ```
 
-3. Open the local URL shown by `dx` (usually `http://localhost:8080`).
+By default the Rust backend serves `flutter_app/build/web` at `http://127.0.0.1:8080`.
+You can override the asset path or address:
+
+```bash
+ASSET_DIR=flutter_app/build/web ADDR=127.0.0.1:8080 cargo run
+```
 
 ## Usage
 
@@ -66,34 +74,12 @@ dx serve
    - `WPM`: `(typed_characters / 5) / minutes`
    - `Accuracy`: `correct_characters / total_typed * 100`
    - `Time`: elapsed seconds in the current session
-4. Click `Save & Next Challenge` after completing an exercise.
+4. Click `Save & Next Lesson` after completing an exercise.
 5. Open `Statistics` to review cumulative performance.
 
-## Development Notes
+## Legacy Dioxus Build
 
-- List official UI components:
-
-```bash
-dx components list
-```
-
-- Add official UI components:
-
-```bash
-dx components add <component-name>
-```
-
-- Build/check:
-
-```bash
-cargo check
-```
-
-## Roadmap
-
-- Improve CJK character-count correctness in UI progress/completion logic
-- Add baseline unit tests for logic/statistics
-- Remove existing compiler warnings in storage and style lints
+The prior Rust + Dioxus implementation has been archived under `legacy/dioxus/` for reference.
 
 ## License
 
