@@ -21,7 +21,6 @@ package "Features" {
         component [PracticeInterface] as PI
         component [Exercise Card] as ExerciseCard
         component [StatCard] as StatCard
-        component [Progress] as Progress
         component [CodeDisplay] as CodeDisplay
     }
     
@@ -52,7 +51,6 @@ Tabs --> SD : "displays (Tab 1)"
 
 PI --> ExerciseCard : "uses"
 PI --> StatCard : "uses"
-PI --> Progress : "uses"
 PI --> CodeDisplay : "uses"
 
 SD --> PStatCard : "uses"
