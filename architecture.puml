@@ -41,6 +41,7 @@ package "Base Components" {
 App --> ToastProvider : "uses"
 ToastProvider --> AppContent : "contains"
 AppContent --> Shell : "renders"
+AppContent --> Separator : "uses"
 
 Shell --> Header : "contains"
 Shell --> Tabs : "contains"
@@ -57,7 +58,6 @@ PI --> CodeDisplay : "uses"
 SD --> PStatCard : "uses"
 
 ExerciseCard --> Card : "extends"
-StatCard --> Card : "extends"
 PStatCard --> Card : "extends"
 
 CodeDisplay --> Badge : "uses"
