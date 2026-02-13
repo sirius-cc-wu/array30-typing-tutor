@@ -549,9 +549,8 @@ body {
 
 
 .exercise-content {
-
+  position: relative;
   display: grid;
-
   gap: clamp(0.7rem, 1.5vh, 1.2rem);
 
 }
@@ -639,26 +638,23 @@ body {
 
 
 .typing-input-wrap {
-
-  position: relative;
-
+  position: absolute;
+  inset: 0;
+  z-index: 10;
 }
 
 
 
 .typing-input {
-
   display: block;
-
   width: 100%;
-
-  min-height: clamp(72px, 10vh, 120px);
-  padding: clamp(0.75rem, 1.5vh, 1.3rem);
+  height: 100%;
+  padding: 0;
+  margin: 0;
   border: none;
-
-  border-radius: var(--radius-card);
-
-  background: #ffffff;
+  opacity: 0;
+  cursor: default;
+  background: transparent;
 
   color: var(--color-content-strong);
 
