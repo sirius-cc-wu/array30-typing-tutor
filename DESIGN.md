@@ -16,10 +16,12 @@ The design system follows a **Sticker-Style Modern** aesthetic—characterized b
 *   **Weights:** Headers use Extra Bold (800); Body text uses Bold (700). Uppercase is used for primary buttons to enhance the bold look.
 
 ## 4. Component Stylings
-*   **Buttons:** Pill-shaped (`rounded-full`) with a **3px solid border** and **Hard Shadows**.
+*   **Buttons:** Pill-shaped (`rounded-full`) with **Opaque Clay Shadows** (solid colors with diagonal offset). No borders.
 *   **Cards/Containers:** Rounded (`2.5rem`) with **defined borders** and hard shadows. The outer app shell remains borderless.
 *   **Typing Area:** Flat surface with sharp depth.
 
 ## 5. Layout Principles
 *   **Whitespace:** Focused layouts with generous spatial breathing room.
 *   **Interactions:** Snappy, high-contrast transitions for hover states (e.g., slight translation with shadow shifts).
+*   **Flow:** Minimalist flow keeping focus on the typing task.
+*   **Feedback:** Minimalist feedback. Completion is indicated by button state changes (e.g., "Save & Next") rather than intrusive banners.

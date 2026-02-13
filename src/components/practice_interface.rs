@@ -3,7 +3,7 @@ use crate::components::button::{Button, ButtonVariant};
 use crate::components::card::{
     Card, CardContent, CardDescription, CardHeader, CardTitle,
 };
-use crate::components::progress::{Progress, ProgressIndicator};
+
 use crate::logic::PracticeSession;
 use crate::storage::{HistoryManager, SessionRecord};
 use crate::array30_data;
@@ -74,11 +74,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     let accuracy = stats.accuracy();
     let input_char_count = user_input.read().chars().count();
     let target_char_count = session.read().target_text.chars().count();
-    let progress_value = if target_char_count == 0 {
-        0.0
-    } else {
-        (input_char_count as f64 / target_char_count as f64 * 100.0).min(100.0)
-    };
+
 
     let next_char = session.read().target_text.chars().nth(input_char_count);
     
@@ -150,11 +146,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         }
                     }
 
-                    Progress {
-                        style: "width: 100%",
-                        value: Some(progress_value),
-                        ProgressIndicator {}
-                    }
+
 
                     div {
                         class: "code-hint-box",
@@ -250,6 +242,8 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 }
             }
 
+
+
             if session.read().started && !*show_completion.read() {
                 div {
                     class: "recording-status",
@@ -260,15 +254,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 }
             }
 
-            if *show_completion.read() {
-                div {
-                    class: "completion-banner",
-                    div {
-                        h4 { class: "completion-title", "Excellent Accuracy!" }
-                        p { class: "completion-text", "You've mastered this exercise. Save your progress to continue." }
-                    }
-                }
-            }
+
         }
     }
 }

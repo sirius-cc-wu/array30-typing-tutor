@@ -769,17 +769,24 @@ body {
 
 
 
+
 .exercise-primary-action {
   flex: 0 1 800px;
   height: clamp(3.8rem, 7vh, 5rem);
   font-size: clamp(1.25rem, 2.8vw, 2rem) !important;
   border-radius: 4rem !important;
-  box-shadow: 0 16px 0 rgba(154, 52, 18, 1) !important;
+  box-shadow: 6px 6px 0px rgba(154, 52, 18, 1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.exercise-primary-action:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 10px 10px 0px rgba(154, 52, 18, 1) !important;
 }
 
 .exercise-primary-action:active {
-  transform: translateY(8px) !important;
-  box-shadow: 0 8px 0 rgba(154, 52, 18, 1) !important;
+  transform: translateY(2px) !important;
+  box-shadow: 2px 2px 0px rgba(154, 52, 18, 1) !important;
 }
 
 .exercise-secondary-action {
@@ -788,13 +795,21 @@ body {
   padding: 0 !important;
   border-radius: 50% !important;
   flex: 0 0 clamp(3.8rem, 7vh, 5rem);
-  box-shadow: 0 16px 0 rgba(30, 27, 75, 1) !important;
+  box-shadow: 6px 6px 0px rgba(30, 27, 75, 1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.exercise-secondary-action:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 10px 10px 0px rgba(30, 27, 75, 1) !important;
 }
 
 .exercise-secondary-action:active {
-  transform: translateY(8px) !important;
-  box-shadow: 0 8px 0 rgba(30, 27, 75, 1) !important;
+  transform: translateY(2px) !important;
+  box-shadow: 2px 2px 0px rgba(30, 27, 75, 1) !important;
 }
+
+
 
 
 
@@ -810,69 +825,7 @@ body {
 
 
 
-.completion-banner {
 
-  margin-top: 1.5rem;
-
-  padding: clamp(1rem, 2vh, 1.8rem);
-
-  border: 5px solid var(--color-brand-accent);
-
-  border-radius: 2.5rem;
-
-  background: #f0fdfa;
-
-  box-shadow: 0 25px 50px rgba(13, 148, 136, 0.2);
-
-  text-align: center;
-
-  animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-}
-
-
-
-@keyframes bounce-in {
-
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-}
-
-
-
-.completion-title {
-
-  margin: 0;
-
-  color: #0f766e;
-
-  font-size: clamp(1.35rem, 2.8vw, 1.8rem);
-
-  font-weight: 700;
-
-}
-
-
-
-.completion-text {
-
-  margin: 0.75rem 0 0;
-
-  color: #115e59;
-
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-
-  font-weight: 600;
-
-}
 
 
 
@@ -1359,19 +1312,7 @@ body {
     height: 28px;
   }
 
-  .completion-banner {
-    margin-top: 0.5rem;
-    padding: 0.8rem;
-  }
 
-  .completion-title {
-    font-size: 1.2rem;
-  }
-
-  .completion-text {
-    margin-top: 0.35rem;
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-height: 780px) {
