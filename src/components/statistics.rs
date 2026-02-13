@@ -91,7 +91,7 @@ fn PremiumStatCard(label: &'static str, value: String, subtext: &'static str) ->
                     }
                 }
             }
-            Separator { horizontal: true }
+
             CardContent {
                 class: "statistics-card-content",
                 h3 { class: "statistics-card-value", "{value}" }

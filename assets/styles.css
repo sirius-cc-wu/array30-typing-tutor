@@ -870,6 +870,8 @@ body {
 
   border-radius: 2rem;
 
+  border: none !important;
+
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
 }

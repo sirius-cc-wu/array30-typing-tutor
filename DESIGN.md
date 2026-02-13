@@ -17,7 +17,7 @@ The design system follows a **Sticker-Style Modern** aesthetic—characterized b
 
 ## 4. Component Stylings
 *   **Buttons:** Pill-shaped (`rounded-full`) with **Opaque Clay Shadows** (solid colors with diagonal offset). No borders.
-*   **Cards/Containers:** Rounded (`2.5rem`) with **defined borders** and hard shadows. The outer app shell remains borderless.
+*   **Cards/Containers:** Rounded (`2.5rem`) with **defined borders** (except Statistics cards which are borderless) and hard shadows. The outer app shell remains borderless.
 *   **Typing Area:** Flat surface with sharp depth.
 
 ## 5. Layout Principles
