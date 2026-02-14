@@ -140,20 +140,20 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                         if let Some((c, code)) = next_char_hint {
                             div {
-                                class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
-                                span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
-                                span { "→" }
+                                class: "code-hint-row",
+                                span { class: "code-hint-char", "{c}" }
+                                span { class: "code-hint-arrow", "→" }
                                 CodeDisplay { code: code }
                             }
                         } else if let Some(c) = next_char {
                             div {
-                                class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
-                                span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
+                                class: "code-hint-row",
+                                span { class: "code-hint-char", "{c}" }
                             }
                         } else {
                             // Completed or empty
                             div {
-                                class: "w-full text-center text-slate-300 font-medium text-sm",
+                                class: "code-hint-complete",
                                 "Exercise Complete"
                             }
                         }
@@ -222,7 +222,7 @@ fn CodeDisplay(code: &'static str) -> Element {
 
     rsx! {
         span {
-            class: "font-mono font-bold text-indigo-600 text-lg",
+            class: "code-hint-keycap",
             { codes.join(" / ") }
         }
     }

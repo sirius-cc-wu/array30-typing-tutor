@@ -160,6 +160,29 @@
       ],
       "created_at": "2026-02-12T02:27:58.884525",
       "closed_at": "2026-02-12T02:29:38.622937"
+    },
+    {
+      "id": "sb-8",
+      "title": "Style hint box key code as keycap",
+      "description": "Fix unstyled hint box font and render key code with keycap styling in typing tutor UI",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:04:13.219125",
+          "title": "Style hint box key code as keycap"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:05:10.527188",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:04:13.219100",
+      "closed_at": "2026-02-14T15:05:10.527212"
     }
   ]
 }
