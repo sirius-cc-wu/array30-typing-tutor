@@ -405,6 +405,10 @@ body {
 
 }
 
+.app-top-metrics {
+  padding: 0 clamp(0.25rem, 1.8vw, 1.25rem);
+}
+
 
 
 .metric-card {

@@ -390,6 +390,29 @@
       ],
       "created_at": "2026-02-14T15:53:12.726846",
       "closed_at": "2026-02-14T15:54:17.829408"
+    },
+    {
+      "id": "sb-18",
+      "title": "Reorder top layout: metrics, tabs, title",
+      "description": "Move stats cards to top, tabs below, and title/subtitle below tabs",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:57:30.969859",
+          "title": "Reorder top layout: metrics, tabs, title"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T16:03:17.308802",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:57:30.969834",
+      "closed_at": "2026-02-14T16:03:17.308828"
     }
   ]
 }

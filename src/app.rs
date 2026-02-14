@@ -43,6 +43,11 @@ fn AppContent() -> Element {
     let mut current_tab = use_signal(|| Some(AppTab::Practice.to_string()));
     let mut show_reset_dialog = use_signal(|| false);
     let session = use_signal(PracticeSession::new);
+    let stats = session.read().stats.clone();
+    let wpm = stats.wpm();
+    let accuracy = stats.accuracy();
+    let wpm_text = format!("{wpm:.0}");
+    let accuracy_text = format!("{accuracy:.0}%");
 
     rsx! {
         main {
@@ -53,17 +58,30 @@ fn AppContent() -> Element {
                 div {
                     class: "app-shell-content",
 
-                    // Header
-                    header {
-                        class: "app-header",
+                    Separator { horizontal: true }
 
+                    // Top Stats
+                    div {
+                        class: "practice-metrics app-top-metrics",
                         div {
-                            h1 { class: "app-title text-gradient", "Array30" }
-                            p { class: "app-subtitle", "Master the art of typing" }
+                            class: "metric-card",
+                            "data-type": "wpm",
+                            span { class: "metric-card-label", "WPM" }
+                            span { class: "metric-card-value", "{wpm_text}" }
+                        }
+                        div {
+                            class: "metric-card",
+                            "data-type": "accuracy",
+                            span { class: "metric-card-label", "Accuracy" }
+                            span { class: "metric-card-value", "{accuracy_text}" }
+                        }
+                        div {
+                            class: "metric-card",
+                            "data-type": "progress",
+                            span { class: "metric-card-label", "Level" }
+                            span { class: "metric-card-value", "4/10" }
                         }
                     }
-
-                    Separator { horizontal: true }
 
                     // Main Content Area
                     Tabs {
@@ -84,6 +102,15 @@ fn AppContent() -> Element {
                                     value: AppTab::Statistics.to_string(),
                                     "Statistics"
                                 }
+                            }
+                        }
+
+                        // Title under mode switch
+                        header {
+                            class: "app-header",
+                            div {
+                                h1 { class: "app-title text-gradient", "Array30" }
+                                p { class: "app-subtitle", "Master the art of typing" }
                             }
                         }
 

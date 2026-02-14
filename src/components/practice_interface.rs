@@ -67,9 +67,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
         show_completion.set(false);
     };
 
-    let stats = session.read().stats.clone();
-    let wpm = stats.wpm();
-    let accuracy = stats.accuracy();
     let (next_char, next_char_hint) = {
         let input = user_input.read().clone();
         let target = session.read().target_text.clone();
@@ -91,14 +88,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     rsx! {
         div {
             class: "practice-layout",
-
-            // Statistics Grid
-            div {
-                class: "practice-metrics",
-                StatCard { label: "WPM", value: format!("{:.0}", wpm), r#type: "wpm" }
-                StatCard { label: "Accuracy", value: format!("{:.0}%", accuracy), r#type: "accuracy" }
-                StatCard { label: "Level", value: "4/10", r#type: "progress" }
-            }
 
             // Typing Exercise Area
             div {
@@ -231,18 +220,6 @@ fn CodeDisplay(code: &'static str) -> Element {
         span {
             class: "code-hint-keycap",
             { codes.join(" / ") }
-        }
-    }
-}
-
-#[component]
-fn StatCard(label: &'static str, value: String, r#type: &'static str) -> Element {
-    rsx! {
-        div {
-            class: "metric-card",
-            "data-type": r#type,
-            span { class: "metric-card-label", "{label}" }
-            span { class: "metric-card-value", "{value}" }
         }
     }
 }
