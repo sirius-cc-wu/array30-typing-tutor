@@ -183,6 +183,29 @@
       ],
       "created_at": "2026-02-14T15:04:13.219100",
       "closed_at": "2026-02-14T15:05:10.527212"
+    },
+    {
+      "id": "sb-9",
+      "title": "Fix waiting-state code keycap styling",
+      "description": "Capture screenshot and style Chinese character input code in waiting state as keycap",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:07:47.196509",
+          "title": "Fix waiting-state code keycap styling"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:09:24.474353",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:07:47.196477",
+      "closed_at": "2026-02-14T15:09:24.474381"
     }
   ]
 }

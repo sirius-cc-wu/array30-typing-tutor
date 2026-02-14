@@ -70,14 +70,23 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     let stats = session.read().stats.clone();
     let wpm = stats.wpm();
     let accuracy = stats.accuracy();
-    let input_char_count = user_input.read().chars().count();
+    let (next_char, next_char_hint) = {
+        let input = user_input.read().clone();
+        let target = session.read().target_text.clone();
+        let matched_prefix_count = input
+            .chars()
+            .zip(target.chars())
+            .take_while(|(typed, expected)| typed == expected)
+            .count();
 
-    let next_char = session.read().target_text.chars().nth(input_char_count);
+        let next_char = target.chars().nth(matched_prefix_count);
+        let next_char_hint = next_char.and_then(|c| {
+            // Keep hint anchored on the next expected character while input is composing/mismatched.
+            array30_data::get_array30_code(c).map(|code| (c, code))
+        });
 
-    let next_char_hint = next_char.and_then(|c| {
-        // Show hint for the NEXT character that needs to be typed
-        array30_data::get_array30_code(c).map(|code| (c, code))
-    });
+        (next_char, next_char_hint)
+    };
 
     rsx! {
         div {
