@@ -264,7 +264,7 @@ body {
 
 .app-tabs .tabs-list {
   flex: 0 0 auto;
-  align-self: flex-start;
+  align-self: center;
 }
 
 .app-tabs .tabs-content[data-state="active"] {
