@@ -190,7 +190,7 @@ body {
 
   justify-content: space-between;
 
-  align-items: end;
+  align-items: flex-start;
 
   gap: 2rem;
 
@@ -264,11 +264,11 @@ body {
 
 .mode-switch-shell {
   display: flex;
-  align-self: center;
-  width: min(100%, clamp(28rem, 62vw, 70rem));
-  margin-bottom: clamp(0.75rem, 1.4vh, 1.3rem);
-  padding: 0.35rem;
-  border-radius: 2.2rem;
+  width: min(100%, clamp(16rem, 28vw, 22rem));
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  padding: 0.25rem;
+  border-radius: 1.6rem;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 247, 255, 0.92) 100%);
   box-shadow:
@@ -298,8 +298,8 @@ body {
 
 .app-tabs [role="tablist"] {
   width: 100%;
-  min-height: clamp(3.4rem, 6.2vh, 4rem);
-  border-radius: 2rem;
+  min-height: clamp(2.25rem, 4.2vh, 2.7rem);
+  border-radius: 1.35rem;
 }
 
 
@@ -313,13 +313,13 @@ body {
   color: var(--color-content-muted);
 
   font-weight: 800;
-  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  font-size: clamp(0.88rem, 1.1vw, 0.96rem);
   letter-spacing: 0.01em;
 
-  border-radius: 1.5rem;
+  border-radius: 1.1rem;
 
-  min-height: calc(clamp(3.4rem, 6.2vh, 4rem) - 0.4rem);
-  padding: 0.72rem 1.25rem;
+  min-height: calc(clamp(2.25rem, 4.2vh, 2.7rem) - 0.3rem);
+  padding: 0.35rem 0.7rem;
 
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
@@ -1344,15 +1344,15 @@ body {
   }
 
   .mode-switch-shell {
-    width: min(100%, 40rem);
-    margin-bottom: 0.65rem;
-    padding: 0.28rem;
+    width: min(100%, 18rem);
+    margin-top: 0.1rem;
+    padding: 0.2rem;
   }
 
   .app-tabs [role="tab"] {
-    min-height: calc(3.1rem - 0.35rem);
-    padding: 0.45rem 0.9rem;
-    font-size: 0.98rem;
+    min-height: calc(2.15rem - 0.2rem);
+    padding: 0.3rem 0.6rem;
+    font-size: 0.84rem;
   }
 
   .practice-layout,

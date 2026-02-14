@@ -89,28 +89,27 @@ fn AppContent() -> Element {
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
 
-                        div {
-                            class: "mode-switch-shell",
-                            TabList {
-                                TabTrigger {
-                                    index: 0usize,
-                                    value: AppTab::Practice.to_string(),
-                                    "Practice"
-                                }
-                                TabTrigger {
-                                    index: 1usize,
-                                    value: AppTab::Statistics.to_string(),
-                                    "Statistics"
-                                }
-                            }
-                        }
-
-                        // Title under mode switch
+                        // Title row with mode switch on the right
                         header {
                             class: "app-header",
                             div {
                                 h1 { class: "app-title text-gradient", "Array30" }
                                 p { class: "app-subtitle", "Master the art of typing" }
+                            }
+                            div {
+                                class: "mode-switch-shell",
+                                TabList {
+                                    TabTrigger {
+                                        index: 0usize,
+                                        value: AppTab::Practice.to_string(),
+                                        "Practice"
+                                    }
+                                    TabTrigger {
+                                        index: 1usize,
+                                        value: AppTab::Statistics.to_string(),
+                                        "Statistics"
+                                    }
+                                }
                             }
                         }
 

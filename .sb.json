@@ -413,6 +413,29 @@
       ],
       "created_at": "2026-02-14T15:57:30.969834",
       "closed_at": "2026-02-14T16:03:17.308828"
+    },
+    {
+      "id": "sb-19",
+      "title": "Move mode switch to title row and shrink",
+      "description": "Place Practice/Statistics tabs to the right of Array30 on same row and reduce size",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T16:05:12.407242",
+          "title": "Move mode switch to title row and shrink"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T16:06:54.817018",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T16:05:12.407219",
+      "closed_at": "2026-02-14T16:06:54.817046"
     }
   ]
 }
