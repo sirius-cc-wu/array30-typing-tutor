@@ -459,6 +459,29 @@
       ],
       "created_at": "2026-02-14T16:08:16.733308",
       "closed_at": "2026-02-14T16:11:13.895914"
+    },
+    {
+      "id": "sb-21",
+      "title": "Increase spacing above centered brand header",
+      "description": "Add more vertical space between stats cards and Array30 header while keeping header tied to exercise area",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T16:13:20.866961",
+          "title": "Increase spacing above centered brand header"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T16:14:23.952487",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T16:13:20.866936",
+      "closed_at": "2026-02-14T16:14:23.952521"
     }
   ]
 }
