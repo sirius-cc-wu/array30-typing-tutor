@@ -1,27 +1,63 @@
 # Design System: Array30 Typing Tutor
-**Project ID:** 4643025004616796982
 
-## 1. Visual Theme & Atmosphere
-The design system follows a **Playful Claymorphism** aesthetic—characterized by soft 3D depth, chunky shapes, and a "bubbly" toy-like feel. It uses **Generously Rounded Corners (24px+)**, **Thick Borders (3px)**, and **Double Shadows** to create a tactile, friendly environment.
+## 1. Current Visual Direction
+The implemented UI is a **claymorphic + soft-gradient hybrid**:
+- Large rounded geometry (`--radius-shell: 2.5rem`, `--radius-card: 1.5rem`)
+- High-contrast navy structure for action surfaces
+- Soft layered backgrounds and inset highlights for depth
 
-## 2. Color Palette & Roles
-*   **Energetic Orange (#F97316):** **Primary** CTA color. Used for high-importance actions.
-*   **Indigo Deep (#4848e5):** **Secondary** action color.
-*   **Lavender-Blue Base (#EEF2FF):** Primary background color.
-*   **Deep Navy (#1E1B4B):** Primary text and border color.
-*   **Vibrant Teal (#0D9488):** Success state color.
+The app shell uses a lavender base plus radial accents, while controls use stronger borders/shadows to preserve tactile feedback.
 
-## 3. Typography Rules
-*   **Header & UI Font:** **Plus Jakarta Sans**.
-*   **Weights:** Headers use Extra Bold (800); Body text uses Bold (700). Uppercase is used for primary buttons to enhance the bold look.
+## 2. Design Tokens (Implemented)
+Defined in `assets/styles.css`:
+- `--color-brand-primary: #4848e5`
+- `--color-brand-secondary: #818cf8`
+- `--color-brand-accent: #0d9488`
+- `--color-brand-warm: #f97316`
+- `--color-surface-base: #EEF2FF`
+- `--color-content-strong: #1e1b4b`
+- `--color-content-muted: #6b7280`
 
-## 4. Component Stylings
-*   **Buttons:** Pill-shaped (`rounded-full`) with **3px solid borders** and **Double Shadows** (a hard drop shadow + visible border).
-*   **Cards/Containers:** Rounded (`1.5rem` / 24px) with **3px thick borders** and "toy-like" depth.
-*   **Typing Area:** Deep "inset" look with thick borders to frame the content.
+Shadow system:
+- Clay-style shadows: `--shadow-clay`, `--shadow-clay-warm`, `--shadow-clay-navy`
+- Hover/pressed variants: `--shadow-clay-hover`, `--shadow-clay-warm-hover`, `--shadow-clay-navy-hover`, `--shadow-clay-pressed`
+- Focus ring: `--shadow-focus`
 
-## 5. Layout Principles
-*   **Whitespace:** Focused layouts with generous spatial breathing room.
-*   **Interactions:** Snappy, high-contrast transitions for hover states (e.g., slight translation with shadow shifts).
-*   **Flow:** Minimalist flow keeping focus on the typing task.
-*   **Feedback:** Minimalist feedback. Completion is indicated by button state changes (e.g., "Save & Next") rather than intrusive banners.
+## 3. Typography
+Imported families:
+- `Plus Jakarta Sans` (UI chrome, labels, headings)
+- `Atkinson Hyperlegible` (typing readability)
+- `Fira Code` (code/keycap presentation)
+
+Usage rules in implementation:
+- Main UI text and navigation use `Plus Jakarta Sans`
+- Typing content/input area uses `Atkinson Hyperlegible` with monospace fallback
+- Input hints for Array30 codes use monospace keycaps (`Fira Code` first)
+
+## 4. Component Implementation Notes
+- **Tabs:** pill container with elevated active state and scale/translate micro-motion.
+- **Metrics:** white rounded capsules, soft layered shadows, color-coded values:
+  - WPM -> brand primary
+  - Accuracy -> green
+  - Progress/level -> brand warm
+- **Typing Exercise Text:** framed white surface with muted-untyped, indigo-correct, and red-highlight-incorrect characters.
+- **Actions:**
+  - Primary CTA: wide warm pill with 3px border and warm clay shadow
+  - Secondary CTA: circular navy shadow button
+- **Hint Row:** dedicated hint box below typing area with:
+  - next target character
+  - arrow separator
+  - **keycap-styled Array30 code** (`.code-hint-keycap`)
+
+## 5. Hint and Keycap Behavior
+Current behavior in `src/components/practice_interface.rs`:
+- Hint progression is based on **matched prefix count** (typed chars that match target in order), not raw input length.
+- This keeps the hint anchored to the current expected character during temporary mismatch/composing states.
+- If a code exists, it renders in a keycap style (`.code-hint-keycap`); if no mapping exists, only the target character is shown.
+- Completion state displays a neutral "Exercise Complete" message.
+
+## 6. Responsive Behavior
+Mobile breakpoints reduce hint/keycap sizing and spacing:
+- Smaller `.code-hint-char` and `.code-hint-keycap`
+- Maintains fixed hint box height to avoid layout shifts during typing
+- Action buttons and text scale with `clamp()`-based sizing
