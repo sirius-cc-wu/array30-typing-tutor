@@ -27,16 +27,33 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             (chrono::Utc::now().timestamp_millis() as u64).saturating_sub(*start_time_ms.read());
         session.write().update_input(&value, elapsed);
 
-        let sess = session.read();
-        let target_char_count = sess.target_text.chars().count();
+        let target_text = session.read().target_text.clone();
+        let target_char_count = target_text.chars().count();
         let input_char_count = value.chars().count();
         if target_char_count > 0 {
             let matches_target = input_char_count == target_char_count
                 && value
                     .chars()
-                    .zip(sess.target_text.chars())
+                    .zip(target_text.chars())
                     .all(|(a, b)| a == b);
-            show_completion.set(matches_target);
+            if matches_target {
+                show_completion.set(true);
+                save_current_session(&session.read());
+                toast_api.success(
+                    "Session saved".to_string(),
+                    ToastOptions::new().description("Progress recorded. Loading next challenge."),
+                );
+
+                let mut new_session = session.read().clone();
+                new_session.next_exercise();
+                session.set(new_session);
+
+                user_input.set(String::new());
+                start_time_ms.set(0);
+                show_completion.set(false);
+            } else {
+                show_completion.set(false);
+            }
         } else {
             show_completion.set(false);
         }
