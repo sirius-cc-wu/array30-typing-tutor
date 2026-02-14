@@ -93,6 +93,7 @@ fn AppContent() -> Element {
                         header {
                             class: "app-header",
                             div {
+                                class: "app-brand-block",
                                 h1 { class: "app-title text-gradient", "Array30" }
                                 p { class: "app-subtitle", "Master the art of typing" }
                             }

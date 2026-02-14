@@ -186,16 +186,19 @@ body {
 
 .app-header {
 
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
 
   gap: 2rem;
 
   padding: clamp(0.5rem, 1.2vh, 1rem) clamp(0.25rem, 1.8vw, 1.25rem) 0;
 
+}
+
+.app-brand-block {
+  grid-column: 2;
+  text-align: center;
 }
 
 
@@ -264,8 +267,11 @@ body {
 
 .mode-switch-shell {
   display: flex;
+  grid-column: 3;
+  justify-self: end;
+  align-self: end;
   width: min(100%, clamp(16rem, 28vw, 22rem));
-  margin-top: 0.1rem;
+  margin-top: 0;
   margin-bottom: 0;
   padding: 0.25rem;
   border-radius: 1.6rem;
@@ -1330,6 +1336,10 @@ body {
     padding: 0.25rem 0.5rem 0;
   }
 
+  .app-brand-block {
+    min-width: 0;
+  }
+
   .app-title {
     font-size: clamp(1.6rem, 3.6vh, 2.2rem);
   }
@@ -1345,7 +1355,7 @@ body {
 
   .mode-switch-shell {
     width: min(100%, 18rem);
-    margin-top: 0.1rem;
+    margin-top: 0;
     padding: 0.2rem;
   }
 

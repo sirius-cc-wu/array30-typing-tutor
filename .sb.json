@@ -436,6 +436,29 @@
       ],
       "created_at": "2026-02-14T16:05:12.407219",
       "closed_at": "2026-02-14T16:06:54.817046"
+    },
+    {
+      "id": "sb-20",
+      "title": "Center brand block and lower mode switch",
+      "description": "Center Array30/subtitle and align practice-statistics switch to subtitle height",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T16:08:16.733332",
+          "title": "Center brand block and lower mode switch"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T16:11:13.895886",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T16:08:16.733308",
+      "closed_at": "2026-02-14T16:11:13.895914"
     }
   ]
 }
