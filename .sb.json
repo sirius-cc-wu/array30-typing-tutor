@@ -367,6 +367,29 @@
       ],
       "created_at": "2026-02-14T15:48:43.359623",
       "closed_at": "2026-02-14T15:49:58.931648"
+    },
+    {
+      "id": "sb-17",
+      "title": "Implement true option-2 mode switch",
+      "description": "Create dedicated metric-style container for Practice/Statistics switch with reduced pill emphasis",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:53:12.726875",
+          "title": "Implement true option-2 mode switch"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:54:17.829382",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:53:12.726846",
+      "closed_at": "2026-02-14T15:54:17.829408"
     }
   ]
 }

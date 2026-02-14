@@ -262,10 +262,29 @@ body {
   min-height: 0;
 }
 
-.app-tabs .tabs-list {
-  flex: 0 0 auto;
+.mode-switch-shell {
+  display: flex;
   align-self: center;
-  width: min(100%, clamp(24rem, 44vw, 34rem));
+  width: min(100%, clamp(28rem, 62vw, 70rem));
+  margin-bottom: clamp(0.75rem, 1.4vh, 1.3rem);
+  padding: 0.35rem;
+  border-radius: 2.2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 247, 255, 0.92) 100%);
+  box-shadow:
+    var(--shadow-clay-soft),
+    inset 0 8px 16px rgba(255, 255, 255, 0.95),
+    inset 0 -6px 12px rgba(72, 72, 229, 0.08);
+}
+
+.app-tabs .tabs-list {
+  flex: 1;
+  width: 100%;
+  padding: 0;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .app-tabs .tabs-content[data-state="active"] {
@@ -278,23 +297,9 @@ body {
 
 
 .app-tabs [role="tablist"] {
-
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 255, 0.9) 100%);
-  border: none;
-  border-radius: 2.4rem;
-
   width: 100%;
-  min-height: clamp(3.8rem, 6.8vh, 4.4rem);
-  padding: 0.5rem;
-
-  margin-bottom: clamp(0.7rem, 1.2vh, 1.2rem);
-
-  box-shadow:
-    var(--shadow-clay-soft),
-    inset 0 10px 20px rgba(255, 255, 255, 0.95),
-    inset 0 -8px 16px rgba(72, 72, 229, 0.06);
-
+  min-height: clamp(3.4rem, 6.2vh, 4rem);
+  border-radius: 2rem;
 }
 
 
@@ -311,10 +316,10 @@ body {
   font-size: clamp(1rem, 1.4vw, 1.1rem);
   letter-spacing: 0.01em;
 
-  border-radius: 1.8rem;
+  border-radius: 1.5rem;
 
-  min-height: calc(clamp(3.8rem, 6.8vh, 4.4rem) - 1rem);
-  padding: 0.85rem 1.5rem;
+  min-height: calc(clamp(3.4rem, 6.2vh, 4rem) - 0.4rem);
+  padding: 0.72rem 1.25rem;
 
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
@@ -323,14 +328,14 @@ body {
 .app-tabs [role="tab"][data-state="active"] {
 
   color: #ffffff;
-  background-color: #4f46e5 !important;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
   border-color: transparent;
 
   box-shadow:
-    0 10px 24px rgba(79, 70, 229, 0.28),
+    0 7px 16px rgba(79, 70, 229, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
 
-  transform: scale(1.03) translateY(-1px);
+  transform: translateY(-1px);
 
 }
 
@@ -340,9 +345,9 @@ body {
 
   background-color: #ffffff;
 
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 
-  box-shadow: 0 5px 14px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 3px 10px rgba(79, 70, 229, 0.1);
 
 }
 
@@ -1331,14 +1336,18 @@ body {
   }
 
   .app-tabs [role="tablist"] {
-    margin-bottom: 0.6rem;
-    min-height: 3.45rem;
-    padding: 0.35rem;
+    min-height: 3.1rem;
+  }
+
+  .mode-switch-shell {
+    width: min(100%, 40rem);
+    margin-bottom: 0.65rem;
+    padding: 0.28rem;
   }
 
   .app-tabs [role="tab"] {
-    min-height: calc(3.45rem - 0.7rem);
-    padding: 0.5rem 1rem;
+    min-height: calc(3.1rem - 0.35rem);
+    padding: 0.45rem 0.9rem;
     font-size: 0.98rem;
   }
 

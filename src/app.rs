@@ -71,16 +71,19 @@ fn AppContent() -> Element {
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
 
-                        TabList {
-                            TabTrigger {
-                                index: 0usize,
-                                value: AppTab::Practice.to_string(),
-                                "Practice"
-                            }
-                            TabTrigger {
-                                index: 1usize,
-                                value: AppTab::Statistics.to_string(),
-                                "Statistics"
+                        div {
+                            class: "mode-switch-shell",
+                            TabList {
+                                TabTrigger {
+                                    index: 0usize,
+                                    value: AppTab::Practice.to_string(),
+                                    "Practice"
+                                }
+                                TabTrigger {
+                                    index: 1usize,
+                                    value: AppTab::Statistics.to_string(),
+                                    "Statistics"
+                                }
                             }
                         }
 
