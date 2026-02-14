@@ -141,7 +141,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         if let Some((c, code)) = next_char_hint {
                             div {
                                 class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
-                                span { "Next:" }
                                 span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
                                 span { "→" }
                                 CodeDisplay { code: code }
@@ -149,9 +148,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         } else if let Some(c) = next_char {
                             div {
                                 class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
-                                span { "Next:" }
                                 span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
-                                span { class: "text-slate-300 italic text-sm ml-2", "(No code hint)" }
                             }
                         } else {
                             // Completed or empty
