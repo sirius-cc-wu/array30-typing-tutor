@@ -258,16 +258,23 @@
       "title": "Center practice/statistics tabs",
       "description": "Move tab list to horizontal center in practice view",
       "priority": 2,
-      "status": "open",
+      "status": "closed",
       "depends_on": [],
       "events": [
         {
           "type": "created",
           "timestamp": "2026-02-14T15:25:24.402054",
           "title": "Center practice/statistics tabs"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:25:44.647176",
+          "old": "open",
+          "new": "closed"
         }
       ],
-      "created_at": "2026-02-14T15:25:24.402026"
+      "created_at": "2026-02-14T15:25:24.402026",
+      "closed_at": "2026-02-14T15:25:44.647203"
     }
   ]
 }
