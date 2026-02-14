@@ -229,6 +229,29 @@
       ],
       "created_at": "2026-02-14T15:11:14.248276",
       "closed_at": "2026-02-14T15:11:56.231130"
+    },
+    {
+      "id": "sb-11",
+      "title": "Pin practice action buttons to bottom",
+      "description": "Keep next/reset buttons anchored to viewport bottom by expanding exercise text area/layout",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:16:59.952174",
+          "title": "Pin practice action buttons to bottom"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:19:10.101928",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:16:59.952150",
+      "closed_at": "2026-02-14T15:19:10.101959"
     }
   ]
 }

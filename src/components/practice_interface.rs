@@ -169,6 +169,16 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 }
             }
 
+            if session.read().started && !*show_completion.read() {
+                div {
+                    class: "recording-status",
+                    Badge {
+                        variant: BadgeVariant::Secondary,
+                        "Recording session..."
+                    }
+                }
+            }
+
             // Action Footer (Outside the white card)
             div {
                 class: "exercise-actions",
@@ -203,18 +213,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         stroke_linejoin: "round",
                         path { d: "M23 4v6h-6" }
                         path { d: "M20.49 15a9 9 0 1 1-2.12-9.36L23 10" }
-                    }
-                }
-            }
-
-
-
-            if session.read().started && !*show_completion.read() {
-                div {
-                    class: "recording-status",
-                    Badge {
-                        variant: BadgeVariant::Secondary,
-                        "Recording session..."
                     }
                 }
             }
