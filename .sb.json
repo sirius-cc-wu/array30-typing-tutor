@@ -298,6 +298,29 @@
       ],
       "created_at": "2026-02-14T15:36:56.803285",
       "closed_at": "2026-02-14T15:37:28.447680"
+    },
+    {
+      "id": "sb-14",
+      "title": "Reduce commit message noise in AGENTS.md",
+      "description": "Update commit rules to use descriptive subjects and avoid sb-id/sync tracker subject noise",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:40:51.910490",
+          "title": "Reduce commit message noise in AGENTS.md"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:41:17.304016",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:40:51.910463",
+      "closed_at": "2026-02-14T15:41:17.304042"
     }
   ]
 }
