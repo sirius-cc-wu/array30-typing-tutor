@@ -482,6 +482,29 @@
       ],
       "created_at": "2026-02-14T16:13:20.866936",
       "closed_at": "2026-02-14T16:14:23.952521"
+    },
+    {
+      "id": "sb-22",
+      "title": "Increase stats-to-header gap further",
+      "description": "Add more vertical space between top stats row and centered brand header",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T16:16:18.030751",
+          "title": "Increase stats-to-header gap further"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T16:17:31.759643",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T16:16:18.030725",
+      "closed_at": "2026-02-14T16:17:31.759668"
     }
   ]
 }
