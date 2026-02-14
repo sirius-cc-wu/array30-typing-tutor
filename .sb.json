@@ -321,6 +321,29 @@
       ],
       "created_at": "2026-02-14T15:40:51.910463",
       "closed_at": "2026-02-14T15:41:17.304042"
+    },
+    {
+      "id": "sb-15",
+      "title": "Enlarge practice/statistics segmented tabs",
+      "description": "Implement option 1: larger tab control with stronger active state and better visual balance",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:46:28.806205",
+          "title": "Enlarge practice/statistics segmented tabs"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:47:22.290417",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:46:28.806179",
+      "closed_at": "2026-02-14T15:47:22.290442"
     }
   ]
 }
