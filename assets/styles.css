@@ -558,6 +558,24 @@ body {
 
 
 
+.exercise-container {
+
+  display: grid;
+
+  gap: clamp(1rem, 1.8vh, 1.5rem);
+
+}
+
+
+
+.typing-area-wrapper {
+
+  position: relative;
+
+}
+
+
+
 .exercise-badges {
 
   display: flex;
@@ -594,7 +612,7 @@ body {
 
   background: #ffffff;
 
-  box-shadow: var(--shadow-clay-pressed);
+  box-shadow: var(--shadow-clay-soft);
 
 }
 
@@ -696,26 +714,14 @@ body {
 
 
 .code-hint-box {
-
   display: flex;
-
   align-items: center;
-
+  justify-content: center;
   width: 100%;
-
-  min-height: clamp(3rem, 6vh, 4rem);
-  padding: 0 clamp(0.8rem, 2vw, 2rem);
-
-  background: rgba(79, 70, 229, 0.02);
-
-  border-radius: 2rem;
-
-  border: 4px dashed rgba(79, 70, 229, 0.15);
-
-  box-shadow: inset 6px 6px 15px rgba(0, 0, 0, 0.015);
-
-  margin-top: 1rem;
-
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  /* Fixed height to prevent layout shifts */
 }
 
 
@@ -1286,10 +1292,11 @@ body {
   }
 
   .code-hint-box {
-    min-height: 2.2rem;
-    padding: 0 0.75rem;
-    border-width: 2px;
+    height: 2.5rem;
+    padding: 0;
     margin-top: 0.35rem;
+    /* Ensure no border/padding override on small screens */
+    border: none;
   }
 
   .exercise-actions {

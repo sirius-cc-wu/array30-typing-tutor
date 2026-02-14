@@ -1,12 +1,9 @@
 use crate::components::badge::{Badge, BadgeVariant};
 use crate::components::button::{Button, ButtonVariant};
-use crate::components::card::{
-    Card, CardContent, CardDescription, CardHeader, CardTitle,
-};
 
+use crate::array30_data;
 use crate::logic::PracticeSession;
 use crate::storage::{HistoryManager, SessionRecord};
-use crate::array30_data;
 use dioxus::prelude::*;
 use dioxus_primitives::toast::{use_toast, ToastOptions};
 
@@ -26,7 +23,8 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             start_time_ms.set(chrono::Utc::now().timestamp_millis() as u64);
         }
 
-        let elapsed = (chrono::Utc::now().timestamp_millis() as u64).saturating_sub(*start_time_ms.read());
+        let elapsed =
+            (chrono::Utc::now().timestamp_millis() as u64).saturating_sub(*start_time_ms.read());
         session.write().update_input(&value, elapsed);
 
         let sess = session.read();
@@ -73,11 +71,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
     let wpm = stats.wpm();
     let accuracy = stats.accuracy();
     let input_char_count = user_input.read().chars().count();
-    let target_char_count = session.read().target_text.chars().count();
-
 
     let next_char = session.read().target_text.chars().nth(input_char_count);
-    
+
     let next_char_hint = next_char.and_then(|c| {
         // Show hint for the NEXT character that needs to be typed
         array30_data::get_array30_code(c).map(|code| (c, code))
@@ -95,35 +91,13 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 StatCard { label: "Level", value: "4/10", r#type: "progress" }
             }
 
-            // Typing Exercise Card
-            Card {
-                class: "exercise-card",
-                CardHeader {
-                    class: "exercise-header",
-                    CardTitle {
-                        class: "exercise-title",
-                        "Current Exercise"
-                    }
-                    div {
-                        class: "exercise-meta",
-                        CardDescription {
-                            class: "exercise-progress-count",
-                            "{input_char_count} / {target_char_count}"
-                        }
-                        Badge {
-                            variant: if *show_completion.read() { BadgeVariant::Primary } else { BadgeVariant::Secondary },
-                            if *show_completion.read() { "Ready to save" } else { "In progress" }
-                        }
-                        if stats.errors > 0 {
-                            Badge {
-                                variant: BadgeVariant::Destructive,
-                                {format!("{} errors", stats.errors)}
-                            }
-                        }
-                    }
-                }
-                CardContent {
-                    class: "exercise-content",
+            // Typing Exercise Area
+            div {
+                class: "exercise-container",
+
+                // Typing Area Wrapper
+                div {
+                    class: "typing-area-wrapper",
                     div {
                         class: "typing-area exercise-text",
                         {
@@ -146,48 +120,6 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         }
                     }
 
-
-
-                    div {
-                        class: "code-hint-box",
-                        
-                        if let Some((c, code)) = next_char_hint {
-                            div {
-                                class: "w-full flex items-center justify-between gap-4 overflow-hidden",
-                                span {
-                                    class: "font-bold text-indigo-900",
-                                    "Next: Array30 Code for "
-                                    span { class: "font-black mx-1", "{c}" }
-                                }
-                                div {
-                                    class: "overflow-x-auto",
-                                    CodeDisplay { code: code }
-                                }
-                            }
-                        } else if let Some(c) = next_char {
-                            div {
-                                class: "w-full flex items-center justify-between gap-4 overflow-hidden",
-                                span {
-                                    class: "font-bold text-slate-500",
-                                    "Next: "
-                                    span { class: "font-black text-slate-900 mx-1", "{c}" }
-                                }
-                                span { " " }
-                                Badge {
-                                    variant: BadgeVariant::Outline,
-                                    class: "ml-3 font-mono text-xs opacity-50 flex-shrink-0",
-                                    "No code hint"
-                                }
-                            }
-                        } else {
-                            // Completed or empty
-                            div {
-                                class: "w-full flex items-center justify-center text-slate-400 font-bold",
-                                "Exercise Complete"
-                            }
-                        }
-                    }
-
                     // Hidden but functional textarea
                     div {
                         class: "typing-input-wrap",
@@ -202,6 +134,33 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
 
+                // Hint Box
+                div {
+                    class: "code-hint-box",
+
+                        if let Some((c, code)) = next_char_hint {
+                            div {
+                                class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
+                                span { "Next:" }
+                                span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
+                                span { "→" }
+                                CodeDisplay { code: code }
+                            }
+                        } else if let Some(c) = next_char {
+                            div {
+                                class: "flex flex-row items-center gap-2 text-slate-400 font-medium whitespace-nowrap text-base",
+                                span { "Next:" }
+                                span { class: "font-bold text-slate-700 text-xl px-1", "{c}" }
+                                span { class: "text-slate-300 italic text-sm ml-2", "(No code hint)" }
+                            }
+                        } else {
+                            // Completed or empty
+                            div {
+                                class: "w-full text-center text-slate-300 font-medium text-sm",
+                                "Exercise Complete"
+                            }
+                        }
+                }
             }
 
             // Action Footer (Outside the white card)
@@ -263,18 +222,11 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 fn CodeDisplay(code: &'static str) -> Element {
     // Split codes by pipe if multiple
     let codes: Vec<&str> = code.split('|').collect();
-    
+
     rsx! {
-        div {
-            class: "flex gap-2 whitespace-nowrap",
-            style: "display: flex; gap: 0.5rem; white-space: nowrap;",
-            for c in codes {
-                Badge {
-                    variant: BadgeVariant::Secondary,
-                    class: "font-mono text-xs",
-                    "{c}"
-                }
-            }
+        span {
+            class: "font-mono font-bold text-indigo-600 text-lg",
+            { codes.join(" / ") }
         }
     }
 }
