@@ -212,16 +212,23 @@
       "title": "Sync DESIGN.md with implementation",
       "description": "Update design doc to match current typing hint and keycap behavior",
       "priority": 2,
-      "status": "open",
+      "status": "closed",
       "depends_on": [],
       "events": [
         {
           "type": "created",
           "timestamp": "2026-02-14T15:11:14.248304",
           "title": "Sync DESIGN.md with implementation"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:11:56.231100",
+          "old": "open",
+          "new": "closed"
         }
       ],
-      "created_at": "2026-02-14T15:11:14.248276"
+      "created_at": "2026-02-14T15:11:14.248276",
+      "closed_at": "2026-02-14T15:11:56.231130"
     }
   ]
 }
