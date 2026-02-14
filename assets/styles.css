@@ -357,6 +357,10 @@ body {
 
 }
 
+.reset-progress-action {
+  border: none !important;
+}
+
 
 
 .practice-layout {
@@ -861,7 +865,7 @@ body {
   height: clamp(3.8rem, 7vh, 5rem);
   font-size: clamp(1.25rem, 2.8vw, 2rem) !important;
   border-radius: 4rem !important;
-  border: 3px solid var(--color-content-strong) !important;
+  border: none !important;
   box-shadow: var(--shadow-clay-warm) !important;
   transition: all 0.2s ease !important;
 }
@@ -882,7 +886,7 @@ body {
   padding: 0 !important;
   border-radius: 50% !important;
   flex: 0 0 clamp(3.8rem, 7vh, 5rem);
-  border: 3px solid var(--color-content-strong) !important;
+  border: none !important;
   box-shadow: var(--shadow-clay-navy) !important;
   transition: all 0.2s ease !important;
 }

@@ -275,6 +275,29 @@
       ],
       "created_at": "2026-02-14T15:25:24.402026",
       "closed_at": "2026-02-14T15:25:44.647203"
+    },
+    {
+      "id": "sb-13",
+      "title": "Remove borders from action buttons",
+      "description": "Remove borders from Next Lesson, Reset, and Reset All Progress buttons",
+      "priority": 2,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-14T15:36:56.803309",
+          "title": "Remove borders from action buttons"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-14T15:37:28.447655",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-14T15:36:56.803285",
+      "closed_at": "2026-02-14T15:37:28.447680"
     }
   ]
 }

@@ -107,6 +107,7 @@ fn AppContent() -> Element {
                                         "Back to Practice"
                                     }
                                     Button {
+                                        class: "reset-progress-action",
                                         variant: ButtonVariant::Primary,
                                         onclick: move |_| show_reset_dialog.set(true),
                                         "Reset All Progress"
