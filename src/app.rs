@@ -29,7 +29,7 @@ impl std::fmt::Display for AppTab {
 
 pub fn app() -> Element {
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("../assets/styles.css") }
+        document::Link { rel: "stylesheet", href: asset!("../assets/tailwind.css") }
         ToastProvider {
             AppContent {}
         }
@@ -50,124 +50,121 @@ fn AppContent() -> Element {
 
     rsx! {
         main {
-            class: "min-h-screen bg-base-200 text-base-content",
+            class: "app-shell text-base-content",
+
+            div { class: "app-bg" }
 
             div {
                 class: "mx-auto w-full max-w-6xl p-4 md:p-8",
                 div {
-                    class: "card bg-base-100 shadow-xl",
-                    div {
-                        class: "card-body gap-6",
+                    class: "bg-base-100/80 backdrop-blur-xl border border-white/40 shadow-xl rounded-[2rem] p-6 md:p-8 space-y-8",
+                    Tabs {
+                        class: "w-full",
+                        value: current_tab,
+                        on_value_change: move |value| current_tab.set(Some(value)),
+
+                        // Header + Tabs
+                        div {
+                            class: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
+                            div {
+                                class: "space-y-2",
+                                p { class: "text-xs font-bold uppercase tracking-[0.3em] text-primary/70", "Lesson 4" }
+                                h1 { class: "text-4xl md:text-5xl font-extrabold tracking-tight", "Array30 Practice" }
+                                p { class: "text-base text-base-content/70", "Master the art of typing with playful momentum." }
+                            }
+                            TabList {
+                                class: "tabs-boxed w-fit bg-white/80 shadow-md p-1 rounded-full",
+                                TabTrigger {
+                                    class: "tab px-6 py-2 font-semibold",
+                                    index: 0usize,
+                                    value: AppTab::Practice.to_string(),
+                                    "Practice"
+                                }
+                                TabTrigger {
+                                    class: "tab px-6 py-2 font-semibold",
+                                    index: 1usize,
+                                    value: AppTab::Statistics.to_string(),
+                                    "Statistics"
+                                }
+                            }
+                        }
 
                         // Top Stats
                         div {
-                            class: "stats stats-vertical lg:stats-horizontal shadow-sm border border-base-200",
+                            class: "grid gap-4 md:grid-cols-3",
                             div {
-                                class: "stat",
-                                div { class: "stat-title", "WPM" }
-                                div { class: "stat-value text-primary", "{wpm_text}" }
+                                class: "bg-white rounded-2xl shadow-sm border-b-4 border-primary/30 p-4 text-center",
+                                p { class: "text-xs font-bold uppercase text-primary/80", "WPM" }
+                                p { class: "text-3xl font-black text-base-content", "{wpm_text}" }
                             }
                             div {
-                                class: "stat",
-                                div { class: "stat-title", "Accuracy" }
-                                div { class: "stat-value text-success", "{accuracy_text}" }
+                                class: "bg-white rounded-2xl shadow-sm border-b-4 border-accent/60 p-4 text-center",
+                                p { class: "text-xs font-bold uppercase text-accent/90", "Accuracy" }
+                                p { class: "text-3xl font-black text-primary", "{accuracy_text}" }
                             }
                             div {
-                                class: "stat",
-                                div { class: "stat-title", "Level" }
-                                div { class: "stat-value text-warning", "4/10" }
+                                class: "bg-white rounded-2xl shadow-sm border-b-4 border-primary/30 p-4 text-center",
+                                p { class: "text-xs font-bold uppercase text-primary/80", "Level" }
+                                p { class: "text-3xl font-black text-base-content", "4/10" }
                             }
                         }
 
-                        Separator { horizontal: true }
+                        TabContent {
+                            class: "mt-2",
+                            index: 0usize,
+                            value: AppTab::Practice.to_string(),
+                            PracticeInterface { session: session }
+                        }
 
-                        // Main Content Area
-                        Tabs {
-                            class: "w-full",
-                            value: current_tab,
-                            on_value_change: move |value| current_tab.set(Some(value)),
-
-                            header {
-                                class: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
-                                div {
-                                    class: "space-y-2",
-                                    h1 { class: "text-4xl font-semibold tracking-tight", "Array30" }
-                                    p { class: "text-base text-base-content/70", "Master the art of typing" }
+                        TabContent {
+                            class: "mt-2",
+                            index: 1usize,
+                            value: AppTab::Statistics.to_string(),
+                            div {
+                                class: "space-y-6",
+                                StatisticsDisplay {
+                                    stats: HistoryManager::get_statistics()
                                 }
-                                TabList {
-                                    class: "tabs-boxed w-fit",
-                                    TabTrigger {
-                                        class: "tab",
-                                        index: 0usize,
-                                        value: AppTab::Practice.to_string(),
-                                        "Practice"
-                                    }
-                                    TabTrigger {
-                                        class: "tab",
-                                        index: 1usize,
-                                        value: AppTab::Statistics.to_string(),
-                                        "Statistics"
-                                    }
-                                }
-                            }
 
-                            TabContent {
-                                class: "mt-6",
-                                index: 0usize,
-                                value: AppTab::Practice.to_string(),
-                                PracticeInterface { session: session }
-                            }
-
-                            TabContent {
-                                class: "mt-6",
-                                index: 1usize,
-                                value: AppTab::Statistics.to_string(),
                                 div {
-                                    class: "space-y-6",
-                                    StatisticsDisplay {
-                                        stats: HistoryManager::get_statistics()
+                                    class: "flex flex-wrap gap-3",
+                                    Button {
+                                        variant: ButtonVariant::Ghost,
+                                        onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
+                                        "Back to Practice"
                                     }
-
-                                    div {
-                                        class: "flex flex-wrap gap-3",
-                                        Button {
-                                            variant: ButtonVariant::Ghost,
-                                            onclick: move |_| current_tab.set(Some(AppTab::Practice.to_string())),
-                                            "Back to Practice"
-                                        }
-                                        Button {
-                                            variant: ButtonVariant::Primary,
-                                            onclick: move |_| show_reset_dialog.set(true),
-                                            "Reset All Progress"
-                                        }
+                                    Button {
+                                        variant: ButtonVariant::Primary,
+                                        onclick: move |_| show_reset_dialog.set(true),
+                                        "Reset All Progress"
                                     }
                                 }
                             }
                         }
+                    }
 
-                        AlertDialogRoot {
-                            open: show_reset_dialog(),
-                            on_open_change: move |open| show_reset_dialog.set(open),
-                            AlertDialogContent {
-                                AlertDialogTitle { class: "text-lg font-semibold", "Reset all progress?" }
-                                AlertDialogDescription {
-                                    class: "text-sm text-base-content/70",
-                                    "This will permanently remove all saved practice sessions and statistics."
-                                }
-                                AlertDialogActions {
-                                    AlertDialogCancel { "Cancel" }
-                                    AlertDialogAction {
-                                        on_click: move |_| {
-                                            HistoryManager::clear_history();
-                                            current_tab.set(Some(AppTab::Practice.to_string()));
-                                            toast_api.warning(
-                                                "All progress has been reset.".to_string(),
-                                                ToastOptions::new().description("Your local history was cleared.")
-                                            );
-                                            show_reset_dialog.set(false);
-                                        },
-                                        "Reset Everything"
-                                    }
+                    AlertDialogRoot {
+                        open: show_reset_dialog(),
+                        on_open_change: move |open| show_reset_dialog.set(open),
+                        AlertDialogContent {
+                            AlertDialogTitle { class: "text-lg font-semibold", "Reset all progress?" }
+                            AlertDialogDescription {
+                                class: "text-sm text-base-content/70",
+                                "This will permanently remove all saved practice sessions and statistics."
+                            }
+                            AlertDialogActions {
+                                AlertDialogCancel { "Cancel" }
+                                AlertDialogAction {
+                                    on_click: move |_| {
+                                        HistoryManager::clear_history();
+                                        current_tab.set(Some(AppTab::Practice.to_string()));
+                                        toast_api.warning(
+                                            "All progress has been reset.".to_string(),
+                                            ToastOptions::new().description("Your local history was cleared.")
+                                        );
+                                        show_reset_dialog.set(false);
+                                    },
+                                    "Reset Everything"
                                 }
                             }
                         }

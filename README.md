@@ -34,8 +34,9 @@ src/
     statistics.rs                # Statistics dashboard UI
     button/                      # Official DioxusLabs component (scaffolded)
     card/                        # Official DioxusLabs component (scaffolded)
+tailwind.css                     # Tailwind input + custom CSS
 assets/
-  styles.css                     # App Tailwind/CSS styles
+  tailwind.css                   # Generated Tailwind output (via dx)
 tailwind.config.js               # Tailwind + DaisyUI config
 package.json                     # Tailwind/DaisyUI dev dependencies
 ```
@@ -92,6 +93,14 @@ dx components add <component-name>
 ```bash
 cargo check
 ```
+
+## DaisyUI + Tailwind Version Constraint
+
+DaisyUI v4 targets **Tailwind v3** and does **not** work with Tailwind v4. The Dioxus CLI auto-selects Tailwind v4 if it can't find a `tailwind.config.js` near the input file. To keep DaisyUI working:
+
+- Keep `tailwind.config.js` at the repository root.
+- Use `tailwind.css` at the repository root as the Tailwind input.
+- Let `dx` generate `assets/tailwind.css` as the output.
 
 ## Roadmap
 

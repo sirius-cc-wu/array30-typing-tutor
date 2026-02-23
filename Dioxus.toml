@@ -1,9 +1,8 @@
 [application]
 name = "array30_typing_tutor"
 title = "Array30 Typing Tutor"
+tailwind_input = "tailwind.css"
+tailwind_output = "assets/tailwind.css"
 
 [web.styles]
-style = ["assets/styles.css"]
-
-[web.tailwind]
-input = "assets/styles.css"
+style = ["assets/tailwind.css"]

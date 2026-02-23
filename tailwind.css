@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  --p: 15 90% 55%;
+  --pc: 0 0% 100%;
+  --s: 15 90% 55%;
+  --sc: 0 0% 100%;
+  --a: 45 100% 60%;
+  --ac: 35 95% 16%;
+  --n: 220 15% 18%;
+  --nc: 0 0% 100%;
+  --b1: 20 17.6% 96.7%;
+  --b2: 20 20% 95%;
+  --b3: 20 16% 90%;
+  --bc: 220 15% 16%;
+  --rounded-box: 1.25rem;
+  --rounded-btn: 9999px;
+  --rounded-badge: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 20% 20%, rgba(244, 89, 37, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(255, 204, 51, 0.2), transparent 40%),
+    hsl(var(--b1));
+  color: hsl(var(--bc));
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.app-bg::before,
+.app-bg::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.5;
+}
+
+.app-bg::before {
+  width: 55vw;
+  height: 55vw;
+  background: rgba(244, 89, 37, 0.35);
+  top: -20vw;
+  right: -20vw;
+}
+
+.app-bg::after {
+  width: 45vw;
+  height: 45vw;
+  background: rgba(255, 204, 51, 0.3);
+  bottom: -20vw;
+  left: -15vw;
+}
+
+.tab[data-state="active"],
+.tab[aria-selected="true"] {
+  background-color: hsl(var(--p));
+  color: hsl(var(--pc));
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(244, 89, 37, 0.2);
+}
+
+.typing-area {
+  min-height: 14rem;
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+  border: 1px solid hsl(var(--b3));
+  background: hsl(var(--b1));
+  font-size: 1.15rem;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  word-break: break-word;
+}
+
+.typing-input {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+.char-untyped {
+  color: hsl(var(--bc) / 0.45);
+}
+
+.char-correct {
+  color: hsl(var(--p));
+}
+
+.char-incorrect {
+  color: hsl(var(--p));
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.code-hint-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.code-hint-char {
+  font-size: 2.4rem;
+  color: hsl(var(--p));
+}
+
+.code-hint-arrow {
+  opacity: 0.6;
+}
+
+.code-hint-keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.85rem;
+  border: 2px solid hsl(var(--a));
+  background: hsl(var(--b1));
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: hsl(var(--bc));
+}
+
+.code-hint-complete {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: hsl(var(--bc) / 0.6);
+}
+
+@media (max-width: 640px) {
+  .typing-area {
+    font-size: 1rem;
+    padding: 1.25rem;
+  }
+
+  .code-hint-row {
+    font-size: 1.4rem;
+  }
+
+  .code-hint-char {
+    font-size: 1.9rem;
+  }
+}

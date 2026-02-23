@@ -95,9 +95,23 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                 // Typing Area Wrapper
                 div {
-                    class: "card bg-base-100 shadow",
+                    class: "bg-white rounded-3xl shadow-lg border border-primary/10 p-6 relative",
                     div {
-                        class: "card-body gap-4",
+                        class: "space-y-6",
+                        div {
+                            class: "flex items-center justify-between",
+                            div {
+                                class: "flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary",
+                                span { class: "inline-flex h-2 w-2 rounded-full bg-primary" }
+                                "Live Practice"
+                            }
+                            if session.read().started && !*show_completion.read() {
+                                Badge {
+                                    variant: BadgeVariant::Secondary,
+                                    "Recording session..."
+                                }
+                            }
+                        }
                         div {
                             class: "typing-area",
                             {
@@ -124,7 +138,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         div {
                             class: "form-control",
                             textarea {
-                                class: "textarea textarea-bordered h-32 w-full typing-input",
+                                class: "textarea textarea-bordered h-32 w-full typing-input text-base",
                                 placeholder: "Focus here and start typing...",
                                 value: "{user_input}",
                                 oninput: handle_input,
@@ -136,10 +150,10 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                 // Hint Box
                 div {
-                    class: "card bg-base-100 shadow",
+                    class: "bg-accent/15 border-2 border-dashed border-accent/60 rounded-3xl p-6 flex flex-col justify-between gap-6",
                     div {
-                        class: "card-body gap-4",
-                        h3 { class: "text-sm font-semibold uppercase tracking-wide text-base-content/60", "Next Key" }
+                        class: "space-y-2",
+                        h3 { class: "text-xs font-bold uppercase tracking-[0.25em] text-base-content/60", "Next Key Hint" }
                         if let Some((c, code)) = next_char_hint {
                             div {
                                 class: "code-hint-row",
@@ -160,15 +174,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                             }
                         }
                     }
-                }
-            }
-
-            if session.read().started && !*show_completion.read() {
-                div {
-                    class: "flex items-center gap-2 text-sm text-base-content/70",
-                    Badge {
-                        variant: BadgeVariant::Secondary,
-                        "Recording session..."
+                    div {
+                        class: "rounded-2xl bg-white/80 border border-accent/40 px-4 py-3 text-xs font-bold uppercase tracking-widest text-base-content/70 text-center",
+                        "Array30 Code"
                     }
                 }
             }
@@ -177,7 +185,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
             div {
                 class: "flex flex-wrap items-center gap-3",
                 Button {
-                    class: "btn-lg",
+                    class: "btn-lg shadow-lg shadow-primary/30 text-lg px-8",
                     variant: ButtonVariant::Primary,
                     onclick: handle_next,
                     span {
@@ -193,7 +201,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
                 Button {
-                    class: "btn-lg btn-square",
+                    class: "btn-lg btn-circle shadow-md",
                     variant: ButtonVariant::Secondary,
                     onclick: handle_reset,
                     svg {
