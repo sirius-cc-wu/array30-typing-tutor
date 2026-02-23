@@ -1,4 +1,6 @@
 use dioxus::prelude::*;
+use dioxus_primitives::dioxus_attributes::attributes;
+use dioxus_primitives::merge_attributes;
 use dioxus_primitives::tabs::{self, TabContentProps, TabListProps, TabTriggerProps};
 
 /// The props for the [`Tabs`] component.
@@ -45,6 +47,7 @@ pub struct TabsProps {
 
 /// The variant of the tabs component.
 #[derive(Clone, Copy, PartialEq, Default)]
+#[allow(dead_code)]
 pub enum TabsVariant {
     /// The default variant.
     #[default]
@@ -53,23 +56,11 @@ pub enum TabsVariant {
     Ghost,
 }
 
-impl TabsVariant {
-    /// Convert the variant to a string for use in class names
-    fn to_class(self) -> &'static str {
-        match self {
-            TabsVariant::Default => "default",
-            TabsVariant::Ghost => "ghost",
-        }
-    }
-}
-
 #[component]
 pub fn Tabs(props: TabsProps) -> Element {
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("./style.css") }
         tabs::Tabs {
-            class: props.class + " tabs",
-            "data-variant": props.variant.to_class(),
+            class: props.class,
             value: props.value,
             default_value: props.default_value,
             on_value_change: props.on_value_change,
@@ -84,16 +75,24 @@ pub fn Tabs(props: TabsProps) -> Element {
 
 #[component]
 pub fn TabList(props: TabListProps) -> Element {
+    let base = attributes!(div { class: "tabs" });
+    let merged = merge_attributes(vec![base, props.attributes]);
+
     rsx! {
-        tabs::TabList { class: "tabs-list", attributes: props.attributes, {props.children} }
+        tabs::TabList { attributes: merged, {props.children} }
     }
 }
 
 #[component]
 pub fn TabTrigger(props: TabTriggerProps) -> Element {
+    let class = match props.class {
+        Some(class) if !class.is_empty() => format!("tab {class}"),
+        _ => "tab".to_string(),
+    };
+
     rsx! {
         tabs::TabTrigger {
-            class: "tabs-trigger",
+            class: class,
             id: props.id,
             value: props.value,
             index: props.index,
@@ -106,9 +105,14 @@ pub fn TabTrigger(props: TabTriggerProps) -> Element {
 
 #[component]
 pub fn TabContent(props: TabContentProps) -> Element {
+    let class = match props.class {
+        Some(class) if !class.is_empty() => format!("mt-6 {class}"),
+        _ => "mt-6".to_string(),
+    };
+
     rsx! {
         tabs::TabContent {
-            class: props.class.unwrap_or_default() + " tabs-content tabs-content-themed",
+            class: class,
             value: props.value,
             id: props.id,
             index: props.index,

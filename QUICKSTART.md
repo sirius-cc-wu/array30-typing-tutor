@@ -11,6 +11,7 @@ cargo install dioxus-cli
 2. From the repository root, run:
 
 ```bash
+npm install
 dx serve
 ```
 

@@ -1,9 +1,9 @@
 .toast-container {
   position: fixed;
   z-index: 9999;
-  right: 20px;
-  bottom: 20px;
-  max-width: 350px;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 360px;
 }
 
 .toast-list {
@@ -22,22 +22,18 @@
   z-index: calc(var(--toast-count) - var(--toast-index));
   display: flex;
   overflow: hidden;
-  width: 18rem;
-  height: 4rem;
+  width: 20rem;
+  min-height: 4rem;
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  border: 1px solid var(--light, var(--primary-color-6))
-    var(--dark, var(--primary-color-7));
-  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--b3));
+  border-radius: 1rem;
   margin-top: -4rem;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
-  filter: var(--light, none)
-    var(
-      --dark,
-      brightness(calc(0.5 + 0.5 * (1 - ((var(--toast-index) + 1) / 4))))
-    );
+  box-shadow: 0 10px 24px hsl(var(--bc) / 0.12);
+  background: hsl(var(--b1));
+  color: hsl(var(--bc));
   opacity: calc(1 - var(--toast-hidden));
   transform: scale(
     calc(100% - var(--toast-index) * 5%),
@@ -126,29 +122,28 @@
 .toast-container:hover .toast,
 .toast-container:focus-within .toast {
   margin-top: var(--toast-padding);
-  filter: brightness(1);
   opacity: 1;
   transform: scale(calc(100%));
 }
 
 .toast[data-type="success"] {
-  background-color: var(--primary-success-color);
-  color: var(--secondary-success-color);
+  background-color: hsl(var(--su));
+  color: hsl(var(--suc));
 }
 
 .toast[data-type="error"] {
-  background-color: var(--primary-error-color);
-  color: var(--contrast-error-color);
+  background-color: hsl(var(--er));
+  color: hsl(var(--erc));
 }
 
 .toast[data-type="warning"] {
-  background-color: var(--primary-warning-color);
-  color: var(--secondary-warning-color);
+  background-color: hsl(var(--wa));
+  color: hsl(var(--wac));
 }
 
 .toast[data-type="info"] {
-  background-color: var(--primary-info-color);
-  color: var(--secondary-info-color);
+  background-color: hsl(var(--in));
+  color: hsl(var(--inc));
 }
 
 .toast-content {
@@ -159,12 +154,10 @@
 
 .toast-title {
   margin-bottom: 4px;
-  color: var(--secondary-color-4);
   font-weight: 600;
 }
 
 .toast-description {
-  color: var(--secondary-color-3);
   font-size: 0.875rem;
 }
 
@@ -174,12 +167,12 @@
   border: none;
   margin: 0;
   background: none;
-  color: var(--secondary-color-3);
+  color: currentColor;
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
 }
 
 .toast-close:hover {
-  color: var(--secondary-color-1);
+  opacity: 0.7;
 }

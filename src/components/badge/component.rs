@@ -1,7 +1,10 @@
 use dioxus::prelude::*;
+use dioxus_primitives::dioxus_attributes::attributes;
+use dioxus_primitives::merge_attributes;
 
 #[derive(Copy, Clone, PartialEq, Default)]
 #[non_exhaustive]
+#[allow(dead_code)]
 pub enum BadgeVariant {
     #[default]
     Primary,
@@ -13,10 +16,10 @@ pub enum BadgeVariant {
 impl BadgeVariant {
     pub fn class(&self) -> &'static str {
         match self {
-            BadgeVariant::Primary => "primary",
-            BadgeVariant::Secondary => "secondary",
-            BadgeVariant::Destructive => "destructive",
-            BadgeVariant::Outline => "outline",
+            BadgeVariant::Primary => "badge-primary",
+            BadgeVariant::Secondary => "badge-secondary",
+            BadgeVariant::Destructive => "badge-error",
+            BadgeVariant::Outline => "badge-outline",
         }
     }
 }
@@ -38,10 +41,7 @@ pub struct BadgeProps {
 #[component]
 pub fn Badge(props: BadgeProps) -> Element {
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("./style.css") }
-
         BadgeElement {
-            "padding": true,
             variant: props.variant,
             attributes: props.attributes,
             {props.children}
@@ -51,11 +51,14 @@ pub fn Badge(props: BadgeProps) -> Element {
 
 #[component]
 fn BadgeElement(props: BadgeProps) -> Element {
+    let base = attributes!(span {
+        class: format!("badge {}", props.variant.class()),
+    });
+    let merged = merge_attributes(vec![base, props.attributes]);
+
     rsx! {
         span {
-            class: "badge",
-            "data-style": props.variant.class(),
-            ..props.attributes,
+            ..merged,
             {props.children}
         }
     }
@@ -71,7 +74,7 @@ pub fn VerifiedIcon() -> Element {
             width: "12",
             height: "12",
             fill: "none",
-            stroke: "var(--secondary-color-4)",
+            stroke: "currentColor",
             stroke_linecap: "round",
             stroke_linejoin: "round",
             stroke_width: 2,

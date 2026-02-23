@@ -8,13 +8,12 @@ pub fn Card(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card",
+        class: "card bg-base-100 shadow",
         "data-slot": "card",
     });
     let merged = merge_attributes(vec![base, attributes]);
 
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("./style.css") }
         div {
             ..merged,
             {children}
@@ -28,7 +27,7 @@ pub fn CardHeader(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card-header",
+        class: "card-body pb-0",
         "data-slot": "card-header",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -66,7 +65,7 @@ pub fn CardDescription(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card-description",
+        class: "text-sm text-base-content/70",
         "data-slot": "card-description",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -85,7 +84,7 @@ pub fn CardAction(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card-action",
+        class: "card-actions",
         "data-slot": "card-action",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -104,7 +103,7 @@ pub fn CardContent(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card-content",
+        class: "card-body pt-0",
         "data-slot": "card-content",
     });
     let merged = merge_attributes(vec![base, attributes]);
@@ -123,7 +122,7 @@ pub fn CardFooter(
     children: Element,
 ) -> Element {
     let base = attributes!(div {
-        class: "card-footer",
+        class: "card-actions justify-end",
         "data-slot": "card-footer",
     });
     let merged = merge_attributes(vec![base, attributes]);

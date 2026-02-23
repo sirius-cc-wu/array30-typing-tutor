@@ -8,13 +8,13 @@ use dioxus::prelude::*;
 pub fn StatisticsDisplay(stats: Statistics) -> Element {
     rsx! {
         div {
-            class: "statistics-layout",
+            class: "space-y-6",
 
-            h2 { class: "statistics-title", "Performance Overview" }
+            h2 { class: "text-2xl font-semibold", "Performance Overview" }
 
             if stats.total_sessions > 0 {
                 div {
-                    class: "statistics-grid",
+                    class: "grid gap-4 md:grid-cols-2 xl:grid-cols-3",
 
                     PremiumStatCard {
                         label: "Total Sessions",
@@ -54,17 +54,14 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
                 }
             } else {
                 Card {
-                    class: "statistics-empty",
+                    class: "border border-dashed border-base-300",
                     CardHeader {
-                        class: "statistics-empty-header",
-                        CardTitle { class: "statistics-empty-title", "No data yet" }
+                        CardTitle { "No data yet" }
                         CardDescription {
-                            class: "statistics-empty-description",
                             "Start your first practice session to see your typing statistics and track your progress over time."
                         }
                     }
                     CardContent {
-                        class: "statistics-empty-badge",
                         Badge {
                             variant: BadgeVariant::Outline,
                             "Waiting for first session"
@@ -80,13 +77,10 @@ pub fn StatisticsDisplay(stats: Statistics) -> Element {
 fn PremiumStatCard(label: &'static str, value: String, subtext: &'static str) -> Element {
     rsx! {
         Card {
-            class: "statistics-card",
             CardHeader {
-                class: "statistics-card-header",
-                div { class: "statistics-card-header-row",
+                div { class: "flex items-center justify-between",
                     Badge {
                         variant: BadgeVariant::Secondary,
-                        class: "statistics-card-label",
                         "{label}"
                     }
                 }
@@ -94,9 +88,8 @@ fn PremiumStatCard(label: &'static str, value: String, subtext: &'static str) ->
 
             Separator { horizontal: true }
             CardContent {
-                class: "statistics-card-content",
-                h3 { class: "statistics-card-value", "{value}" }
-                p { class: "statistics-card-subtext", "{subtext}" }
+                h3 { class: "text-2xl font-semibold", "{value}" }
+                p { class: "text-sm text-base-content/70", "{subtext}" }
             }
         }
     }

@@ -4,6 +4,7 @@ use dioxus_primitives::merge_attributes;
 
 #[derive(Copy, Clone, PartialEq, Default)]
 #[non_exhaustive]
+#[allow(dead_code)]
 pub enum ButtonVariant {
     #[default]
     Primary,
@@ -16,11 +17,11 @@ pub enum ButtonVariant {
 impl ButtonVariant {
     pub fn class(&self) -> &'static str {
         match self {
-            ButtonVariant::Primary => "primary",
-            ButtonVariant::Secondary => "secondary",
-            ButtonVariant::Destructive => "destructive",
-            ButtonVariant::Outline => "outline",
-            ButtonVariant::Ghost => "ghost",
+            ButtonVariant::Primary => "btn-primary",
+            ButtonVariant::Secondary => "btn-secondary",
+            ButtonVariant::Destructive => "btn-error",
+            ButtonVariant::Outline => "btn-outline",
+            ButtonVariant::Ghost => "btn-ghost",
         }
     }
 }
@@ -37,14 +38,11 @@ pub fn Button(
     children: Element,
 ) -> Element {
     let base = attributes!(button {
-        class: "button",
-        "data-style": variant.class(),
+        class: "btn",
     });
-    let merged = merge_attributes(vec![base, attributes]);
+    let merged = merge_attributes(vec![base, attributes!(button { class: variant.class() }), attributes]);
 
     rsx! {
-        document::Link { rel: "stylesheet", href: asset!("./style.css") }
-
         button {
             onclick: move |event| {
                 if let Some(f) = &onclick {

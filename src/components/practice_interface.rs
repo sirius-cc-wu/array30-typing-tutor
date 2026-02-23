@@ -87,55 +87,59 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
     rsx! {
         div {
-            class: "practice-layout",
+            class: "space-y-6",
 
             // Typing Exercise Area
             div {
-                class: "exercise-container",
+                class: "grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]",
 
                 // Typing Area Wrapper
                 div {
-                    class: "typing-area-wrapper",
+                    class: "card bg-base-100 shadow",
                     div {
-                        class: "typing-area exercise-text",
-                        {
-                            let target = session.read().target_text.clone();
-                            let input = user_input.read().clone();
-                            let input_chars: Vec<char> = input.chars().collect();
+                        class: "card-body gap-4",
+                        div {
+                            class: "typing-area",
+                            {
+                                let target = session.read().target_text.clone();
+                                let input = user_input.read().clone();
+                                let input_chars: Vec<char> = input.chars().collect();
 
-                            rsx! {
-                                for (i, c) in target.chars().enumerate() {
-                                    {
-                                        let class = if i < input_chars.len() {
-                                            if input_chars[i] == c { "char-correct" } else { "char-incorrect" }
-                                        } else {
-                                            "char-untyped"
-                                        };
-                                        rsx! { span { key: "{i}", class: "{class}", "{c}" } }
+                                rsx! {
+                                    for (i, c) in target.chars().enumerate() {
+                                        {
+                                            let class = if i < input_chars.len() {
+                                                if input_chars[i] == c { "char-correct" } else { "char-incorrect" }
+                                            } else {
+                                                "char-untyped"
+                                            };
+                                            rsx! { span { key: "{i}", class: "{class}", "{c}" } }
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    // Hidden but functional textarea
-                    div {
-                        class: "typing-input-wrap",
-                        textarea {
-                            class: "typing-input",
-                            placeholder: "Focus here and start typing...",
-                            value: "{user_input}",
-                            oninput: handle_input,
-                            autofocus: true
+                        // Hidden but functional textarea
+                        div {
+                            class: "form-control",
+                            textarea {
+                                class: "textarea textarea-bordered h-32 w-full typing-input",
+                                placeholder: "Focus here and start typing...",
+                                value: "{user_input}",
+                                oninput: handle_input,
+                                autofocus: true
+                            }
                         }
-                        div { class: "typing-input-ring" }
                     }
                 }
 
                 // Hint Box
                 div {
-                    class: "code-hint-box",
-
+                    class: "card bg-base-100 shadow",
+                    div {
+                        class: "card-body gap-4",
+                        h3 { class: "text-sm font-semibold uppercase tracking-wide text-base-content/60", "Next Key" }
                         if let Some((c, code)) = next_char_hint {
                             div {
                                 class: "code-hint-row",
@@ -155,12 +159,13 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                                 "Exercise Complete"
                             }
                         }
+                    }
                 }
             }
 
             if session.read().started && !*show_completion.read() {
                 div {
-                    class: "recording-status",
+                    class: "flex items-center gap-2 text-sm text-base-content/70",
                     Badge {
                         variant: BadgeVariant::Secondary,
                         "Recording session..."
@@ -170,16 +175,16 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             // Action Footer (Outside the white card)
             div {
-                class: "exercise-actions",
+                class: "flex flex-wrap items-center gap-3",
                 Button {
-                    class: "exercise-primary-action",
+                    class: "btn-lg",
                     variant: ButtonVariant::Primary,
                     onclick: handle_next,
                     span {
-                        style: "display: flex; align-items: center; gap: 1.5rem;",
+                        class: "flex items-center gap-4",
                         svg {
-                            width: "48",
-                            height: "48",
+                            width: "24",
+                            height: "24",
                             view_box: "0 0 24 24",
                             fill: "currentColor",
                             path { d: "M8 5v14l11-7z" }
@@ -188,12 +193,12 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                     }
                 }
                 Button {
-                    class: "exercise-secondary-action",
+                    class: "btn-lg btn-square",
                     variant: ButtonVariant::Secondary,
                     onclick: handle_reset,
                     svg {
-                        width: "48",
-                        height: "48",
+                        width: "24",
+                        height: "24",
                         view_box: "0 0 24 24",
                         fill: "none",
                         stroke: "currentColor",

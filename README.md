@@ -10,7 +10,7 @@ The current exercises are Traditional Chinese text samples.
 - Real-time WPM, accuracy, and elapsed time
 - Session history persisted to browser `localStorage`
 - Statistics tab with aggregate progress metrics
-- Modern UI with Tailwind-based styling and official DioxusLabs components
+- Modern UI with Tailwind + DaisyUI styling and DioxusLabs components
 - **Integrated Array30 code hints** sourced from [gontera/array30](https://github.com/gontera/array30)
 
 ## Tech Stack
@@ -18,6 +18,7 @@ The current exercises are Traditional Chinese text samples.
 - Rust (edition 2021)
 - Dioxus `0.7` (web target)
 - `dx` (Dioxus CLI) for development workflow
+- Tailwind CSS + DaisyUI (light theme)
 - Browser storage via `wasm-bindgen` + `localStorage`
 
 ## Project Layout
@@ -35,7 +36,8 @@ src/
     card/                        # Official DioxusLabs component (scaffolded)
 assets/
   styles.css                     # App Tailwind/CSS styles
-  dx-components-theme.css        # Global theme for DioxusLabs components
+tailwind.config.js               # Tailwind + DaisyUI config
+package.json                     # Tailwind/DaisyUI dev dependencies
 ```
 
 ## Prerequisites
@@ -46,6 +48,7 @@ assets/
 ```bash
 cargo install dioxus-cli
 ```
+ - Node.js (for Tailwind + DaisyUI build tooling)
 
 ## Run Locally
 
@@ -53,6 +56,7 @@ cargo install dioxus-cli
 2. Start the dev server:
 
 ```bash
+npm install
 dx serve
 ```
 
