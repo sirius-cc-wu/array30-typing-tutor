@@ -152,6 +152,22 @@ body {
 
 .typing-input {
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  resize: none;
+  border: 1px solid hsl(var(--b3));
+  border-radius: 9999px;
+  background: hsl(var(--b1));
+  padding: 1rem 1.25rem;
+  line-height: 1.5;
+  outline: none;
+  box-shadow: none;
+}
+
+.typing-input:focus,
+.typing-input:focus-visible {
+  border-color: hsl(var(--p) / 0.55);
+  outline: 2px solid hsl(var(--p) / 0.2);
+  outline-offset: 0;
+  box-shadow: none;
 }
 
 .char-untyped {

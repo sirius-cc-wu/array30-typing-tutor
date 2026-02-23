@@ -2251,10 +2251,6 @@ input.tab:checked + .tab-content,
   background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
 }
 
-.textarea-bordered{
-  border-color: var(--fallback-bc,oklch(var(--bc)/0.2));
-}
-
 .textarea:focus{
   box-shadow: none;
   border-color: var(--fallback-bc,oklch(var(--bc)/0.2));
@@ -2674,8 +2670,8 @@ input.tab:checked + .tab-content,
   max-width: 72rem;
 }
 
-.resize-none{
-  resize: none;
+.resize{
+  resize: both;
 }
 
 .flex-col{
@@ -3027,6 +3023,10 @@ input.tab:checked + .tab-content,
   --tw-shadow: var(--tw-shadow-colored);
 }
 
+.outline{
+  outline-style: solid;
+}
+
 .blur{
   --tw-blur: blur(8px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -3189,6 +3189,22 @@ body {
 
 .typing-input {
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  resize: none;
+  border: 1px solid hsl(var(--b3));
+  border-radius: 9999px;
+  background: hsl(var(--b1));
+  padding: 1rem 1.25rem;
+  line-height: 1.5;
+  outline: none;
+  box-shadow: none;
+}
+
+.typing-input:focus,
+.typing-input:focus-visible {
+  border-color: hsl(var(--p) / 0.55);
+  outline: 2px solid hsl(var(--p) / 0.2);
+  outline-offset: 0;
+  box-shadow: none;
 }
 
 .char-untyped {
