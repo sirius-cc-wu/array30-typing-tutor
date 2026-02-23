@@ -91,6 +91,29 @@
       ],
       "created_at": "2026-02-24T02:51:25.204054",
       "closed_at": "2026-02-24T02:52:38.731926"
+    },
+    {
+      "id": "sb-5",
+      "title": "Make typing textarea shrink with viewport",
+      "description": "Replace fixed textarea height with responsive clamp sizing so page fit changes actually reduce input area",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-24T02:56:19.816115",
+          "title": "Make typing textarea shrink with viewport"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-24T02:57:21.205528",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-24T02:56:19.816088",
+      "closed_at": "2026-02-24T02:57:21.205551"
     }
   ],
   "meta": {

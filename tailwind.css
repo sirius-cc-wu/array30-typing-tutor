@@ -152,6 +152,8 @@ body {
 
 .typing-input {
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  min-height: clamp(5rem, 12vh, 7.5rem);
+  max-height: clamp(6rem, 18vh, 9rem);
   resize: none;
   border: 1px solid hsl(var(--b3));
   border-radius: 9999px;
@@ -227,6 +229,12 @@ body {
   .typing-area {
     font-size: 1rem;
     padding: 1.25rem;
+  }
+
+  .typing-input {
+    min-height: clamp(4.25rem, 10vh, 6rem);
+    max-height: clamp(5rem, 14vh, 7rem);
+    padding: 0.8rem 1rem;
   }
 
   .code-hint-row {

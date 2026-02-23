@@ -155,7 +155,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                         div {
                             class: "form-control pb-2",
                             textarea {
-                                class: "h-32 w-full typing-input text-base",
+                                class: "w-full typing-input text-base",
                                 placeholder: "Focus here and start typing...",
                                 value: "{user_input}",
                                 oninput: handle_input,
