@@ -114,6 +114,29 @@
       ],
       "created_at": "2026-02-24T02:56:19.816088",
       "closed_at": "2026-02-24T02:57:21.205551"
+    },
+    {
+      "id": "sb-6",
+      "title": "Keep typing input fully inside white card",
+      "description": "Reproduce overflow at constrained viewport and enforce textarea containment within practice card",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-24T02:58:47.380095",
+          "title": "Keep typing input fully inside white card"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-24T03:02:11.667434",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-24T02:58:47.380070",
+      "closed_at": "2026-02-24T03:02:11.667461"
     }
   ],
   "meta": {

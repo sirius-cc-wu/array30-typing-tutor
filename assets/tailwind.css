@@ -3095,6 +3095,8 @@ body {
   min-height: 0;
   overflow-y: auto;
   padding-right: 0.25rem;
+  padding-bottom: 0.75rem;
+  scroll-padding-bottom: 1rem;
 }
 
 .practice-root {
@@ -3102,6 +3104,7 @@ body {
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  padding-bottom: 0.25rem;
 }
 
 .practice-main-grid {
@@ -3113,11 +3116,13 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
 }
 
 .practice-card-body {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   min-height: 0;
 }
 
@@ -3271,6 +3276,33 @@ body {
 
   .code-hint-char {
     font-size: 1.9rem;
+  }
+}
+
+@media (max-height: 760px) {
+  .practice-main-grid {
+    gap: 1rem;
+  }
+
+  .practice-card {
+    padding: 1rem;
+  }
+
+  .practice-card-body {
+    gap: 0.75rem;
+  }
+
+  .typing-area {
+    min-height: clamp(4rem, 10vh, 6rem);
+    max-height: clamp(4.5rem, 13vh, 7rem);
+    padding: 0.85rem 1rem;
+    line-height: 1.5;
+  }
+
+  .typing-input {
+    min-height: clamp(2.75rem, 7vh, 4rem);
+    max-height: clamp(3rem, 8vh, 4.5rem);
+    padding: 0.6rem 0.9rem;
   }
 }
 

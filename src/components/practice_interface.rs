@@ -114,7 +114,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                 div {
                     class: "bg-white rounded-3xl shadow-lg border border-primary/10 p-6 relative practice-card",
                     div {
-                        class: "space-y-6 practice-card-body",
+                        class: "practice-card-body",
                         div {
                             class: "flex items-center justify-between",
                             div {
@@ -158,8 +158,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
                                 class: "w-full typing-input text-base",
                                 placeholder: "Focus here and start typing...",
                                 value: "{user_input}",
-                                oninput: handle_input,
-                                autofocus: true
+                                oninput: handle_input
                             }
                         }
                     }
