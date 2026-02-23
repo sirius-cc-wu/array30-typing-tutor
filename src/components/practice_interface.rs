@@ -104,17 +104,17 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
     rsx! {
         div {
-            class: "space-y-6",
+            class: "space-y-6 practice-root",
 
             // Typing Exercise Area
             div {
-                class: "grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]",
+                class: "grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] practice-main-grid",
 
                 // Typing Area Wrapper
                 div {
-                    class: "bg-white rounded-3xl shadow-lg border border-primary/10 p-6 relative",
+                    class: "bg-white rounded-3xl shadow-lg border border-primary/10 p-6 relative practice-card",
                     div {
-                        class: "space-y-6",
+                        class: "space-y-6 practice-card-body",
                         div {
                             class: "flex items-center justify-between",
                             div {

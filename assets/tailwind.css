@@ -3060,7 +3060,62 @@ body {
 .app-shell {
   position: relative;
   min-height: 100dvh;
-  overflow-x: hidden;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.app-frame {
+  height: 100%;
+}
+
+.app-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-tabs {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.app-tab-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.practice-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.practice-main-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.practice-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.practice-card-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.typing-area {
+  min-height: clamp(7rem, 16vh, 12rem);
+  max-height: clamp(9rem, 26vh, 14rem);
   overflow-y: auto;
 }
 
@@ -3105,7 +3160,6 @@ body {
 }
 
 .typing-area {
-  min-height: 14rem;
   padding: 1.75rem;
   border-radius: 1.5rem;
   border: 1px solid hsl(var(--b3));

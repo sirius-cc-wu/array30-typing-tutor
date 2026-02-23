@@ -55,11 +55,11 @@ fn AppContent() -> Element {
             div { class: "app-bg" }
 
             div {
-                class: "mx-auto w-full max-w-6xl p-4 md:p-8",
+                class: "app-frame mx-auto w-full max-w-6xl p-4 md:p-8",
                 div {
-                    class: "bg-base-100/80 backdrop-blur-xl border border-white/40 shadow-xl rounded-[2rem] p-6 md:p-8 space-y-8",
+                    class: "app-panel bg-base-100/80 backdrop-blur-xl border border-white/40 shadow-xl rounded-[2rem] p-6 md:p-8 space-y-8",
                     Tabs {
-                        class: "w-full",
+                        class: "app-tabs w-full",
                         value: current_tab,
                         on_value_change: move |value| current_tab.set(Some(value)),
 
@@ -110,14 +110,14 @@ fn AppContent() -> Element {
                         }
 
                         TabContent {
-                            class: "mt-2",
+                            class: "app-tab-content mt-2",
                             index: 0usize,
                             value: AppTab::Practice.to_string(),
                             PracticeInterface { session: session }
                         }
 
                         TabContent {
-                            class: "mt-2",
+                            class: "app-tab-content mt-2",
                             index: 1usize,
                             value: AppTab::Statistics.to_string(),
                             div {

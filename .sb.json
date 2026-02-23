@@ -22,6 +22,29 @@
       ],
       "created_at": "2026-02-24T02:34:29.518204",
       "closed_at": "2026-02-24T02:35:35.418308"
+    },
+    {
+      "id": "sb-2",
+      "title": "Fix remaining viewport overflow after initial patch",
+      "description": "Reproduce with screenshot, identify overflow elements, and make responsive sizing updates",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-24T02:38:58.072149",
+          "title": "Fix remaining viewport overflow after initial patch"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-24T02:43:03.245428",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-24T02:38:58.072115",
+      "closed_at": "2026-02-24T02:43:03.245462"
     }
   ],
   "meta": {
