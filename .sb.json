@@ -45,6 +45,29 @@
       ],
       "created_at": "2026-02-24T02:38:58.072115",
       "closed_at": "2026-02-24T02:43:03.245462"
+    },
+    {
+      "id": "sb-3",
+      "title": "Fix textarea border overlapping action buttons",
+      "description": "Adjust input area sizing/spacing in practice view and verify with screenshots",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-24T02:46:01.510279",
+          "title": "Fix textarea border overlapping action buttons"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-24T02:47:28.857813",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-24T02:46:01.510254",
+      "closed_at": "2026-02-24T02:47:28.857837"
     }
   ],
   "meta": {

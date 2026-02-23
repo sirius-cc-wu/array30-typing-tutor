@@ -153,9 +153,9 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
                         // Hidden but functional textarea
                         div {
-                            class: "form-control",
+                            class: "form-control pb-2",
                             textarea {
-                                class: "textarea textarea-bordered h-32 w-full typing-input text-base",
+                                class: "textarea textarea-bordered h-32 w-full typing-input text-base resize-none",
                                 placeholder: "Focus here and start typing...",
                                 value: "{user_input}",
                                 oninput: handle_input,
@@ -200,7 +200,7 @@ pub fn PracticeInterface(mut session: Signal<PracticeSession>) -> Element {
 
             // Action Footer (Outside the white card)
             div {
-                class: "flex flex-wrap items-center gap-3",
+                class: "flex flex-wrap items-center gap-3 pt-1",
                 Button {
                     class: "btn-lg shadow-lg shadow-primary/30 text-lg px-8",
                     variant: ButtonVariant::Primary,
