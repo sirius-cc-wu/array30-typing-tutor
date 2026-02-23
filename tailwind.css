@@ -39,8 +39,9 @@ body {
 
 .app-shell {
   position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app-bg {
@@ -117,6 +118,7 @@ body {
 .code-hint-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
   font-size: 1.9rem;
   font-weight: 700;

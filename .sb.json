@@ -1,5 +1,29 @@
 {
-  "issues": [],
+  "issues": [
+    {
+      "id": "sb-1",
+      "title": "Fix viewport overflow causing pages larger than screen",
+      "description": "Investigate and update layout/CSS so pages fit viewport across desktop/mobile",
+      "priority": 1,
+      "status": "closed",
+      "depends_on": [],
+      "events": [
+        {
+          "type": "created",
+          "timestamp": "2026-02-24T02:34:29.518241",
+          "title": "Fix viewport overflow causing pages larger than screen"
+        },
+        {
+          "type": "status_changed",
+          "timestamp": "2026-02-24T02:35:35.418281",
+          "old": "open",
+          "new": "closed"
+        }
+      ],
+      "created_at": "2026-02-24T02:34:29.518204",
+      "closed_at": "2026-02-24T02:35:35.418308"
+    }
+  ],
   "meta": {
     "id_mode": "hash",
     "child_counters": {},
